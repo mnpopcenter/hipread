@@ -1,0 +1,30 @@
+Package: hipread
+Type: Package
+Title: Read Hierarchical Fixed Width Files
+Version: 0.1.0
+Authors@R: c(
+    person("Greg", "Freedman Ellis", , "gfellis@umn.edu", c("aut", "cre")),
+    person("Hadley", "Wickham", , "hadley@rstudio.com", "ctb", comment = "Code adapted from readr"),
+    person("Jim", "Hester", , "james.hester@rstudio.com", c("ctb"), comment = "Code adapted from readr"),
+    person("Romain", "Francois", role = "ctb", comment = "Code adapted from readr"),
+    person("R Core Team", role = "ctb", comment = "Code adapted from readr"),
+    person("RStudio", role = c("cph", "fnd"), comment = "Code adapted from readr"),
+    person("Jukka", "Jylänki", role = c("ctb", "cph"), comment = "Code adapted from readr"),
+    person("Mikkel", "Jørgensen", role = c("ctb", "cph"), comment = "Code adapted from readr"),
+    person("University of Minnesota", role = "cph"))
+Maintainer: Greg Freedman Ellis <gfellis@umn.edu>
+Description: A fast way to read hierarchical fixed width files like those 
+    found in 'IPUMS' extracts. I expect most users will access this functionality 
+    through the 'ipumsr' package, but this code is separated out to clarify the 
+    licensing terms.
+License: GPL2
+Encoding: UTF-8
+LazyData: true
+LinkingTo: 
+    Rcpp,
+    BH
+Imports: 
+    Rcpp
+SystemRequirements:
+    C++11
+RoxygenNote: 6.0.1
