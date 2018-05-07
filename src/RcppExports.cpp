@@ -6,8 +6,8 @@
 using namespace Rcpp;
 
 // read_ipums_chunked_long
-RObject read_ipums_chunked_long(CharacterVector filename, NumericVector chunksize, Function callback, CharacterVector var_names, CharacterVector var_types, List rt_info_, List var_info_);
-RcppExport SEXP _hipread_read_ipums_chunked_long(SEXP filenameSEXP, SEXP chunksizeSEXP, SEXP callbackSEXP, SEXP var_namesSEXP, SEXP var_typesSEXP, SEXP rt_info_SEXP, SEXP var_info_SEXP) {
+RObject read_ipums_chunked_long(CharacterVector filename, NumericVector chunksize, Function callback, CharacterVector var_names, CharacterVector var_types, List rt_info_, List var_pos_info_, List var_opts_);
+RcppExport SEXP _hipread_read_ipums_chunked_long(SEXP filenameSEXP, SEXP chunksizeSEXP, SEXP callbackSEXP, SEXP var_namesSEXP, SEXP var_typesSEXP, SEXP rt_info_SEXP, SEXP var_pos_info_SEXP, SEXP var_opts_SEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -17,14 +17,15 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< CharacterVector >::type var_names(var_namesSEXP);
     Rcpp::traits::input_parameter< CharacterVector >::type var_types(var_typesSEXP);
     Rcpp::traits::input_parameter< List >::type rt_info_(rt_info_SEXP);
-    Rcpp::traits::input_parameter< List >::type var_info_(var_info_SEXP);
-    rcpp_result_gen = Rcpp::wrap(read_ipums_chunked_long(filename, chunksize, callback, var_names, var_types, rt_info_, var_info_));
+    Rcpp::traits::input_parameter< List >::type var_pos_info_(var_pos_info_SEXP);
+    Rcpp::traits::input_parameter< List >::type var_opts_(var_opts_SEXP);
+    rcpp_result_gen = Rcpp::wrap(read_ipums_chunked_long(filename, chunksize, callback, var_names, var_types, rt_info_, var_pos_info_, var_opts_));
     return rcpp_result_gen;
 END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_hipread_read_ipums_chunked_long", (DL_FUNC) &_hipread_read_ipums_chunked_long, 7},
+    {"_hipread_read_ipums_chunked_long", (DL_FUNC) &_hipread_read_ipums_chunked_long, 8},
     {NULL, NULL, 0}
 };
 

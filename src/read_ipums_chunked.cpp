@@ -16,10 +16,12 @@ RObject read_ipums_chunked_long(
     CharacterVector var_names,
     CharacterVector var_types,
     List rt_info_,
-    List var_info_
+    List var_pos_info_,
+    List var_opts_
 ) {
   List rt_info = as<List>(rt_info_);
-  List var_info = as<List>(var_info_);
+  List var_pos_info = as<List>(var_pos_info_);
+  List var_opts = as<List>(var_opts_);
 
   List out;
   std::ifstream filein(filename[0]);
@@ -27,7 +29,7 @@ RObject read_ipums_chunked_long(
   int rt_start = as<int>(rt_info["start"]);
   int rt_width = as<int>(rt_info["width"]);
 
-  std::vector<std::string> rectypes = var_info.names();
+  std::vector<std::string> rectypes = var_pos_info.names();
   int num_rt = rectypes.size();
 
   std::vector<std::vector<int> > starts;
@@ -36,12 +38,13 @@ RObject read_ipums_chunked_long(
   std::vector<int> num_vars_rectype;
   std::vector<int> max_ends;
   for (int i = 0; i < num_rt; i++) {
-    starts.push_back(as<List>(var_info[i])["start"]);
-    widths.push_back(as<List>(var_info[i])["width"]);
-    var_pos.push_back(as<List>(var_info[i])["var_pos"]);
+    starts.push_back(as<List>(var_pos_info[i])["start"]);
+    widths.push_back(as<List>(var_pos_info[i])["width"]);
+    var_pos.push_back(as<List>(var_pos_info[i])["var_pos"]);
     num_vars_rectype.push_back(starts[i].size());
-    max_ends.push_back(as<IntegerVector>(as<List>(var_info[i])["max_end"])[0]);
+    max_ends.push_back(as<IntegerVector>(as<List>(var_pos_info[i])["max_end"])[0]);
   }
+
 
   while (!filein.eof()) {
     std::vector<ColumnPtr> chunk = createAllColumns(var_types);
@@ -73,7 +76,7 @@ RObject read_ipums_chunked_long(
         std::string x = line.substr(starts[rt_index][j], widths[rt_index][j]);
         int cur_var_pos = var_pos[rt_index][j];
 
-        chunk[cur_var_pos]->setValue(i, x);
+        chunk[cur_var_pos]->setValue(i, x, var_opts[cur_var_pos]);
       }
 
       if (++i > chunksize[0] - 1) break;

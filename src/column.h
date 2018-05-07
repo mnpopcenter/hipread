@@ -22,7 +22,7 @@ public:
   Column(SEXP values) :
     values_(values), n_(0), failure_count_(0){}
 
-  virtual void setValue(int i, std::string x) = 0;
+  virtual void setValue(int i, std::string x, Rcpp::List opts_) = 0;
 
   virtual std::string getType() {return "unknown";}
 
@@ -58,14 +58,14 @@ public:
 class ColumnCharacter : public Column {
 public:
   ColumnCharacter() : Column(Rcpp::CharacterVector()) {}
-  void setValue(int i, std::string x);
+  void setValue(int i, std::string x, Rcpp::List opts);
   std::string getType() {return "character";}
 };
 
 class ColumnDouble : public Column {
 public:
   ColumnDouble() : Column(Rcpp::DoubleVector()) {}
-  void setValue(int i, std::string x);
+  void setValue(int i, std::string x, Rcpp::List opts);
   std::string getType() {return "double";}
 };
 
@@ -73,7 +73,7 @@ public:
 class ColumnInteger : public Column {
 public:
   ColumnInteger() : Column(Rcpp::IntegerVector()) {}
-  void setValue(int i, std::string x);
+  void setValue(int i, std::string x, Rcpp::List opts);
   std::string getType() {return "integer";}
 };
 

@@ -48,13 +48,13 @@ std::string Column::describe_failures(std::string var_name) {
 }
 
 
-void ColumnCharacter::setValue(int i, std::string x) {
+void ColumnCharacter::setValue(int i, std::string x, List opts) {
   // TODO: How would encoding affect this?
-  IpStringUtils::trim(x);
+  if (as<bool>(opts["trim_ws"])) IpStringUtils::trim(x);
   SET_STRING_ELT(values_, i, Rf_mkChar(x.c_str()));
 }
 
-void ColumnDouble::setValue(int i, std::string x) {
+void ColumnDouble::setValue(int i, std::string x, List opts) {
   // TODO: Implicit decimals
   long double value;
   IpStringUtils::trim(x);
@@ -65,11 +65,13 @@ void ColumnDouble::setValue(int i, std::string x) {
   if (!success) {
     add_failure(i, x);
     value = NA_REAL;
+  } else {
+    value = value / pow(10, as<int>(opts["imp_dec"]));
   }
   REAL(values_)[i] = value;
 }
 
-void ColumnInteger::setValue(int i, std::string x) {
+void ColumnInteger::setValue(int i, std::string x, List opts) {
   long int value;
   IpStringUtils::trim(x);
   const char* start = x.c_str();
