@@ -6,13 +6,24 @@
 #include <Rcpp.h>
 using namespace Rcpp;
 
+
+Function R6method(Environment env, const std::string& method) {
+  return as<Function>(env[method]);
+}
+bool isTrue(SEXP x) {
+  if (!(TYPEOF(x) == LGLSXP && Rf_length(x) == 1)) {
+    stop("`continue()` must return a length 1 logical vector");
+  }
+  return LOGICAL(x)[0] == TRUE;
+}
+
 // https://stackoverflow.com/questions/25288604/how-to-read-non-ascii-lines-from-file-with-stdifstream-on-linux
 
 // [[Rcpp::export]]
-RObject read_ipums_chunked_long(
+void read_ipums_chunked_long(
     CharacterVector filename,
+    Environment callback,
     NumericVector chunksize,
-    Function callback,
     CharacterVector var_names,
     CharacterVector var_types,
     List rt_info_,
@@ -23,7 +34,6 @@ RObject read_ipums_chunked_long(
   List var_pos_info = as<List>(var_pos_info_);
   List var_opts = as<List>(var_opts_);
 
-  List out;
   std::ifstream filein(filename[0]);
 
   int rt_start = as<int>(rt_info["start"]);
@@ -46,7 +56,7 @@ RObject read_ipums_chunked_long(
   }
 
 
-  while (!filein.eof()) {
+  while (isTrue(R6method(callback, "continue")()) && !filein.eof()) {
     std::vector<ColumnPtr> chunk = createAllColumns(var_types);
     resizeAllColumns(chunk, chunksize[0]);
 
@@ -85,8 +95,7 @@ RObject read_ipums_chunked_long(
 
     RObject chunk_df = columnsToDf(chunk, var_names);
 
-    out.push_back(callback(chunk_df));
+    R6method(callback, "receive")(chunk_df, i);
   }
-
-  return wrap(out);
 }
+
