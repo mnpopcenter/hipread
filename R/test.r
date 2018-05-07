@@ -2,10 +2,29 @@
 #' @importFrom Rcpp sourceCpp
 NULL
 
-#' Test
+#' Get path to hipread's example datasets
 #'
-#' @return test
+#' Get access to example extracts.
+#'
+#' @param path Name of file. If `NULL`, the example files will be listed.
+#' @return The filepath to an example file, or if path is empty, a vector of all
+#'   available files.
 #' @export
-hipread_test <- function() {
-  print("hi")
+#' @examples
+#' hipread_example() # Lists all available examples
+#' hipread_example("test-basic.dat") # Gives filepath for a basic example
+hipread_example <- function(path = NULL) {
+  if (is.null(path)) {
+    file <- dir(system.file("extdata", package = "hipread"))
+  } else {
+    file <- system.file("extdata", path, package = "hipread")
+    if (!file.exists(file)) {
+      all_files <- paste(dir(system.file("extdata", package = "hipread")), collapse = ", ")
+      stop(paste0(
+        "Could not find file '", path, "' in hipread examples. Available files are:\n",
+        all_files
+      ))
+    }
+  }
+  file
 }
