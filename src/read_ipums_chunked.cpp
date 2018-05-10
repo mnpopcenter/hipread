@@ -2,6 +2,7 @@
 // #include <boost/iostreams/filtering_stream.hpp>
 // #include <boost/iostreams/filter/gzip.hpp>
 #include "column.h"
+#include "Progress.h"
 
 #include <Rcpp.h>
 using namespace Rcpp;
@@ -17,6 +18,14 @@ bool isTrue(SEXP x) {
   return LOGICAL(x)[0] == TRUE;
 }
 
+std::pair<double, size_t> progress_info(size_t current, size_t total, bool isEOF) {
+  if (isEOF) {
+    return std::make_pair(1.0, total);
+  } else {
+    return std::make_pair(current / (double)(total), current);
+  }
+}
+
 // https://stackoverflow.com/questions/25288604/how-to-read-non-ascii-lines-from-file-with-stdifstream-on-linux
 
 // [[Rcpp::export]]
@@ -28,13 +37,20 @@ void read_ipums_chunked_long(
     CharacterVector var_types,
     List rt_info_,
     List var_pos_info_,
-    List var_opts_
+    List var_opts_,
+    bool progress
 ) {
   List rt_info = as<List>(rt_info_);
   List var_pos_info = as<List>(var_pos_info_);
   List var_opts = as<List>(var_opts_);
 
   std::ifstream filein(filename[0]);
+
+  filein.seekg(0, std::ifstream::end);
+  size_t total_file_bytes = filein.tellg();
+  filein.seekg(0, std::ifstream::beg);
+
+  Progress ProgressBar = Progress();
 
   int rt_start = as<int>(rt_info["start"]);
   int rt_width = as<int>(rt_info["width"]);
@@ -91,11 +107,17 @@ void read_ipums_chunked_long(
 
       if (++i > chunksize[0] - 1) break;
     }
+
     resizeAllColumns(chunk, i);
 
     RObject chunk_df = columnsToDf(chunk, var_names);
 
     R6method(callback, "receive")(chunk_df, i);
+
+    if (progress) {
+      ProgressBar.show(progress_info(filein.tellg(), total_file_bytes, filein.eof()));
+    }
   }
+  ProgressBar.stop();
 }
 
