@@ -3,6 +3,7 @@
 // #include <boost/iostreams/filter/gzip.hpp>
 #include "column.h"
 #include "Progress.h"
+#include "datasource.h"
 
 #include <Rcpp.h>
 using namespace Rcpp;
@@ -16,14 +17,6 @@ bool isTrue(SEXP x) {
     stop("`continue()` must return a length 1 logical vector");
   }
   return LOGICAL(x)[0] == TRUE;
-}
-
-std::pair<double, size_t> progress_info(size_t current, size_t total, bool isEOF) {
-  if (isEOF) {
-    return std::make_pair(1.0, total);
-  } else {
-    return std::make_pair(current / (double)(total), current);
-  }
 }
 
 // https://stackoverflow.com/questions/25288604/how-to-read-non-ascii-lines-from-file-with-stdifstream-on-linux
@@ -44,11 +37,7 @@ void read_ipums_chunked_long(
   List var_pos_info = as<List>(var_pos_info_);
   List var_opts = as<List>(var_opts_);
 
-  std::ifstream filein(filename[0]);
-
-  filein.seekg(0, std::ifstream::end);
-  size_t total_file_bytes = filein.tellg();
-  filein.seekg(0, std::ifstream::beg);
+  FileDataSource data = FileDataSource(as<std::string>(filename[0]));
 
   Progress ProgressBar = Progress();
 
@@ -71,13 +60,16 @@ void read_ipums_chunked_long(
     max_ends.push_back(as<IntegerVector>(as<List>(var_pos_info[i])["max_end"])[0]);
   }
 
-
-  while (isTrue(R6method(callback, "continue")()) && !filein.eof()) {
+  while (isTrue(R6method(callback, "continue")()) && !data.isDone()) {
     std::vector<ColumnPtr> chunk = createAllColumns(var_types);
     resizeAllColumns(chunk, chunksize[0]);
 
-    int i = 0;
-    for (std::string line; std::getline(filein, line);) {
+    int i;
+    for (i = 0; i < chunksize[0] - 1; ++i) {
+      std::string line;
+      data.getLine(line);
+      if (data.isDone()) break;
+
       std::string rt = line.substr(rt_start, rt_width);
 
       int rt_index = -1;
@@ -104,8 +96,6 @@ void read_ipums_chunked_long(
 
         chunk[cur_var_pos]->setValue(i, x, var_opts[cur_var_pos]);
       }
-
-      if (++i > chunksize[0] - 1) break;
     }
 
     resizeAllColumns(chunk, i);
@@ -115,7 +105,7 @@ void read_ipums_chunked_long(
     R6method(callback, "receive")(chunk_df, i);
 
     if (progress) {
-      ProgressBar.show(progress_info(filein.tellg(), total_file_bytes, filein.eof()));
+      ProgressBar.show(data.progress_info());
     }
   }
   ProgressBar.stop();
