@@ -17,6 +17,7 @@ class DataSource {
   std::string filename_;
 public:
   DataSource(std::string filename) : filename_(filename){};
+  virtual ~DataSource(){};
   virtual void getLine(std::string &line) = 0;
   virtual bool isDone() = 0;
   virtual std::pair<double, size_t> progress_info() = 0;
@@ -27,13 +28,16 @@ class FileDataSource : public DataSource {
 private:
   std::string filename_;
   size_t total_size_;
-  std::ifstream data_;
+  std::ifstream* data_;
   size_t get_size();
 public:
   FileDataSource(std::string filename) : DataSource(filename){
-    data_ = std::ifstream(filename);
+    data_ = new std::ifstream(filename);
     total_size_ = get_size();
   };
+  ~FileDataSource() {
+    if (data_) delete data_;
+  }
   void getLine(std::string &line);
   bool isDone();
   std::pair<double, size_t> progress_info();
@@ -52,6 +56,9 @@ public:
     data_ = new GzStream(filename);
     total_size_ = get_size();
   };
+  ~GzFileDataSource() {
+    if (data_) delete data_;
+  }
   void getLine(std::string &line);
   bool isDone();
   std::pair<double, size_t> progress_info();

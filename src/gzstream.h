@@ -31,6 +31,11 @@ public:
     file = gzopen(filename.c_str(), "rb");
     fillBuffer();
   };
+  ~GzStream() {
+    offset = NULL;
+    cur = NULL;
+    end = NULL;
+  }
   bool getLine(std::string &line);
   bool isDone();
   size_t getTotalSizeEstimate();
