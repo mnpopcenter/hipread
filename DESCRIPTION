@@ -17,14 +17,15 @@ Description: A fast way to read hierarchical fixed width files like those
     found in 'IPUMS' extracts. I expect most users will access this functionality 
     through the 'ipumsr' package, but this code is separated out to clarify the 
     licensing terms.
-License: GPL2
+License: GPL (>= 2)
 Encoding: UTF-8
 LazyData: true
 LinkingTo: 
     Rcpp,
     BH
 Imports: 
-    Rcpp
+    Rcpp,
+    readr
 SystemRequirements:
     C++11
 RoxygenNote: 6.0.1

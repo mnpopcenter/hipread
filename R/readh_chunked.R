@@ -19,7 +19,7 @@ readh_long_chunked <- function(
 
 as_chunk_callback <- function(x) UseMethod("as_chunk_callback")
 as_chunk_callback.function <- function(x) {
-  SideEffectChunkCallback$new(x)
+  readr::SideEffectChunkCallback$new(x)
 }
 as_chunk_callback.R6ClassGenerator <- function(x) {
   as_chunk_callback(x$new())
