@@ -5,6 +5,13 @@
 #include <Rcpp.h>
 using namespace Rcpp;
 #include <fstream>
+#include <iostream>
+#include "boost.h"
+#include "gzstream.h"
+
+class DataSource;
+typedef boost::shared_ptr<DataSource> DataSourcePtr;
+
 
 class DataSource {
   std::string filename_;
@@ -16,7 +23,7 @@ public:
 };
 
 
-class FileDataSource : DataSource {
+class FileDataSource : public DataSource {
 private:
   std::string filename_;
   size_t total_size_;
@@ -32,5 +39,24 @@ public:
   std::pair<double, size_t> progress_info();
 };
 
+
+
+class GzFileDataSource : public DataSource {
+private:
+  std::string filename_;
+  size_t total_size_;
+  GzStream *data_;
+  size_t get_size();
+public:
+  GzFileDataSource(std::string filename) : DataSource(filename) {
+    data_ = new GzStream(filename);
+    total_size_ = get_size();
+  };
+  void getLine(std::string &line);
+  bool isDone();
+  std::pair<double, size_t> progress_info();
+};
+
+DataSourcePtr newDataSource(std::string filename, bool isCompressed);
 
 #endif

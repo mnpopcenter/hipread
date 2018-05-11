@@ -31,13 +31,14 @@ void read_ipums_chunked_long(
     List rt_info_,
     List var_pos_info_,
     List var_opts_,
+    bool isGzipped,
     bool progress
 ) {
   List rt_info = as<List>(rt_info_);
   List var_pos_info = as<List>(var_pos_info_);
   List var_opts = as<List>(var_opts_);
 
-  FileDataSource data = FileDataSource(as<std::string>(filename[0]));
+  DataSourcePtr data = newDataSource(as<std::string>(filename[0]), isGzipped);
 
   Progress ProgressBar = Progress();
 
@@ -60,15 +61,14 @@ void read_ipums_chunked_long(
     max_ends.push_back(as<IntegerVector>(as<List>(var_pos_info[i])["max_end"])[0]);
   }
 
-  while (isTrue(R6method(callback, "continue")()) && !data.isDone()) {
+  while (isTrue(R6method(callback, "continue")()) && !data->isDone()) {
     std::vector<ColumnPtr> chunk = createAllColumns(var_types);
     resizeAllColumns(chunk, chunksize[0]);
 
     int i;
     for (i = 0; i < chunksize[0] - 1; ++i) {
       std::string line;
-      data.getLine(line);
-      if (data.isDone()) break;
+      data->getLine(line);
 
       std::string rt = line.substr(rt_start, rt_width);
 
@@ -96,6 +96,11 @@ void read_ipums_chunked_long(
 
         chunk[cur_var_pos]->setValue(i, x, var_opts[cur_var_pos]);
       }
+
+      if (data->isDone()) {
+        ++i;
+        break;
+      }
     }
 
     resizeAllColumns(chunk, i);
@@ -105,7 +110,7 @@ void read_ipums_chunked_long(
     R6method(callback, "receive")(chunk_df, i);
 
     if (progress) {
-      ProgressBar.show(data.progress_info());
+      ProgressBar.show(data->progress_info());
     }
   }
   ProgressBar.stop();

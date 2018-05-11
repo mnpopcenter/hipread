@@ -3,12 +3,14 @@ readh_long_chunked <- function(
   data, callback, chunk_size, var_names, var_types, rt_info_,
   var_pos_info_, var_opts_, progress = show_progress()
 ) {
+
+  isgzipped <- tools::file_ext(data) == "gz"
   callback <- as_chunk_callback(callback)
   on.exit(callback$finally(), add = TRUE)
 
   read_ipums_chunked_long(
     data, callback, chunk_size, var_names, var_types, rt_info_,
-    var_pos_info_, var_opts_, progress
+    var_pos_info_, var_opts_, isgzipped, progress
   )
 
   return(callback$result())
