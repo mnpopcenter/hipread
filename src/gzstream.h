@@ -24,9 +24,10 @@ private:
   char* end;
   size_t total_read_;
   void fillBuffer();
+  bool done;
 
 public:
-  GzStream(std::string filename) : filename_(filename), total_read_(0) {
+  GzStream(std::string filename) : filename_(filename), total_read_(0), done(false) {
     offset = buffer;
     file = gzopen(filename.c_str(), "rb");
     fillBuffer();

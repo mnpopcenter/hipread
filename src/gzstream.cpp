@@ -32,6 +32,7 @@ bool GzStream::getLine(std::string &line) {
 
   if (eol >= end) {
     if (gzeof(file)) {
+      done = true;
       line = std::string(cur, end);
       // std::copy(cur, end, line); // TODO: I think this is the source of current compiler error
       cur = end;
@@ -51,7 +52,7 @@ bool GzStream::getLine(std::string &line) {
 }
 
 bool GzStream::isDone() {
-  return gzeof(file) && cur == end;
+  return done && cur == end;
 }
 
 static const unsigned GZ_COMPRESSION_FACTOR = 2;
