@@ -24,7 +24,7 @@ void GzStream::fillBuffer() {
 
   cur = buffer;
   end = offset + len;
-};
+}
 
 bool GzStream::getLine(std::string &line) {
   if (isDone()) return false;
@@ -55,16 +55,15 @@ bool GzStream::isDone() {
   return done && cur == end;
 }
 
-static const unsigned GZ_COMPRESSION_FACTOR = 2;
-
 size_t GzStream::getTotalSizeEstimate() {
   std::ifstream raw_ = std::ifstream(filename_);
   raw_.seekg(0, std::ifstream::end);
   size_t total_file_bytes = raw_.tellg();
 
-  return total_file_bytes * GZ_COMPRESSION_FACTOR;
+  return total_file_bytes;
 }
 
 size_t GzStream::getProgress() {
-  return total_read_;
+  size_t out = gzoffset(file);
+  return out;
 }

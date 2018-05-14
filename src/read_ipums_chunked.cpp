@@ -85,7 +85,7 @@ void read_ipums_chunked_long(
       }
 
       // Check if raw line is long enough
-      if (line.length() < max_ends[rt_index]) {
+      if ((int) line.length() < max_ends[rt_index]) {
         Rcpp::stop("Line is too short for rectype.");
       }
 

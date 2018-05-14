@@ -35,7 +35,8 @@ std::string Column::describe_failures(std::string var_name) {
     " values to " << getType() << "; Values (and row numbers) of first " <<
       failure_rows_.size() << " failures: ";
 
-  for (int i = 0; i < failure_rows_.size(); ++i) {
+  int num_failures = failure_rows_.size();
+  for (int i = 0; i < num_failures; ++i) {
     if (i > 0) {
       message << ", ";
     }
@@ -120,7 +121,7 @@ static Function as_tibble("as_tibble", Environment::namespace_env("tibble"));
 RObject columnsToDf(std::vector<ColumnPtr> columns, Rcpp::CharacterVector names) {
   int num_vars = columns.size();
   List out(num_vars);
-  for (int i; i < num_vars; ++i) {
+  for (int i = 0; i < num_vars; ++i) {
     if (columns[i]->has_failures()) {
       std::string message = columns[i]->describe_failures(Rcpp::as<std::string>(names[i]));
       Rf_warning(message.c_str());
