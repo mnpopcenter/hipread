@@ -25,7 +25,8 @@ LinkingTo:
     BH
 Imports: 
     Rcpp,
-    readr
+    readr,
+    dplyr
 SystemRequirements:
     C++11
 RoxygenNote: 6.0.1

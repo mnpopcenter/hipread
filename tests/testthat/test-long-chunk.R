@@ -9,7 +9,7 @@ FILTERED_HNUM <- c("001", "001", "001", "001", "003", "003")
 test_that("Can read a basic example", {
   actual <- hipread:::readh_long_chunked(
     hipread_example("test-basic.dat"),
-    readr::DataFrameCallback$new(function(x, pos) dplyr::filter(x, hhnum != "002")),
+    HipDataFrameCallback$new(function(x, pos) x[x$hhnum != "002", ]),
     4,
     c("rt", "hhnum", "hh_char", "hh_dbl", "hh_impdbl", "pernum", "per_dbl", "per_mix"),
     c("character", "character", "character", "double", "double", "integer", "double", "character"),
@@ -48,7 +48,7 @@ test_that("Can read a basic example", {
 test_that("Can read a basic gzipped example", {
   actual <- hipread:::readh_long_chunked(
     hipread_example("test-basic.dat.gz"),
-    readr::DataFrameCallback$new(function(x, pos) dplyr::filter(x, hhnum != "002")),
+    HipDataFrameCallback$new(function(x, pos) x[x$hhnum != "002", ]),
     4,
     c("rt", "hhnum", "hh_char", "hh_dbl", "hh_impdbl", "pernum", "per_dbl", "per_mix"),
     c("character", "character", "character", "double", "double", "integer", "double", "character"),
