@@ -56,7 +56,7 @@ bool GzStream::isDone() {
 }
 
 size_t GzStream::getTotalSizeEstimate() {
-  std::ifstream raw_ = std::ifstream(filename_);
+  std::ifstream raw_(filename_);
   raw_.seekg(0, std::ifstream::end);
   size_t total_file_bytes = raw_.tellg();
 
