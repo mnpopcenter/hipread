@@ -1,6 +1,4 @@
 #include <fstream>
-// #include <boost/iostreams/filtering_stream.hpp>
-// #include <boost/iostreams/filter/gzip.hpp>
 #include "column.h"
 #include "Progress.h"
 #include "datasource.h"
@@ -23,7 +21,7 @@ bool isTrue(SEXP x) {
 // https://stackoverflow.com/questions/25288604/how-to-read-non-ascii-lines-from-file-with-stdifstream-on-linux
 
 // [[Rcpp::export]]
-void read_ipums_chunked_long(
+void read_chunked_long(
     CharacterVector filename,
     Environment callback,
     NumericVector chunksize,
