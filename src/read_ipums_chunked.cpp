@@ -4,7 +4,7 @@
 #include "column.h"
 #include "Progress.h"
 #include "datasource.h"
-
+#include <algorithm>
 #include <Rcpp.h>
 using namespace Rcpp;
 
@@ -72,15 +72,12 @@ void read_ipums_chunked_long(
 
       std::string rt = line.substr(rt_start, rt_width);
 
-      int rt_index = -1;
-      for (int j = 0; j < num_rt; j++) {
-        if (rt == rectypes[j]) {
-          rt_index = j;
-          break;
-        }
-      }
+      int rt_index = std::distance(
+        rectypes.begin(),
+        std::find(rectypes.begin(), rectypes.end(), rt)
+      );
 
-      if (rt_index == -1) {
+      if (rt_index == num_rt) {
         break;
       }
 
