@@ -56,7 +56,6 @@ void ColumnCharacter::setValue(int i, std::string x, List opts) {
 }
 
 void ColumnDouble::setValue(int i, std::string x, List opts) {
-  // TODO: Implicit decimals
   long double value;
   IpStringUtils::trim(x);
   const char* start = x.c_str();

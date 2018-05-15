@@ -34,7 +34,6 @@ bool GzStream::getLine(std::string &line) {
     if (gzeof(file)) {
       done = true;
       line = std::string(cur, end);
-      // std::copy(cur, end, line); // TODO: I think this is the source of current compiler error
       cur = end;
       if (gzclose(file) != Z_OK) stop("Could not close file");
       return true;
@@ -44,7 +43,6 @@ bool GzStream::getLine(std::string &line) {
     }
   }
 
-  // std::copy(cur, eol, line);
   line = std::string(cur, eol);
   total_read_ += (eol - cur);
   cur = eol + 1;
