@@ -13,19 +13,18 @@ test_that("Can read a basic example", {
     hipread_example("test-basic.dat"),
     c("rt", "hhnum", "hh_char", "hh_dbl", "hh_impdbl", "pernum", "per_dbl", "per_mix"),
     c("character", "character", "character", "double", "double", "integer", "double", "character"),
-    list(start = 0, width = 1),
+    1,
+    1,
     list(
       H = list(
-        start = c(0, 1, 4, 7, 10),
+        start = c(1, 2, 5, 8, 11),
         width = c(1, 3, 3, 3, 2),
-        var_pos = c(0, 1, 2, 3, 4),
-        max_end = c(12)
+        var_pos = c(1, 2, 3, 4, 5)
       ),
       P = list(
-        start = c(0, 1, 4, 5, 8),
+        start = c(1, 2, 5, 6, 9),
         width = c(1, 3, 1, 3, 1),
-        var_pos = c(0, 1, 5, 6, 7),
-        max_end = 9
+        var_pos = c(1, 2, 6, 7, 8)
       )
     ),
     list(
@@ -52,19 +51,18 @@ test_that("Can read a basic gzipped example", {
     hipread_example("test-basic.dat.gz"),
     c("rt", "hhnum", "hh_char", "hh_dbl", "hh_impdbl", "pernum", "per_dbl", "per_mix"),
     c("character", "character", "character", "double", "double", "integer", "double", "character"),
-    list(start = 0, width = 1),
+    1,
+    1,
     list(
       H = list(
-        start = c(0, 1, 4, 7, 10),
+        start = c(1, 2, 5, 8, 11),
         width = c(1, 3, 3, 3, 2),
-        var_pos = c(0, 1, 2, 3, 4),
-        max_end = c(12)
+        var_pos = c(1, 2, 3, 4, 5)
       ),
       P = list(
-        start = c(0, 1, 4, 5, 8),
+        start = c(1, 2, 5, 6, 9),
         width = c(1, 3, 1, 3, 1),
-        var_pos = c(0, 1, 5, 6, 7),
-        max_end = 9
+        var_pos = c(1, 2, 6, 7, 8)
       )
     ),
     list(

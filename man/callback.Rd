@@ -6,7 +6,15 @@
 \alias{HipDataFrameCallback}
 \title{Callback classes}
 \description{
-These classes are used to define callback behaviors.
+These classes are used to define callback behaviors, and are based
+on readr's \code{readr::chunked()} functions.
+}
+\details{
+\itemize{
+\item The function \code{HipDataFrameCallback()} is similar to
+\code{readr::DataFrameCallback()} except that it uses \code{dplyr::bind_rows()}
+instead of \code{rbind()} so that it is faster.
+}
 }
 \keyword{datasets}
 \keyword{internal}
