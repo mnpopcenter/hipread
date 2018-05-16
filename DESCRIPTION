@@ -26,7 +26,8 @@ LinkingTo:
 Imports: 
     Rcpp,
     readr,
-    dplyr
+    dplyr,
+    R6
 SystemRequirements:
     C++11
 RoxygenNote: 6.0.1
