@@ -1,6 +1,6 @@
 #' Read a hierarchical data file to long format, in chunks
 #'
-#' Analagous to `readr::read_fwf()`, but with chunks, and allowing for
+#' Analagous to [readr::read_fwf()], but with chunks, and allowing for
 #' hierarchical fixed width data files (where the data file has rows of
 #' different record types, each with their own variables and column
 #' specifications). Reads the data into "long" format, meaning that
@@ -8,12 +8,12 @@
 #' the current observation receive missing values.
 #'
 #' @inheritParams readh_long
-#' @param callback A `callback()` function, allowing you to perform a
+#' @param callback A [`callback`] function, allowing you to perform a
 #'   function on each chunk.
 #' @param chunk_size The size of the chunks that will be read as a
-#'   single unit (defaults to 10,000)
+#'   single unit (defaults to 10000)
 #'
-#' @return Depends on the type of `callback` function you use
+#' @return Depends on the type of [`callback`] function you use
 #' @export
 #'
 #' @examples

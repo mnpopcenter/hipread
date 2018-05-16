@@ -1,6 +1,6 @@
 #' Read a hierarchical data file to long format
 #'
-#' Analagous to `readr::read_fwf()` but allowing for
+#' Analagous to [readr::read_fwf()] but allowing for
 #' hierarchical fixed width data files (where the data file has rows of
 #' different record types, each with their own variables and column
 #' specifications). Reads the data into "long" format, meaning that

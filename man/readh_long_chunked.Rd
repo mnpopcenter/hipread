@@ -11,11 +11,11 @@ readh_long_chunked(file, callback, chunk_size, var_names, var_types, rt_start,
 \arguments{
 \item{file}{A filename}
 
-\item{callback}{A \code{callback()} function, allowing you to perform a
+\item{callback}{A \code{\link{callback}} function, allowing you to perform a
 function on each chunk.}
 
 \item{chunk_size}{The size of the chunks that will be read as a
-single unit (defaults to 10,000)}
+single unit (defaults to 10000)}
 
 \item{var_names}{A character vector of names for the variables}
 
@@ -52,10 +52,10 @@ if the user has turned off readr's progress by default using
 the option \code{options("readr.show_progress")}.}
 }
 \value{
-Depends on the type of \code{callback} function you use
+Depends on the type of \code{\link{callback}} function you use
 }
 \description{
-Analagous to \code{readr::read_fwf()}, but with chunks, and allowing for
+Analagous to \code{\link[readr:read_fwf]{readr::read_fwf()}}, but with chunks, and allowing for
 hierarchical fixed width data files (where the data file has rows of
 different record types, each with their own variables and column
 specifications). Reads the data into "long" format, meaning that

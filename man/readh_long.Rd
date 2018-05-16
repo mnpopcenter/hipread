@@ -48,7 +48,7 @@ the option \code{options("readr.show_progress")}.}
 A \code{tbl_df} data frame`
 }
 \description{
-Analagous to \code{readr::read_fwf()} but allowing for
+Analagous to \code{\link[readr:read_fwf]{readr::read_fwf()}} but allowing for
 hierarchical fixed width data files (where the data file has rows of
 different record types, each with their own variables and column
 specifications). Reads the data into "long" format, meaning that
