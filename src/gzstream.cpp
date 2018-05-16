@@ -9,17 +9,18 @@ using namespace Rcpp;
 
 void GzStream::fillBuffer() {
   int err;
-
-  if (offset != buffer) {
+  char* offset;
+  if (cur != NULL) {
     offset = std::copy(cur, end, buffer);
+  } else {
+    offset = buffer;
   }
 
   int len = sizeof(buffer) - (offset - buffer);
-  if (len == 0) stop("Line length too long; cannot read file.");
+  if (len <= 0) stop("Line length too long; cannot read file.");
 
   len = gzread(file, offset, len);
 
-  if (len == 0) return;
   if (len < 0) stop(gzerror(file, &err));
 
   cur = buffer;
@@ -40,6 +41,7 @@ bool GzStream::getLine(std::string &line) {
     } else {
       fillBuffer();
       eol = std::find(cur, end, '\n');
+      if (eol >= end) stop("Line length too long; cannot read file.");
     }
   }
 

@@ -53,7 +53,7 @@ RObject read_long(
 
     if (rt_index == rectypes.size()) {
       // TODO: Should this be a warning?
-      break;
+      continue;
     }
 
     // Check if raw line is long enough
