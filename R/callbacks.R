@@ -1,3 +1,8 @@
+# On some machines, I have seen R CMD Check warnings
+# about not using dplyr even though the HipDataFrameCallBack
+# uses it, and I hope this fixes that
+bind_rows <- dplyr::bind_rows
+
 #' Callback classes
 #'
 #' These classes are used to define callback behaviors, and are based

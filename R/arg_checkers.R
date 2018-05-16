@@ -56,17 +56,17 @@ check_long_var_pos_info <- function(var_pos) {
     var_lens <- vapply(required_var_names, function(x) length(rt[[x]]), integer(1))
     if (!all(var_lens == var_lens[1])) stop(paste0(
       "Not all positon information for record type ", rt_name, " is the same length ",
-      paste(required_vars, " (", var_lens, ")", collapse = ", ")
+      paste(required_var_names, " (", var_lens, ")", collapse = ", ")
     ))
     if (length(rt$start) > 0) {
       if (!is_integerish(rt$start)) stop(paste0(
-        "start must be integers but is ", paste(start, collapse = ", ")
+        "start must be integers but is ", paste(rt$start, collapse = ", ")
       ))
       if (!is_integerish(rt$width)) stop(paste0(
-        "width must be integers but is ", paste(width, collapse = ", ")
+        "width must be integers but is ", paste(rt$width, collapse = ", ")
       ))
       if (!is_integerish(rt$var_pos)) stop(paste0(
-        "var_pos must be integers but is ", paste(var_pos, collapse = ", ")
+        "var_pos must be integers but is ", paste(rt$var_pos, collapse = ", ")
       ))
       if (any(rt$start < 1)) stop(paste0(
         "For rectype ", rt_name, " some variable starts are less than 1"
@@ -109,7 +109,7 @@ check_long_arg_lengths <- function(var_names, var_types, var_pos_info, var_opts)
   all_lengths <- lengths(list(var_names, var_types, var_opts))
   if (length(unique(all_lengths)) != 1) stop(paste0(
     "variable names (length: ", all_lengths[1], "), variable types (", all_lengths[2],
-    ") and variable options (", all_lenghts[3], ") must all be the same length."
+    ") and variable options (", all_lengths[3], ") must all be the same length."
   ))
 
   checks <- lapply(names(var_pos_info), function(rt_name) {
