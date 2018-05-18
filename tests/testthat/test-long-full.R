@@ -9,7 +9,7 @@ PERMIX <- c(NA, "x", "1", "1", NA, "d", "1", NA, "d")
 HIMPDEC <- c(1, NA, NA, NA, 4.5, NA, NA, 2.4, NA)
 
 test_that("Can read a basic example", {
-  actual <- hipread:::readh_long(
+  actual <- readh_long(
     hipread_example("test-basic.dat"),
     c("rt", "hhnum", "hh_char", "hh_dbl", "hh_impdbl", "pernum", "per_dbl", "per_mix"),
     c("character", "character", "character", "double", "double", "integer", "double", "character"),
@@ -47,7 +47,7 @@ test_that("Can read a basic example", {
 })
 
 test_that("Can read a basic gzipped example", {
-  actual <- hipread:::readh_long(
+  actual <- readh_long(
     hipread_example("test-basic.dat.gz"),
     c("rt", "hhnum", "hh_char", "hh_dbl", "hh_impdbl", "pernum", "per_dbl", "per_mix"),
     c("character", "character", "character", "double", "double", "integer", "double", "character"),
@@ -95,7 +95,7 @@ test_that("Can read a rectangular example", {
     )
   )
   # names(var_info) <- "H"
-  actual <- hipread:::readh_long(
+  actual <- readh_long(
     hipread_example("test-basic.dat"),
     c("var1", "var2", "var3"),
     c("character", "character", "character"),

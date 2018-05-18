@@ -60,7 +60,13 @@ void ColumnDouble::setValue(int i, std::string x, List opts) {
   IpStringUtils::trim(x);
   const char* start = x.c_str();
   const char* end = start + x.size();
-  bool success = parseDouble(start, end, value);
+  bool success;
+  if (start == end) {
+    success = true;
+    value = NA_REAL;
+  } else {
+    success = parseDouble(start, end, value);
+  }
 
   if (!success) {
     add_failure(i, x);
@@ -76,7 +82,13 @@ void ColumnInteger::setValue(int i, std::string x, List opts) {
   IpStringUtils::trim(x);
   const char* start = x.c_str();
   const char* end = start + x.size();
-  bool success = parseInteger(start, end, value);
+  bool success;
+  if (start == end) {
+    success = true;
+    value = NA_INTEGER;
+  } else {
+    success = parseInteger(start, end, value);
+  }
 
   if (!success) {
     add_failure(i, x);

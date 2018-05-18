@@ -7,7 +7,7 @@ NCOL <- 8
 FILTERED_HNUM <- c("001", "001", "001", "001", "003", "003")
 
 test_that("Can read a basic example", {
-  actual <- hipread:::readh_long_chunked(
+  actual <- readh_long_chunked(
     hipread_example("test-basic.dat"),
     HipDataFrameCallback$new(function(x, pos) x[x$hhnum != "002", ]),
     4,
@@ -45,7 +45,7 @@ test_that("Can read a basic example", {
 })
 
 test_that("Can read a basic gzipped example", {
-  actual <- hipread:::readh_long_chunked(
+  actual <- readh_long_chunked(
     hipread_example("test-basic.dat.gz"),
     HipDataFrameCallback$new(function(x, pos) x[x$hhnum != "002", ]),
     4,
@@ -94,7 +94,7 @@ test_that("Can read a rectangular chunked example", {
     )
   )
   # names(var_info) <- "H"
-  actual <- hipread:::readh_long_chunked(
+  actual <- readh_long_chunked(
     hipread_example("test-basic.dat"),
     HipDataFrameCallback$new(function(x, pos) x),
     4,
