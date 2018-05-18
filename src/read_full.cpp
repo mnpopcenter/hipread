@@ -35,12 +35,17 @@ RObject read_long(
   resizeAllColumns(out, 10000); // Start out with 10k rows
   int i = 0;
   while (!data->isDone()) {
+    std::string line;
+    data->getLine(line);
+
+    if (line.length() == 0 && data->isDone()) {
+      break;
+    }
+
     if (i >= out[0]->size()) {
       // Resize by guessing from the progress bar
       resizeAllColumns(out, (i / data->progress_info().first) * 1.1);
     }
-    std::string line;
-    data->getLine(line);
 
     int rt_index = rts.getRtIndex(line);
     if (rt_index < 0) {

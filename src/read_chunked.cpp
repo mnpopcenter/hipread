@@ -54,6 +54,10 @@ void read_chunked_long(
       std::string line;
       data->getLine(line);
 
+      if (line.length() == 0 && data->isDone()) {
+        break;
+      }
+
       int rt_index = rts.getRtIndex(line);
       if (rt_index < 0) {
         // TODO: Should this be a warning?
@@ -74,11 +78,6 @@ void read_chunked_long(
         int cur_var_pos = vars.get_var_pos(rt_index, j);
 
         chunk[cur_var_pos]->setValue(i, x, var_opts[cur_var_pos]);
-      }
-
-      if (data->isDone()) {
-        ++i;
-        break;
       }
     }
 
