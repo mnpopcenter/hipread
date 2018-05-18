@@ -25,14 +25,17 @@ types are \code{"character"}, \code{"double"} and \code{"integer"}.}
 \item{rt_start}{An integer indicating the start position of the rectype
 variable (1 indicates the first character)}
 
-\item{rt_width}{An integer indicating the width of the rectype variable}
+\item{rt_width}{An integer indicating the width of the rectype variable,
+if there's only one record type, this width can be 0.}
 
 \item{var_pos_info}{A list of fixed width file definitions by rectype,
-each object in the list must be equal to a value in the rectype variable,
-and each of these lists must contain a list with equal lenght vectors of
-\code{start} to indicate the starting positions starting at 1, \code{width} to
-indicate the widths, and \code{var_pos} which indicates what order in the
-data.frame the variable is located (again starting at 1).}
+if there's only one rectype, no name is required, otherwise the name
+indicates the value for the rectype variable that indicates the row
+is this rectype. Each of these lists must contain a list with equal
+length vectors of \code{start} to indicate the starting positions starting
+at 1, \code{width} to indicate the widths, and \code{var_pos} which indicates
+what order in the data.frame the variable is located (again starting
+at 1).}
 
 \item{var_opts}{A vector of lists with variable specific options. For
 string variables, a logical indicator named \code{trim_ws} is allowed

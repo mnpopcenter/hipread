@@ -41,7 +41,13 @@ is_gzip_compression <- function(comp, file) {
 }
 
 check_long_var_pos_info <- function(var_pos) {
-  if (is.null(names(var_pos))) stop("Variable position information requires names")
+  if (is.null(names(var_pos))) {
+    if (length(var_pos) == 1) {
+      names(var_pos) <- "Rectangular"
+    } else {
+      stop("Variable position information requires names if there's more than 1 record type")
+    }
+  }
   required_var_names <- c("start", "width", "var_pos")
   out <- lapply(names(var_pos), function(rt_name) {
     rt <- var_pos[[rt_name]]

@@ -13,13 +13,16 @@
 #'   types are `"character"`, `"double"` and `"integer"`.
 #' @param rt_start An integer indicating the start position of the rectype
 #'   variable (1 indicates the first character)
-#' @param rt_width An integer indicating the width of the rectype variable
+#' @param rt_width An integer indicating the width of the rectype variable,
+#'   if there's only one record type, this width can be 0.
 #' @param var_pos_info A list of fixed width file definitions by rectype,
-#'   each object in the list must be equal to a value in the rectype variable,
-#'   and each of these lists must contain a list with equal lenght vectors of
-#'   `start` to indicate the starting positions starting at 1, `width` to
-#'   indicate the widths, and `var_pos` which indicates what order in the
-#'   data.frame the variable is located (again starting at 1).
+#'   if there's only one rectype, no name is required, otherwise the name
+#'   indicates the value for the rectype variable that indicates the row
+#'   is this rectype. Each of these lists must contain a list with equal
+#'   length vectors of `start` to indicate the starting positions starting
+#'    at 1, `width` to indicate the widths, and `var_pos` which indicates
+#'    what order in the data.frame the variable is located (again starting
+#'    at 1).
 #' @param var_opts A vector of lists with variable specific options. For
 #'   string variables, a logical indicator named `trim_ws` is allowed
 #'   (if missing it defaults to `TRUE`) and for double variables an

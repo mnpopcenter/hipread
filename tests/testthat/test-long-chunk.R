@@ -80,3 +80,37 @@ test_that("Can read a basic gzipped example", {
   expect_equal(ncol(actual), NCOL)
   expect_equal(actual$hhnum, FILTERED_HNUM)
 })
+
+
+NROW <- 9
+NCOL <- 3
+VAR1 <- c("H", "P", "P", "P", "H", "P", "P", "H", "P")
+test_that("Can read a rectangular chunked example", {
+  var_info <- list(
+    list(
+      start = c(1, 2, 4),
+      width = c(1, 2, 1),
+      var_pos = c(1, 2, 3)
+    )
+  )
+  # names(var_info) <- "H"
+  actual <- hipread:::readh_long_chunked(
+    hipread_example("test-basic.dat"),
+    HipDataFrameCallback$new(function(x, pos) x),
+    4,
+    c("var1", "var2", "var3"),
+    c("character", "character", "character"),
+    1,
+    0,
+    var_info,
+    list(
+      list(trim_ws = TRUE),
+      list(trim_ws = TRUE),
+      list(trim_ws = TRUE)
+    )
+  )
+
+  expect_equal(nrow(actual), NROW)
+  expect_equal(ncol(actual), NCOL)
+  expect_equal(actual$var1, VAR1)
+})

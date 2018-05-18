@@ -3,6 +3,7 @@
 #include "Progress.h"
 #include "datasource.h"
 #include "varinfo.h"
+#include "rtinfo.h"
 #include <algorithm>
 #include <Rcpp.h>
 using namespace Rcpp;
@@ -27,11 +28,8 @@ RObject read_long(
 
   Progress ProgressBar = Progress();
 
-  int rt_start = as<int>(rt_info["start"]);
-  int rt_width = as<int>(rt_info["width"]);
-
-  std::vector<std::string> rectypes = var_pos_info.names();
-  VarInfo vars(var_pos_info, rectypes.size());
+  RtInfo rts(rt_info, var_pos_info.names());
+  VarInfo vars(var_pos_info, rts.getNumRts());
 
   std::vector<ColumnPtr> out = createAllColumns(var_types);
   resizeAllColumns(out, 10000); // Start out with 10k rows
@@ -44,14 +42,8 @@ RObject read_long(
     std::string line;
     data->getLine(line);
 
-    std::string rt = line.substr(rt_start, rt_width);
-
-    int rt_index = std::distance(
-      rectypes.begin(),
-      std::find(rectypes.begin(), rectypes.end(), rt)
-    );
-
-    if (rt_index == rectypes.size()) {
+    int rt_index = rts.getRtIndex(line);
+    if (rt_index < 0) {
       // TODO: Should this be a warning?
       continue;
     }
