@@ -107,6 +107,7 @@ check_var_opts <- function(var_opts, var_types) {
     } else if (vt == "double" && !("imp_dec" %in% names(opt))) {
       opt$imp_dec <- 0
     }
+    opt$ignore <- TRUE
     opt
   })
 }
