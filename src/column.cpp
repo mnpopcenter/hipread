@@ -51,21 +51,23 @@ std::string Column::describe_failures(std::string var_name) {
 
 void ColumnCharacter::setValue(int i, std::string x) {
   // TODO: How would encoding affect this?
-  if (trim_ws) IpStringUtils::trim(x);
-  SET_STRING_ELT(values_, i, Rf_mkChar(x.c_str()));
+  const char* temp_st = x.c_str();
+  const char* temp_en = temp_st + x.length();
+  if (trim_ws) IpStringUtils::newtrim(temp_st, temp_en);
+  SET_STRING_ELT(values_, i, Rf_mkCharLen(temp_st, temp_en - temp_st));
 }
 
 void ColumnDouble::setValue(int i, std::string x) {
   long double value;
-  IpStringUtils::trim(x);
-  const char* start = x.c_str();
-  const char* end = start + x.size();
+  const char* temp_st = x.c_str();
+  const char* temp_en = temp_st + x.length();
+  IpStringUtils::newtrim(temp_st, temp_en);
   bool success;
-  if (start == end) {
+  if (temp_st == temp_en) {
     success = true;
     value = NA_REAL;
   } else {
-    success = parseDouble(start, end, value);
+    success = parseDouble(temp_st, temp_en, value);
   }
 
   if (!success) {
@@ -79,15 +81,15 @@ void ColumnDouble::setValue(int i, std::string x) {
 
 void ColumnInteger::setValue(int i, std::string x) {
   long int value;
-  IpStringUtils::trim(x);
-  const char* start = x.c_str();
-  const char* end = start + x.size();
+  const char* temp_st = x.c_str();
+  const char* temp_en = temp_st + x.length();
+  IpStringUtils::newtrim(temp_st, temp_en);
   bool success;
-  if (start == end) {
+  if (temp_st == temp_en) {
     success = true;
     value = NA_INTEGER;
   } else {
-    success = parseInteger(start, end, value);
+    success = parseInteger(temp_st, temp_en, value);
   }
 
   if (!success) {

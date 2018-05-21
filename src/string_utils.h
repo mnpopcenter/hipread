@@ -35,6 +35,17 @@ public:
     rtrim(s);
   }
 
+  static void newtrim(const char* &start, const char* &end) {
+    start = std::find_if(start, end, [](int ch) {
+      return !std::isspace(ch);
+    });
+
+    while(end > start) {
+      if (!std::isspace(end[-1])) break;
+      --end;
+    }
+  }
+
 };
 
 #endif
