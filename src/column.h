@@ -22,7 +22,7 @@ public:
   Column(SEXP values) :
     values_(values), n_(0), failure_count_(0){}
 
-  virtual void setValue(int i, std::string x) = 0;
+  virtual void setValue(int i, const char* x_start, const char* x_end) = 0;
 
   virtual std::string getType() {return "unknown";}
 
@@ -44,7 +44,7 @@ public:
     return values_;
   }
 
-  void add_failure(int line_number, std::string value);
+  void add_failure(int line_number, const char* x_start, const char* x_end);
 
   bool has_failures() {
     return failure_count_ > 0;
@@ -62,7 +62,7 @@ public:
   ColumnCharacter(Rcpp::List opts_) : Column(Rcpp::CharacterVector()) {
     trim_ws = opts_["trim_ws"];
   }
-  void setValue(int i, std::string x);
+  void setValue(int i, const char* x_start, const char* x_end);
   std::string getType() {return "character";}
 };
 
@@ -73,7 +73,7 @@ public:
   ColumnDouble(Rcpp::List opts_) : Column(Rcpp::DoubleVector()) {
     imp_dec = opts_["imp_dec"];
   }
-  void setValue(int i, std::string x);
+  void setValue(int i, const char* x_start, const char* x_end);
   std::string getType() {return "double";}
 };
 
@@ -81,7 +81,7 @@ public:
 class ColumnInteger : public Column {
 public:
   ColumnInteger(Rcpp::List opts_) : Column(Rcpp::IntegerVector()) {}
-  void setValue(int i, std::string x);
+  void setValue(int i, const char* x_start, const char* x_end);
   std::string getType() {return "integer";}
 };
 

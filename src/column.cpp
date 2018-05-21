@@ -21,8 +21,10 @@ ColumnPtr Column::create(std::string type, Rcpp::List var_opts) {
 }
 
 
-void Column::add_failure(int line_number, std::string value) {
+void Column::add_failure(int line_number, const char* x_start, const char* x_end) {
   if (++failure_count_ <= 5) {
+    std::string value;
+    value.assign(x_start, x_end - x_start);
     failure_values_.push_back(value);
     failure_rows_.push_back(line_number + 1);
   }
@@ -49,29 +51,25 @@ std::string Column::describe_failures(std::string var_name) {
 }
 
 
-void ColumnCharacter::setValue(int i, std::string x) {
+void ColumnCharacter::setValue(int i, const char* x_start, const char* x_end) {
   // TODO: How would encoding affect this?
-  const char* temp_st = x.c_str();
-  const char* temp_en = temp_st + x.length();
-  if (trim_ws) IpStringUtils::newtrim(temp_st, temp_en);
-  SET_STRING_ELT(values_, i, Rf_mkCharLen(temp_st, temp_en - temp_st));
+  if (trim_ws) IpStringUtils::newtrim(x_start, x_end);
+  SET_STRING_ELT(values_, i, Rf_mkCharLen(x_start, x_end - x_start));
 }
 
-void ColumnDouble::setValue(int i, std::string x) {
+void ColumnDouble::setValue(int i, const char* x_start, const char* x_end) {
   long double value;
-  const char* temp_st = x.c_str();
-  const char* temp_en = temp_st + x.length();
-  IpStringUtils::newtrim(temp_st, temp_en);
+  IpStringUtils::newtrim(x_start, x_end);
   bool success;
-  if (temp_st == temp_en) {
+  if (x_start == x_end) {
     success = true;
     value = NA_REAL;
   } else {
-    success = parseDouble(temp_st, temp_en, value);
+    success = parseDouble(x_start, x_end, value);
   }
 
   if (!success) {
-    add_failure(i, x);
+    add_failure(i, x_start, x_end);
     value = NA_REAL;
   } else {
     value = value / pow(10, imp_dec);
@@ -79,21 +77,19 @@ void ColumnDouble::setValue(int i, std::string x) {
   REAL(values_)[i] = value;
 }
 
-void ColumnInteger::setValue(int i, std::string x) {
+void ColumnInteger::setValue(int i, const char* x_start, const char* x_end) {
   long int value;
-  const char* temp_st = x.c_str();
-  const char* temp_en = temp_st + x.length();
-  IpStringUtils::newtrim(temp_st, temp_en);
+  IpStringUtils::newtrim(x_start, x_end);
   bool success;
-  if (temp_st == temp_en) {
+  if (x_start == x_end) {
     success = true;
     value = NA_INTEGER;
   } else {
-    success = parseInteger(temp_st, temp_en, value);
+    success = parseInteger(x_start, x_end, value);
   }
 
   if (!success) {
-    add_failure(i, x);
+    add_failure(i, x_start, x_end);
     value = NA_INTEGER;
   }
   INTEGER(values_)[i] = value;

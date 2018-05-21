@@ -60,13 +60,12 @@ RObject read_long(
 
     // Loop through vars in rectype and add to out
     for (int j = 0; j < vars.get_num_vars(rt_index); j++) {
-      std::string x = line.substr(
-        vars.get_start(rt_index, j),
-        vars.get_width(rt_index, j)
-      );
+      const char *x_start = line.c_str() + vars.get_start(rt_index, j);
+      const char *x_end = x_start + vars.get_width(rt_index, j);
+
       int cur_var_pos = vars.get_var_pos(rt_index, j);
 
-      out[cur_var_pos]->setValue(i, x);
+      out[cur_var_pos]->setValue(i, x_start, x_end);
     }
 
     if (progress && i % PROGRESS_TICK == 0) {
