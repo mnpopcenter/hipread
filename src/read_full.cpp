@@ -31,7 +31,7 @@ RObject read_long(
   RtInfo rts(rt_info, var_pos_info.names());
   VarInfo vars(var_pos_info, rts.getNumRts());
 
-  std::vector<ColumnPtr> out = createAllColumns(var_types);
+  std::vector<ColumnPtr> out = createAllColumns(var_types, var_opts);
   resizeAllColumns(out, 10000); // Start out with 10k rows
   int i = 0;
   while (!data->isDone()) {
@@ -66,7 +66,7 @@ RObject read_long(
       );
       int cur_var_pos = vars.get_var_pos(rt_index, j);
 
-      out[cur_var_pos]->setValue(i, x, var_opts[cur_var_pos]);
+      out[cur_var_pos]->setValue(i, x);
     }
 
     if (progress && i % PROGRESS_TICK == 0) {

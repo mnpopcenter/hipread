@@ -46,7 +46,7 @@ void read_chunked_long(
   VarInfo vars(var_pos_info, rts.getNumRts());
 
   while (isTrue(R6method(callback, "continue")()) && !data->isDone()) {
-    std::vector<ColumnPtr> chunk = createAllColumns(var_types);
+    std::vector<ColumnPtr> chunk = createAllColumns(var_types, var_opts);
     resizeAllColumns(chunk, chunksize[0]);
 
     int i;
@@ -77,7 +77,7 @@ void read_chunked_long(
         );
         int cur_var_pos = vars.get_var_pos(rt_index, j);
 
-        chunk[cur_var_pos]->setValue(i, x, var_opts[cur_var_pos]);
+        chunk[cur_var_pos]->setValue(i, x);
       }
     }
 

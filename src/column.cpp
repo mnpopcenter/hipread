@@ -8,13 +8,13 @@ using namespace Rcpp;
 #include <Rcpp.h>
 using namespace Rcpp;
 
-ColumnPtr Column::create(std::string type) {
+ColumnPtr Column::create(std::string type, Rcpp::List var_opts) {
   if (type == "character") {
-    return ColumnPtr(new ColumnCharacter());
+    return ColumnPtr(new ColumnCharacter(var_opts));
   } else if (type == "double") {
-    return ColumnPtr(new ColumnDouble());
+    return ColumnPtr(new ColumnDouble(var_opts));
   } else if (type == "integer") {
-    return ColumnPtr(new ColumnInteger());
+    return ColumnPtr(new ColumnInteger(var_opts));
   }
 
   Rcpp::stop("Unexpected column type '%s'", type);
@@ -49,13 +49,13 @@ std::string Column::describe_failures(std::string var_name) {
 }
 
 
-void ColumnCharacter::setValue(int i, std::string x, List opts) {
+void ColumnCharacter::setValue(int i, std::string x) {
   // TODO: How would encoding affect this?
-  if (as<bool>(opts["trim_ws"])) IpStringUtils::trim(x);
+  if (trim_ws) IpStringUtils::trim(x);
   SET_STRING_ELT(values_, i, Rf_mkChar(x.c_str()));
 }
 
-void ColumnDouble::setValue(int i, std::string x, List opts) {
+void ColumnDouble::setValue(int i, std::string x) {
   long double value;
   IpStringUtils::trim(x);
   const char* start = x.c_str();
@@ -72,12 +72,12 @@ void ColumnDouble::setValue(int i, std::string x, List opts) {
     add_failure(i, x);
     value = NA_REAL;
   } else {
-    value = value / pow(10, as<int>(opts["imp_dec"]));
+    value = value / pow(10, imp_dec);
   }
   REAL(values_)[i] = value;
 }
 
-void ColumnInteger::setValue(int i, std::string x, List opts) {
+void ColumnInteger::setValue(int i, std::string x) {
   long int value;
   IpStringUtils::trim(x);
   const char* start = x.c_str();
@@ -99,12 +99,12 @@ void ColumnInteger::setValue(int i, std::string x, List opts) {
 
 
 
-std::vector<ColumnPtr> createAllColumns(CharacterVector types) {
+std::vector<ColumnPtr> createAllColumns(CharacterVector types, Rcpp::List var_opts) {
   int num_cols = types.size();
   std::vector<ColumnPtr> out;
 
   for (int i = 0; i < num_cols; ++i) {
-    out.push_back(Column::create(as<std::string>(types[i])));
+    out.push_back(Column::create(as<std::string>(types[i]), var_opts[i]));
   }
 
   return out;
