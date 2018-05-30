@@ -1,7 +1,6 @@
 // Adapted from readr's Collector.cpp
 
 #include <Rcpp.h>
-using namespace Rcpp;
 #include "column.h"
 #include "string_utils.h"
 
@@ -24,7 +23,10 @@ ColumnPtr Column::create(std::string type, Rcpp::List var_opts) {
 void Column::add_failure(int line_number, const char* x_start, const char* x_end) {
   if (++failure_count_ <= 5) {
     std::string value;
-    value.assign(x_start, x_end - x_start);
+    //value.assign(x_start, x_end - x_start);
+    std::size_t x_diff = reinterpret_cast<size_t>(x_end) -
+        reinterpret_cast<size_t>(x_start);
+    value.assign(x_start, reinterpret_cast<const char*>(x_diff));
     failure_values_.push_back(value);
     failure_rows_.push_back(line_number + 1);
   }
@@ -37,8 +39,8 @@ std::string Column::describe_failures(std::string var_name) {
     " values to " << getType() << "; Values (and row numbers) of first " <<
       failure_rows_.size() << " failures: ";
 
-  int num_failures = failure_rows_.size();
-  for (int i = 0; i < num_failures; ++i) {
+  size_t num_failures = failure_rows_.size();
+  for (size_t i = 0; i < num_failures; ++i) {
     if (i > 0) {
       message << ", ";
     }
@@ -54,7 +56,8 @@ std::string Column::describe_failures(std::string var_name) {
 void ColumnCharacter::setValue(int i, const char* x_start, const char* x_end) {
   // TODO: How would encoding affect this?
   if (trim_ws) IpStringUtils::newtrim(x_start, x_end);
-  SET_STRING_ELT(values_, i, Rf_mkCharLen(x_start, x_end - x_start));
+  SET_STRING_ELT(values_, i, Rf_mkCharLen(x_start,
+              static_cast<int>(x_end - x_start)));
 }
 
 void ColumnDouble::setValue(int i, const char* x_start, const char* x_end) {
@@ -74,7 +77,7 @@ void ColumnDouble::setValue(int i, const char* x_start, const char* x_end) {
   } else {
     value = value / pow(10, imp_dec);
   }
-  REAL(values_)[i] = value;
+  REAL(values_)[i] = static_cast<double>(value);
 }
 
 void ColumnInteger::setValue(int i, const char* x_start, const char* x_end) {
@@ -92,13 +95,13 @@ void ColumnInteger::setValue(int i, const char* x_start, const char* x_end) {
     add_failure(i, x_start, x_end);
     value = NA_INTEGER;
   }
-  INTEGER(values_)[i] = value;
+  INTEGER(values_)[i] = static_cast<int>(value);
 }
 
 
 
 std::vector<ColumnPtr> createAllColumns(CharacterVector types, Rcpp::List var_opts) {
-  int num_cols = types.size();
+  int num_cols = static_cast<int>(types.size());
   std::vector<ColumnPtr> out;
 
   for (int i = 0; i < num_cols; ++i) {
@@ -109,17 +112,17 @@ std::vector<ColumnPtr> createAllColumns(CharacterVector types, Rcpp::List var_op
 }
 
 void resizeAllColumns(std::vector<ColumnPtr>& columns, int n) {
-  int num_cols = columns.size();
+  size_t num_cols = columns.size();
 
-  for (int i = 0; i < num_cols; ++i) {
+  for (size_t i = 0; i < num_cols; ++i) {
     columns[i]->resize(n);
   }
 }
 
 void clearAllColumns(std::vector<ColumnPtr>& columns, int n) {
-  int num_cols = columns.size();
+  size_t num_cols = columns.size();
 
-  for (int i = 0; i < num_cols; ++i) {
+  for (size_t i = 0; i < num_cols; ++i) {
     columns[i]->resize(0);
   }
 }
@@ -128,14 +131,15 @@ void clearAllColumns(std::vector<ColumnPtr>& columns, int n) {
 static Function as_tibble("as_tibble", Environment::namespace_env("tibble"));
 
 RObject columnsToDf(std::vector<ColumnPtr> columns, Rcpp::CharacterVector names) {
-  int num_vars = columns.size();
+  size_t num_vars = columns.size();
   List out(num_vars);
-  for (int i = 0; i < num_vars; ++i) {
+  for (size_t i = 0; i < num_vars; ++i) {
     if (columns[i]->has_failures()) {
-      std::string message = columns[i]->describe_failures(Rcpp::as<std::string>(names[i]));
+      std::string message = columns[i]->describe_failures(
+              Rcpp::as<std::string>(names[static_cast<long>(i)]));
       Rf_warning(message.c_str());
     }
-    out[i] = columns[i]->vector();
+    out[static_cast<long>(i)] = columns[i]->vector();
   }
   out.attr("names") = names;
   return as_tibble(out);
