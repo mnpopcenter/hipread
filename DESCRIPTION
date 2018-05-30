@@ -4,6 +4,8 @@ Title: Read Hierarchical Fixed Width Files
 Version: 0.1.0
 Authors@R: c(
     person("Greg", "Freedman Ellis", , "gfellis@umn.edu", c("aut", "cre")),
+    person("Derek Burk", role = "ctb"),
+    person("Joe Grover", role = "ctb"),
     person("Hadley", "Wickham", , "hadley@rstudio.com", "ctb", comment = "Code adapted from readr"),
     person("Jim", "Hester", , "james.hester@rstudio.com", c("ctb"), comment = "Code adapted from readr"),
     person("Romain", "Francois", role = "ctb", comment = "Code adapted from readr"),
@@ -14,10 +16,9 @@ Authors@R: c(
     person("University of Minnesota", role = "cph"))
 Maintainer: Greg Freedman Ellis <gfellis@umn.edu>
 Description: A fast way to read hierarchical fixed width files like those 
-    found in 'IPUMS' extracts. I expect most users will access this functionality 
-    through the 'ipumsr' package, but this code is separated out to clarify the 
-    licensing terms.
-License: GPL (>= 2)
+    found in 'IPUMS' extracts. Also allows for reading of data in chunks,
+    and reading 'gzipped' files without storing the full file in memory.
+License: GPL (>= 2) | file LICENSE
 Encoding: UTF-8
 LazyData: true
 LinkingTo: 
