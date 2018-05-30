@@ -21,6 +21,7 @@ protected:
 public:
   Column(SEXP values) :
     values_(values), n_(0), failure_count_(0){}
+  virtual ~Column () = 0;
 
   virtual void setValue(int i, const char* x_start, const char* x_end) = 0;
 
@@ -62,6 +63,7 @@ public:
   ColumnCharacter(Rcpp::List opts_) : Column(Rcpp::CharacterVector()) {
     trim_ws = opts_["trim_ws"];
   }
+  virtual ~ColumnCharacter () = 0;
   void setValue(int i, const char* x_start, const char* x_end);
   std::string getType() {return "character";}
 };
