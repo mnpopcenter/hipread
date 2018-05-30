@@ -13,7 +13,7 @@ private:
 
 public:
   RtInfo(List rt_info, std::vector<std::string> rectypes_);
-  int getRtIndex(const std::string &line);
+  int getRtIndex(const char* line_start, const char* line_end);
   int getNumRts();
 };
 

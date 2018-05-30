@@ -27,14 +27,15 @@ void GzStream::fillBuffer() {
   end = offset + len;
 }
 
-bool GzStream::getLine(std::string &line) {
+bool GzStream::getLine(const char* &line_start, const char* &line_end) {
   if (isDone()) return false;
   char* eol = std::find(cur, end, '\n');
 
   if (eol >= end) {
     if (gzeof(file)) {
       done = true;
-      line = std::string(cur, end);
+      line_start = cur;
+      line_end = end;
       cur = end;
       if (gzclose(file) != Z_OK) stop("Could not close file");
       return true;
@@ -44,8 +45,8 @@ bool GzStream::getLine(std::string &line) {
       if (eol >= end) stop("Line length too long; cannot read file.");
     }
   }
-
-  line = std::string(cur, eol);
+  line_start = cur;
+  line_end = eol;
   total_read_ += (eol - cur);
   cur = eol + 1;
   return true;

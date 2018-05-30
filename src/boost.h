@@ -12,5 +12,7 @@
 #include <boost/shared_ptr.hpp>
 #include <boost/spirit/include/qi.hpp>
 
+#include <boost/interprocess/file_mapping.hpp>
+#include <boost/interprocess/mapped_region.hpp>
 
 #endif

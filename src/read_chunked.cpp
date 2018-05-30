@@ -50,28 +50,29 @@ void read_chunked_long(
     resizeAllColumns(chunk, chunksize[0]);
 
     int i;
+    const char* line_start;
+    const char* line_end;
     for (i = 0; i < chunksize[0] - 1; ++i) {
-      std::string line;
-      data->getLine(line);
+      data->getLine(line_start, line_end);
 
-      if (line.length() == 0 && data->isDone()) {
+      if (line_start == line_end && data->isDone()) {
         break;
       }
 
-      int rt_index = rts.getRtIndex(line);
+      int rt_index = rts.getRtIndex(line_start, line_end);
       if (rt_index < 0) {
         // TODO: Should this be a warning?
         break;
       }
 
       // Check if raw line is long enough
-      if ((int) line.length() < vars.get_max_end(rt_index)) {
+      if (line_end - line_start < vars.get_max_end(rt_index)) {
         Rcpp::stop("Line is too short for rectype.");
       }
 
       // Loop through vars in rectype and add to out
       for (int j = 0; j < vars.get_num_vars(rt_index); j++) {
-        const char *x_start = line.c_str() + vars.get_start(rt_index, j);
+        const char *x_start = line_start + vars.get_start(rt_index, j);
         const char *x_end = x_start + vars.get_width(rt_index, j);
 
         int cur_var_pos = vars.get_var_pos(rt_index, j);

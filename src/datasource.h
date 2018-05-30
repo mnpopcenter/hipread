@@ -18,7 +18,7 @@ class DataSource {
 public:
   DataSource(std::string filename) : filename_(filename){};
   virtual ~DataSource(){};
-  virtual void getLine(std::string &line) = 0;
+  virtual void getLine(const char* &start, const char* &end) = 0;
   virtual bool isDone() = 0;
   virtual std::pair<double, size_t> progress_info() = 0;
 };
@@ -28,17 +28,36 @@ class FileDataSource : public DataSource {
 private:
   std::string filename_;
   size_t total_size_;
-  std::ifstream* data_;
-  size_t get_size();
+  boost::interprocess::file_mapping fm_;
+  boost::interprocess::mapped_region mr_;
+  char* file_begin;
+  char* file_end;
+  char* cur_begin;
+  char* cur_end;
+
 public:
   FileDataSource(std::string filename) : DataSource(filename){
-    data_ = new std::ifstream(filename);
-    total_size_ = get_size();
+    try {
+      fm_ = boost::interprocess::file_mapping(
+        filename.c_str(), boost::interprocess::read_only);
+      mr_ = boost::interprocess::mapped_region(
+        fm_, boost::interprocess::read_private);
+    } catch (boost::interprocess::interprocess_exception& e) {
+      Rcpp::stop("Cannot read file %s: %s", filename, e.what());
+    }
+    total_size_ = mr_.get_size();
+    file_begin = static_cast<char*>(mr_.get_address());
+    file_end = file_begin + total_size_;
+    cur_begin = file_begin;
+    cur_end = NULL;
   };
   ~FileDataSource() {
-    if (data_) delete data_;
+    file_end = NULL;
+    file_begin = NULL;
+    cur_begin = NULL;
+    cur_end = NULL;
   }
-  void getLine(std::string &line);
+  void getLine(const char* &start, const char* &end);
   bool isDone();
   std::pair<double, size_t> progress_info();
 };
@@ -59,7 +78,7 @@ public:
   ~GzFileDataSource() {
     if (data_) delete data_;
   }
-  void getLine(std::string &line);
+  void getLine(const char* &start, const char* &end);
   bool isDone();
   std::pair<double, size_t> progress_info();
 };

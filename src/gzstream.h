@@ -35,7 +35,7 @@ public:
     cur = NULL;
     end = NULL;
   }
-  bool getLine(std::string &line);
+  bool getLine(const char* &line_start, const char* &line_end);
   bool isDone();
   size_t getTotalSizeEstimate();
   size_t getProgress();
