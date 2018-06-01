@@ -5,9 +5,9 @@
 #include <sstream>
 #include <time.h>
 
-inline int now() { return clock() / CLOCKS_PER_SEC; }
+inline int now() { return static_cast<int>(clock() / CLOCKS_PER_SEC); }
 
-inline std::string clearLine(int width = 50) {
+inline std::string clearLine(char width = 50) {
   return "\r" + std::string(' ', width) + "\r";
 }
 
@@ -59,12 +59,12 @@ public:
 
     std::string label = labelStream.str();
 
-    int barSize = width_ - label.size() - 2;
+    double barSize = static_cast<double>(width_ - static_cast<int>(label.size()) - 2);
     if (barSize < 0) {
       return;
     }
-    int nbars = prop * barSize;
-    int nspaces = (1 - prop) * barSize;
+    size_t nbars = static_cast<size_t>(prop * barSize);
+    size_t nspaces = static_cast<size_t>((1 - prop) * barSize);
     std::string bars(nbars, '='), spaces(nspaces, ' ');
     Rcpp::Rcout << '\r' << '|' << bars << spaces << '|' << label;
   }

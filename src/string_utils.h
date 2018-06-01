@@ -6,7 +6,7 @@
 // Adapted from readr's QiParsers.h
 template <typename Iterator, typename Attr>
 inline bool parseDouble(Iterator& first, Iterator& last, Attr& res) {
-  return boost::spirit::qi::parse(first, last, boost::spirit::qi::long_double, res);
+  return boost::spirit::qi::parse(first, last, boost::spirit::qi::double_, res);
 }
 
 template <typename Iterator, typename Attr>

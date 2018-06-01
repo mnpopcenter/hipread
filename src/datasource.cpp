@@ -26,7 +26,7 @@ std::pair<double, size_t> FileDataSource::progress_info() {
   if (isDone()) {
     return std::make_pair(1.0, total_size_);
   } else {
-    size_t current = cur_begin - file_begin;
+    size_t current = static_cast<size_t>(cur_begin - file_begin);
     return std::make_pair(current / (double)(total_size_), current);
   }
 }

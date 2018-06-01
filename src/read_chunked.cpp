@@ -25,7 +25,7 @@ bool isTrue(SEXP x) {
 void read_chunked_long(
     CharacterVector filename,
     Environment callback,
-    NumericVector chunksize,
+    int chunksize,
     CharacterVector var_names,
     CharacterVector var_types,
     List rt_info_,
@@ -47,20 +47,21 @@ void read_chunked_long(
 
   while (isTrue(R6method(callback, "continue")()) && !data->isDone()) {
     std::vector<ColumnPtr> chunk = createAllColumns(var_types, var_opts);
-    resizeAllColumns(chunk, chunksize[0]);
+    resizeAllColumns(chunk, chunksize);
 
     int i;
     const char* line_start;
     const char* line_end;
-    for (i = 0; i < chunksize[0] - 1; ++i) {
+    for (i = 0; i < chunksize - 1; ++i) {
       data->getLine(line_start, line_end);
 
       if (line_start == line_end && data->isDone()) {
         break;
       }
 
-      int rt_index = rts.getRtIndex(line_start, line_end);
-      if (rt_index < 0) {
+      size_t rt_index;
+      bool rt_found = rts.getRtIndex(line_start, line_end, rt_index);
+      if (!rt_found) {
         // TODO: Should this be a warning?
         break;
       }
@@ -71,11 +72,11 @@ void read_chunked_long(
       }
 
       // Loop through vars in rectype and add to out
-      for (int j = 0; j < vars.get_num_vars(rt_index); j++) {
+      for (size_t j = 0; j < vars.get_num_vars(rt_index); j++) {
         const char *x_start = line_start + vars.get_start(rt_index, j);
         const char *x_end = x_start + vars.get_width(rt_index, j);
 
-        int cur_var_pos = vars.get_var_pos(rt_index, j);
+        size_t cur_var_pos = vars.get_var_pos(rt_index, j);
 
         chunk[cur_var_pos]->setValue(i, x_start, x_end);
       }
