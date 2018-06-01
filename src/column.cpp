@@ -7,6 +7,10 @@
 #include <Rcpp.h>
 using namespace Rcpp;
 
+std::string Column::getType() {
+  return "unknown";
+}
+
 ColumnPtr Column::create(std::string type, Rcpp::List var_opts) {
   if (type == "character") {
     return ColumnPtr(new ColumnCharacter(var_opts));
@@ -61,7 +65,7 @@ void ColumnCharacter::setValue(int i, const char* x_start, const char* x_end) {
 }
 
 void ColumnDouble::setValue(int i, const char* x_start, const char* x_end) {
-  long double value;
+  double value;
   IpStringUtils::newtrim(x_start, x_end);
   bool success;
   if (x_start == x_end) {
@@ -118,15 +122,6 @@ void resizeAllColumns(std::vector<ColumnPtr>& columns, int n) {
     columns[i]->resize(n);
   }
 }
-
-void clearAllColumns(std::vector<ColumnPtr>& columns, int n) {
-  size_t num_cols = columns.size();
-
-  for (size_t i = 0; i < num_cols; ++i) {
-    columns[i]->resize(0);
-  }
-}
-
 
 static Function as_tibble("as_tibble", Environment::namespace_env("tibble"));
 
