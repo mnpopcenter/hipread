@@ -14,7 +14,9 @@ bool RtInfo::getRtIndex(const char* line_start, const char* line_end, size_t& ou
     out = 0;
     return true;
   }
-
+  if (line_start + start + width > line_end) {
+    Rcpp::stop("rectype variable cannot be longer than line.");
+  }
   std::string rt(line_start + start, line_start + start + width);
 
   long rt_pos = std::distance(
@@ -22,7 +24,7 @@ bool RtInfo::getRtIndex(const char* line_start, const char* line_end, size_t& ou
     std::find(rectypes.begin(), rectypes.end(), rt)
   );
   if (rt_pos < 0) Rcpp::stop("Could not parse rectype");
-  if (rt_pos == rectypes.size()) return false;
+  if (static_cast<size_t>(rt_pos) == rectypes.size()) return false;
   out = static_cast<size_t>(rt_pos);
   return true;
 }

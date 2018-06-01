@@ -9,10 +9,10 @@
 using namespace Rcpp;
 
 
-Function R6method(Environment env, const std::string& method) {
+static Function R6method(Environment env, const std::string& method) {
   return as<Function>(env[method]);
 }
-bool isTrue(SEXP x) {
+static bool isTrue(SEXP x) {
   if (!(TYPEOF(x) == LGLSXP && Rf_length(x) == 1)) {
     stop("`continue()` must return a length 1 logical vector");
   }

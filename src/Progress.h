@@ -34,6 +34,8 @@ public:
         show_(false),
         stopped_(false) {}
 
+  Progress(const Progress &x) = default;
+
   void stop() {
     timeStop_ = now();
     stopped_ = true;
@@ -52,7 +54,7 @@ public:
     }
 
     std::stringstream labelStream;
-    tfm::format(labelStream, " %3d%%", (int)(prop * 100));
+    tfm::format(labelStream, " %3d%%", static_cast<int>(prop * 100));
     if (size > 0) {
       tfm::format(labelStream, " %4.0f MB", size);
     }

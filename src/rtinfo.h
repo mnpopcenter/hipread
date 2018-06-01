@@ -2,7 +2,6 @@
 #define HIPREAD_RTINFO_H_
 
 #include <Rcpp.h>
-using namespace Rcpp;
 
 class RtInfo {
 private:
@@ -12,7 +11,7 @@ private:
   bool hierarchical;
 
 public:
-  RtInfo(List rt_info, std::vector<std::string> rectypes_);
+  RtInfo(Rcpp::List rt_info, std::vector<std::string> rectypes_);
   bool getRtIndex(const char* line_start, const char* line_end, size_t& out);
   size_t getNumRts();
 };

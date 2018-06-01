@@ -3,11 +3,11 @@
 using namespace Rcpp;
 
 VarInfo::VarInfo(List var_pos_info, size_t num_rt) {
-  for (int i = 0; i < num_rt; i++) {
+  for (int i = 0; i < static_cast<int>(num_rt); i++) {
     starts.push_back(as<List>(var_pos_info[i])["start"]);
     widths.push_back(as<List>(var_pos_info[i])["width"]);
     var_pos.push_back(as<List>(var_pos_info[i])["var_pos"]);
-    num_vars_rectype.push_back(static_cast<int>(starts[static_cast<size_t>(i)].size()));
+    num_vars_rectype.push_back(starts[static_cast<size_t>(i)].size());
     max_ends.push_back(as<IntegerVector>(as<List>(var_pos_info[i])["max_end"])[0]);
   }
 }
@@ -24,7 +24,7 @@ size_t VarInfo::get_var_pos(size_t rt_index, size_t col_num) {
   return var_pos[rt_index][col_num];
 }
 
-int VarInfo::get_num_vars(size_t rt_index) {
+size_t VarInfo::get_num_vars(size_t rt_index) {
   return num_vars_rectype[rt_index];
 }
 

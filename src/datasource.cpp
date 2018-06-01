@@ -7,8 +7,15 @@ using namespace Rcpp;
 #include "boost.h"
 #include "datasource.h"
 
+// This should never be called, but I include it here to avoid
+// -Weverything warning about no out-of-line virtual class defintions
+void DataSource::getLine(const char* &start, const char* &end) {
+  start = nullptr;
+  end = nullptr;
+}
+
 void FileDataSource::getLine(const char* &start, const char* &end) {
-  if (cur_end != NULL) cur_begin = cur_end + 1;
+  if (cur_end != nullptr) cur_begin = cur_end + 1;
   cur_end = std::find_if(cur_begin, file_end, [](int ch) {
     return ch == '\n';
   });
@@ -27,7 +34,7 @@ std::pair<double, size_t> FileDataSource::progress_info() {
     return std::make_pair(1.0, total_size_);
   } else {
     size_t current = static_cast<size_t>(cur_begin - file_begin);
-    return std::make_pair(current / (double)(total_size_), current);
+    return std::make_pair(current / static_cast<double>(total_size_), current);
   }
 }
 
@@ -50,7 +57,7 @@ std::pair<double, size_t> GzFileDataSource::progress_info() {
     return std::make_pair(1.0, total_size_);
   } else {
     size_t current = data_->getProgress() ;
-    return std::make_pair(current / (double)(total_size_), current);
+    return std::make_pair(current / static_cast<double>(total_size_), current);
   }
 }
 

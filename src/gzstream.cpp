@@ -10,7 +10,7 @@ using namespace Rcpp;
 void GzStream::fillBuffer() {
   int err;
   char* offset;
-  if (cur != NULL) {
+  if (cur != nullptr) {
     offset = std::copy(cur, end, buffer);
   } else {
     offset = buffer;
