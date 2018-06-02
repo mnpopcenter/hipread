@@ -27,10 +27,9 @@ ColumnPtr Column::create(std::string type, Rcpp::List var_opts) {
 void Column::add_failure(int line_number, const char* x_start, const char* x_end) {
   if (++failure_count_ <= 5) {
     std::string value;
-    //value.assign(x_start, x_end - x_start);
-    std::size_t x_diff = reinterpret_cast<size_t>(x_end) -
-        reinterpret_cast<size_t>(x_start);
-    value.assign(x_start, reinterpret_cast<const char*>(x_diff));
+    size_t x_diff = static_cast<size_t>(x_end - x_start);
+    value.assign(x_start, x_diff);
+
     failure_values_.push_back(value);
     failure_rows_.push_back(line_number + 1);
   }
