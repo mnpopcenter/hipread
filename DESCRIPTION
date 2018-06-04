@@ -6,6 +6,7 @@ Authors@R: c(
     person("Greg", "Freedman Ellis", , "gfellis@umn.edu", c("aut", "cre")),
     person("Derek Burk", role = "ctb"),
     person("Joe Grover", role = "ctb"),
+    person("Mark Padgham", role = "ctb"),
     person("Hadley", "Wickham", , "hadley@rstudio.com", "ctb", comment = "Code adapted from readr"),
     person("Jim", "Hester", , "james.hester@rstudio.com", c("ctb"), comment = "Code adapted from readr"),
     person("Romain", "Francois", role = "ctb", comment = "Code adapted from readr"),
