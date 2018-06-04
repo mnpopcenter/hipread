@@ -7,6 +7,7 @@ Contributors:
   Greg Freedman Ellis, Minnesota Population Center, University of Minnesota
   Joe Grover, Minnesota Population Center, University of Minnesota
   Derek Burk, Minnesota Population Center, University of Minnesota
+  Mark Padgham, University of Salzburg, Austria
 
 
 This project is licensed under the GPL (versions 2 or later) (the
