@@ -1,0 +1,15 @@
+hipread
+https://github.com/mnpopcenter/hipread
+
+Copyright 2018 Regents of the University of Minnesota and RStudio
+
+Contributors:
+  Greg Freedman Ellis, Minnesota Population Center, University of Minnesota
+  Joe Grover, Minnesota Population Center, University of Minnesota
+  Derek Burk, Minnesota Population Center, University of Minnesota
+
+
+This project is licensed under the GPL (versions 2 or later) (the
+"License"). A copy of the License is in the project file "LICENSE",
+and is also available at https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html 
+or https://www.gnu.org/licenses/gpl-3.0.en.html
