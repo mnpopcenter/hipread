@@ -16,8 +16,8 @@ void GzStream::fillBuffer() {
     offset = buffer;
   }
 
-  uint buffer_size = sizeof(buffer);
-  uint overflow = static_cast<uint>(offset - buffer);
+  size_t buffer_size = sizeof(buffer);
+  size_t overflow = static_cast<size_t>(offset - buffer);
   if (overflow > buffer_size) stop("Line length too long; cannot read file.");
 
   int len = gzread(file, offset, buffer_size - overflow);
