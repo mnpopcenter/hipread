@@ -3,7 +3,6 @@
 #define HIPREAD_DATASOURCE_H_
 
 #include <Rcpp.h>
-using namespace Rcpp;
 #include <fstream>
 #include <iostream>
 #include "boost.h"
@@ -16,9 +15,9 @@ typedef boost::shared_ptr<DataSource> DataSourcePtr;
 class DataSource {
   std::string filename_;
 public:
-  DataSource(std::string filename) : filename_(filename){};
-  virtual ~DataSource(){};
-  virtual void getLine(const char* &start, const char* &end) = 0;
+  DataSource(std::string filename) : filename_(filename){}
+  virtual ~DataSource(){}
+  virtual void getLine(const char* &start, const char* &end);
   virtual bool isDone() = 0;
   virtual std::pair<double, size_t> progress_info() = 0;
 };
@@ -49,13 +48,13 @@ public:
     file_begin = static_cast<char*>(mr_.get_address());
     file_end = file_begin + total_size_;
     cur_begin = file_begin;
-    cur_end = NULL;
-  };
+    cur_end = nullptr;
+  }
   ~FileDataSource() {
-    file_end = NULL;
-    file_begin = NULL;
-    cur_begin = NULL;
-    cur_end = NULL;
+    file_end = nullptr;
+    file_begin = nullptr;
+    cur_begin = nullptr;
+    cur_end = nullptr;
   }
   void getLine(const char* &start, const char* &end);
   bool isDone();
@@ -74,7 +73,7 @@ public:
   GzFileDataSource(std::string filename) : DataSource(filename) {
     data_ = new GzStream(filename);
     total_size_ = get_size();
-  };
+  }
   ~GzFileDataSource() {
     if (data_) delete data_;
   }

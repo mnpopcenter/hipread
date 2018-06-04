@@ -21,11 +21,11 @@ protected:
 public:
   Column(SEXP values) :
     values_(values), n_(0), failure_count_(0){}
-  virtual ~Column () = 0;
+  virtual ~Column() {}
 
   virtual void setValue(int i, const char* x_start, const char* x_end) = 0;
 
-  virtual std::string getType() {return "unknown";}
+  virtual std::string getType();
 
   int size() {
     return n_;
@@ -63,7 +63,7 @@ public:
   ColumnCharacter(Rcpp::List opts_) : Column(Rcpp::CharacterVector()) {
     trim_ws = opts_["trim_ws"];
   }
-  virtual ~ColumnCharacter () = 0;
+  ~ColumnCharacter() {}
   void setValue(int i, const char* x_start, const char* x_end);
   std::string getType() {return "character";}
 };
@@ -75,6 +75,7 @@ public:
   ColumnDouble(Rcpp::List opts_) : Column(Rcpp::DoubleVector()) {
     imp_dec = opts_["imp_dec"];
   }
+  ~ColumnDouble() {}
   void setValue(int i, const char* x_start, const char* x_end);
   std::string getType() {return "double";}
 };
@@ -83,13 +84,13 @@ public:
 class ColumnInteger : public Column {
 public:
   ColumnInteger(Rcpp::List opts_) : Column(Rcpp::IntegerVector()) {}
+  ~ColumnInteger() {}
   void setValue(int i, const char* x_start, const char* x_end);
   std::string getType() {return "integer";}
 };
 
 std::vector<ColumnPtr> createAllColumns(Rcpp::CharacterVector types, Rcpp::List var_opts);
 void resizeAllColumns(std::vector<ColumnPtr>& columns, int n);
-void clearAllColumns(std::vector<ColumnPtr>&);
 Rcpp::RObject columnsToDf(std::vector<ColumnPtr> columns, Rcpp::CharacterVector names);
 
 #endif

@@ -9,20 +9,26 @@ RtInfo::RtInfo(List rt_info, std::vector<std::string> rectypes_) : rectypes(rect
   hierarchical = width > 0;
 }
 
-int RtInfo::getRtIndex(const char* line_start, const char* line_end) {
-  if (!hierarchical) return 0;
-
+bool RtInfo::getRtIndex(const char* line_start, const char* line_end, size_t& out) {
+  if (!hierarchical) {
+    out = 0;
+    return true;
+  }
+  if (line_start + start + width > line_end) {
+    Rcpp::stop("rectype variable cannot be longer than line.");
+  }
   std::string rt(line_start + start, line_start + start + width);
 
-  int rt_index = std::distance(
+  long rt_pos = std::distance(
     rectypes.begin(),
     std::find(rectypes.begin(), rectypes.end(), rt)
   );
-
-  if (rt_index == rectypes.size()) rt_index = -1;
-  return rt_index;
+  if (rt_pos < 0) Rcpp::stop("Could not parse rectype");
+  if (static_cast<size_t>(rt_pos) == rectypes.size()) return false;
+  out = static_cast<size_t>(rt_pos);
+  return true;
 }
 
-int RtInfo::getNumRts() {
+size_t RtInfo::getNumRts() {
   return rectypes.size();
 }

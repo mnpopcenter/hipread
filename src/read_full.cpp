@@ -45,11 +45,12 @@ RObject read_long(
 
     if (i >= out[0]->size()) {
       // Resize by guessing from the progress bar
-      resizeAllColumns(out, (i / data->progress_info().first) * 1.1);
+      resizeAllColumns(out, static_cast<int>((i / data->progress_info().first) * 1.1));
     }
 
-    int rt_index = rts.getRtIndex(line_start, line_end);
-    if (rt_index < 0) {
+    size_t rt_index;
+    bool rt_found = rts.getRtIndex(line_start, line_end, rt_index);
+    if (!rt_found) {
       // TODO: Should this be a warning?
       continue;
     }
@@ -60,11 +61,11 @@ RObject read_long(
     }
 
     // Loop through vars in rectype and add to out
-    for (int j = 0; j < vars.get_num_vars(rt_index); j++) {
+    for (size_t j = 0; j < vars.get_num_vars(rt_index); j++) {
       const char *x_start = line_start + vars.get_start(rt_index, j);
       const char *x_end = x_start + vars.get_width(rt_index, j);
 
-      int cur_var_pos = vars.get_var_pos(rt_index, j);
+      size_t cur_var_pos = vars.get_var_pos(rt_index, j);
 
       out[cur_var_pos]->setValue(i, x_start, x_end);
     }

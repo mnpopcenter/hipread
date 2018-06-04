@@ -1,8 +1,6 @@
 #ifndef HIPREAD_GZSTREAM_H_
 #define HIPREAD_GZSTREAM_H_
 
-#include <Rcpp.h>
-using namespace Rcpp;
 #include <zlib.h>
 #include <iostream>
 #include <algorithm>
@@ -21,19 +19,18 @@ private:
   char buffer[BUFLEN];
   char* cur;
   char* end;
-  size_t total_read_;
   void fillBuffer();
   bool done;
 
 public:
-  GzStream(std::string filename) : filename_(filename), total_read_(0), done(false) {
-    cur = NULL;
+  GzStream(std::string filename) : filename_(filename), done(false) {
+    cur = nullptr;
     file = gzopen(filename.c_str(), "rb");
     fillBuffer();
-  };
+  }
   ~GzStream() {
-    cur = NULL;
-    end = NULL;
+    cur = nullptr;
+    end = nullptr;
   }
   bool getLine(const char* &line_start, const char* &line_end);
   bool isDone();

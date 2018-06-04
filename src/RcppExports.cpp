@@ -6,13 +6,13 @@
 using namespace Rcpp;
 
 // read_chunked_long
-void read_chunked_long(CharacterVector filename, Environment callback, NumericVector chunksize, CharacterVector var_names, CharacterVector var_types, List rt_info_, List var_pos_info_, List var_opts_, bool isGzipped, bool progress);
+void read_chunked_long(CharacterVector filename, Environment callback, int chunksize, CharacterVector var_names, CharacterVector var_types, List rt_info_, List var_pos_info_, List var_opts_, bool isGzipped, bool progress);
 RcppExport SEXP _hipread_read_chunked_long(SEXP filenameSEXP, SEXP callbackSEXP, SEXP chunksizeSEXP, SEXP var_namesSEXP, SEXP var_typesSEXP, SEXP rt_info_SEXP, SEXP var_pos_info_SEXP, SEXP var_opts_SEXP, SEXP isGzippedSEXP, SEXP progressSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< CharacterVector >::type filename(filenameSEXP);
     Rcpp::traits::input_parameter< Environment >::type callback(callbackSEXP);
-    Rcpp::traits::input_parameter< NumericVector >::type chunksize(chunksizeSEXP);
+    Rcpp::traits::input_parameter< int >::type chunksize(chunksizeSEXP);
     Rcpp::traits::input_parameter< CharacterVector >::type var_names(var_namesSEXP);
     Rcpp::traits::input_parameter< CharacterVector >::type var_types(var_typesSEXP);
     Rcpp::traits::input_parameter< List >::type rt_info_(rt_info_SEXP);

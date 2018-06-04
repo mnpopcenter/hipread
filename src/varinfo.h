@@ -2,23 +2,22 @@
 #define HIPREAD_VARINFO_H_
 
 #include <Rcpp.h>
-using namespace Rcpp;
 
 class VarInfo {
 private:
   std::vector<std::vector<int> > starts;
   std::vector<std::vector<int> > widths;
-  std::vector<std::vector<int> > var_pos;
-  std::vector<int> num_vars_rectype;
+  std::vector<std::vector<size_t> > var_pos;
+  std::vector<size_t> num_vars_rectype;
   std::vector<int> max_ends;
 
 public:
-  VarInfo(List var_pos_info, int num_rt);
-  int get_start(int rt_index, int col_num);
-  int get_width(int rt_index, int col_num);
-  int get_var_pos(int rt_index, int col_num);
-  int get_num_vars(int rt_index);
-  int get_max_end(int rt_index);
+  VarInfo(Rcpp::List var_pos_info, size_t num_rt);
+  int get_start(size_t rt_index, size_t col_num);
+  int get_width(size_t rt_index, size_t col_num);
+  size_t get_var_pos(size_t rt_index, size_t col_num);
+  size_t get_num_vars(size_t rt_index);
+  int get_max_end(size_t rt_index);
 };
 
 #endif
