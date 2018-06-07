@@ -127,6 +127,15 @@ check_long_arg_lengths <- function(var_names, var_types, var_pos_info, var_opts)
   invisible(NULL)
 }
 
+check_freq_args <- function(var_names, var_pos_info) {
+  checks <- lapply(names(var_pos_info), function(rt_name) {
+    if (any(var_pos_info[[rt_name]]$var_pos + 1 > length(var_names))) stop(paste0(
+      "For rectype ", rt_name, " variable positions exceeds number of variables."
+    ))
+  })
+  invisible(NULL)
+}
+
 is_integerish <- function(x) {
   all.equal(x, as.integer(x))
 }

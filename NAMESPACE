@@ -2,6 +2,7 @@
 
 export(HipDataFrameCallback)
 export(hipread_example)
+export(readh_freqs)
 export(readh_long)
 export(readh_long_chunked)
 importFrom(Rcpp,sourceCpp)

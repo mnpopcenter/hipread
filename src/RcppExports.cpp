@@ -24,6 +24,22 @@ BEGIN_RCPP
     return R_NilValue;
 END_RCPP
 }
+// read_freqs
+RObject read_freqs(CharacterVector filename, CharacterVector var_names, List rt_info_, List var_pos_info_, bool isGzipped, bool progress);
+RcppExport SEXP _hipread_read_freqs(SEXP filenameSEXP, SEXP var_namesSEXP, SEXP rt_info_SEXP, SEXP var_pos_info_SEXP, SEXP isGzippedSEXP, SEXP progressSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< CharacterVector >::type filename(filenameSEXP);
+    Rcpp::traits::input_parameter< CharacterVector >::type var_names(var_namesSEXP);
+    Rcpp::traits::input_parameter< List >::type rt_info_(rt_info_SEXP);
+    Rcpp::traits::input_parameter< List >::type var_pos_info_(var_pos_info_SEXP);
+    Rcpp::traits::input_parameter< bool >::type isGzipped(isGzippedSEXP);
+    Rcpp::traits::input_parameter< bool >::type progress(progressSEXP);
+    rcpp_result_gen = Rcpp::wrap(read_freqs(filename, var_names, rt_info_, var_pos_info_, isGzipped, progress));
+    return rcpp_result_gen;
+END_RCPP
+}
 // read_long
 RObject read_long(CharacterVector filename, CharacterVector var_names, CharacterVector var_types, List rt_info_, List var_pos_info_, List var_opts_, bool isGzipped, bool progress);
 RcppExport SEXP _hipread_read_long(SEXP filenameSEXP, SEXP var_namesSEXP, SEXP var_typesSEXP, SEXP rt_info_SEXP, SEXP var_pos_info_SEXP, SEXP var_opts_SEXP, SEXP isGzippedSEXP, SEXP progressSEXP) {
@@ -45,6 +61,7 @@ END_RCPP
 
 static const R_CallMethodDef CallEntries[] = {
     {"_hipread_read_chunked_long", (DL_FUNC) &_hipread_read_chunked_long, 10},
+    {"_hipread_read_freqs", (DL_FUNC) &_hipread_read_freqs, 6},
     {"_hipread_read_long", (DL_FUNC) &_hipread_read_long, 8},
     {NULL, NULL, 0}
 };
