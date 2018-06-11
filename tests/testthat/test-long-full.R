@@ -113,3 +113,44 @@ test_that("Can read a rectangular example", {
   expect_equal(ncol(actual), NCOL)
   expect_equal(actual$var1, VAR1)
 })
+
+
+NROW <- 300000
+TEXT <- c("abc123xyz", "def456uvw", "ghi789rst", "jkl000opq")
+NCOL <- 3
+VAR1 <- rep(strtrim(TEXT, 3), NROW)
+
+test_that("Can read a large gzipped example", {
+  full_data <- rep(TEXT, NROW)
+  temp_file <- tempfile(fileext = ".dat.gz")
+  temp_conn <- gzfile(temp_file)
+
+  writeLines(full_data, temp_conn)
+
+  close(temp_conn)
+  rm(full_data)
+
+  actual <- readh_long(
+    temp_file,
+    c("var1", "var2", "var3"),
+    c("character", "integer", "character"),
+    1,
+    0,
+    list(
+      list(
+        start = c(1, 4, 7),
+        width = c(3, 3, 3),
+        var_pos = c(1, 2, 3)
+      )
+    ),
+    list(
+      list(trim_ws = TRUE),
+      list(),
+      list(trim_ws = TRUE)
+    )
+  )
+
+  expect_equal(nrow(actual), NROW * length(TEXT))
+  expect_equal(ncol(actual), NCOL)
+  expect_equal(actual$var1, VAR1)
+})
