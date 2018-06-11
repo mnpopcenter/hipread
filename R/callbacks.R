@@ -6,7 +6,7 @@ bind_rows <- dplyr::bind_rows
 #' Callback classes
 #'
 #' These classes are used to define callback behaviors, and are based
-#' on readr's [`readr::chunked`] functions.
+#' on readr's [`readr::callback`] functions.
 #'
 #' - The function `HipDataFrameCallback()` is similar to
 #' [readr::DataFrameCallback()] except that it uses `dplyr::bind_rows()`
