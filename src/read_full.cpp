@@ -4,6 +4,7 @@
 #include "datasource.h"
 #include "varinfo.h"
 #include "rtinfo.h"
+#include "iconv.h"
 #include <algorithm>
 #include <Rcpp.h>
 using namespace Rcpp;
@@ -17,26 +18,29 @@ RObject read_long(
     List var_pos_info_,
     List var_opts_,
     bool isGzipped,
+    CharacterVector encoding,
     bool progress
 ) {
   const int PROGRESS_TICK = 16384;
   List rt_info = as<List>(rt_info_);
   List var_pos_info = as<List>(var_pos_info_);
   List var_opts = as<List>(var_opts_);
+  Iconv pEncoder_(as<std::string>(encoding));
 
   DataSourcePtr data = newDataSource(as<std::string>(filename[0]), isGzipped);
+  // TODO: data skip lines
 
   Progress ProgressBar = Progress();
 
   RtInfo rts(rt_info, var_pos_info.names());
   VarInfo vars(var_pos_info, rts.getNumRts());
 
-  std::vector<ColumnPtr> out = createAllColumns(var_types, var_opts);
+  std::vector<ColumnPtr> out = createAllColumns(var_types, var_opts, &pEncoder_);
   resizeAllColumns(out, 10000); // Start out with 10k rows
   int i = 0;
   const char* line_start;
   const char* line_end;
-  while (!data->isDone()) {
+  while (!data->isDone()) { // TODO: and less than n_max
     data->getLine(line_start, line_end);
 
     if (line_end - line_start == 0 && data->isDone()) {

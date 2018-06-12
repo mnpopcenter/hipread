@@ -33,6 +33,7 @@ private:
   char* file_end;
   char* cur_begin;
   char* cur_end;
+  void skipBOM();
 
 public:
   FileDataSource(std::string filename) : DataSource(filename){
@@ -49,6 +50,7 @@ public:
     file_end = file_begin + total_size_;
     cur_begin = file_begin;
     cur_end = nullptr;
+    skipBOM();
   }
   ~FileDataSource() {
     file_end = nullptr;
@@ -69,10 +71,12 @@ private:
   size_t total_size_;
   GzStream *data_;
   size_t get_size();
+  void skipBOM();
 public:
   GzFileDataSource(std::string filename) : DataSource(filename) {
     data_ = new GzStream(filename);
     total_size_ = get_size();
+    skipBOM();
   }
   ~GzFileDataSource() {
     if (data_) delete data_;
@@ -80,6 +84,7 @@ public:
   void getLine(const char* &start, const char* &end);
   bool isDone();
   std::pair<double, size_t> progress_info();
+
 };
 
 DataSourcePtr newDataSource(std::string filename, bool isCompressed);

@@ -4,7 +4,7 @@
 #define HIPREAD_COLUMN_H_
 
 #include "boost.h"
-
+#include "iconv.h"
 #include <Rcpp.h>
 
 class Column;
@@ -39,7 +39,7 @@ public:
     values_ = Rf_lengthgets(values_, n);
   }
 
-  static ColumnPtr create(std::string type, Rcpp::List var_opts);
+  static ColumnPtr create(std::string type, Rcpp::List var_opts, Iconv* pEncoder_);
 
   Rcpp::RObject vector() {
     return values_;
@@ -59,9 +59,11 @@ public:
 class ColumnCharacter : public Column {
 private:
   bool trim_ws;
+  Iconv* pEncoder_;
 public:
-  ColumnCharacter(Rcpp::List opts_) : Column(Rcpp::CharacterVector()) {
+  ColumnCharacter(Rcpp::List opts_, Iconv *pEncoder) : Column(Rcpp::CharacterVector()) {
     trim_ws = opts_["trim_ws"];
+    pEncoder_ = pEncoder;
   }
   ~ColumnCharacter() {}
   void setValue(int i, const char* x_start, const char* x_end);
@@ -89,7 +91,7 @@ public:
   std::string getType() {return "integer";}
 };
 
-std::vector<ColumnPtr> createAllColumns(Rcpp::CharacterVector types, Rcpp::List var_opts);
+std::vector<ColumnPtr> createAllColumns(Rcpp::CharacterVector types, Rcpp::List var_opts, Iconv* pEncoder_);
 void resizeAllColumns(std::vector<ColumnPtr>& columns, int n);
 Rcpp::RObject columnsToDf(std::vector<ColumnPtr> columns, Rcpp::CharacterVector names);
 

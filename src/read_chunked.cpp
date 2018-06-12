@@ -4,6 +4,7 @@
 #include "datasource.h"
 #include "varinfo.h"
 #include "rtinfo.h"
+#include "iconv.h"
 #include <algorithm>
 #include <Rcpp.h>
 using namespace Rcpp;
@@ -32,11 +33,13 @@ void read_chunked_long(
     List var_pos_info_,
     List var_opts_,
     bool isGzipped,
+    CharacterVector encoding,
     bool progress
 ) {
   List rt_info = as<List>(rt_info_);
   List var_pos_info = as<List>(var_pos_info_);
   List var_opts = as<List>(var_opts_);
+  Iconv pEncoder_(as<std::string>(encoding));
 
   DataSourcePtr data = newDataSource(as<std::string>(filename[0]), isGzipped);
 
@@ -46,7 +49,7 @@ void read_chunked_long(
   VarInfo vars(var_pos_info, rts.getNumRts());
 
   while (isTrue(R6method(callback, "continue")()) && !data->isDone()) {
-    std::vector<ColumnPtr> chunk = createAllColumns(var_types, var_opts);
+    std::vector<ColumnPtr> chunk = createAllColumns(var_types, var_opts, &pEncoder_);
     resizeAllColumns(chunk, chunksize);
 
     int i;

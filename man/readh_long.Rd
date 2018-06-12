@@ -5,7 +5,8 @@
 \title{Read a hierarchical data file to long format}
 \usage{
 readh_long(file, var_names, var_types, rt_start, rt_width, var_pos_info,
-  var_opts, compression = NULL, progress = show_progress())
+  var_opts, compression = NULL, encoding = "UTF-8",
+  progress = show_progress())
 }
 \arguments{
 \item{file}{A filename}
@@ -40,6 +41,11 @@ in the variable (defaults to 0).}
 file extension (if extension is "gz" uses gzip, otherwise
 treats as plain text), can specify it with a string ("txt"
 indicates plain text and "gz" for gzip).}
+
+\item{encoding}{(Defaults to UTF-8) A string indicating what encoding to use
+when reading the data, but like readr, the data will always be converted to
+UTF-8 once it is imported. Note that UTF-16 and UTF-32 are not supported for
+non-character columns.}
 
 \item{progress}{A logical indicating whether progress should be
 displayed on the screen, defaults to showing progress unless

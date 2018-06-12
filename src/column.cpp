@@ -3,6 +3,7 @@
 #include <Rcpp.h>
 #include "column.h"
 #include "string_utils.h"
+#include "iconv.h"
 
 #include <Rcpp.h>
 using namespace Rcpp;
@@ -11,9 +12,9 @@ std::string Column::getType() {
   return "unknown";
 }
 
-ColumnPtr Column::create(std::string type, Rcpp::List var_opts) {
+ColumnPtr Column::create(std::string type, Rcpp::List var_opts, Iconv* pEncoder_) {
   if (type == "character") {
-    return ColumnPtr(new ColumnCharacter(var_opts));
+    return ColumnPtr(new ColumnCharacter(var_opts, pEncoder_));
   } else if (type == "double") {
     return ColumnPtr(new ColumnDouble(var_opts));
   } else if (type == "integer") {
@@ -59,8 +60,7 @@ std::string Column::describe_failures(std::string var_name) {
 void ColumnCharacter::setValue(int i, const char* x_start, const char* x_end) {
   // TODO: How would encoding affect this?
   if (trim_ws) IpStringUtils::newtrim(x_start, x_end);
-  SET_STRING_ELT(values_, i, Rf_mkCharLen(x_start,
-              static_cast<int>(x_end - x_start)));
+  SET_STRING_ELT(values_, i, pEncoder_->makeSEXP(x_start, x_end));
 }
 
 void ColumnDouble::setValue(int i, const char* x_start, const char* x_end) {
@@ -103,12 +103,12 @@ void ColumnInteger::setValue(int i, const char* x_start, const char* x_end) {
 
 
 
-std::vector<ColumnPtr> createAllColumns(CharacterVector types, Rcpp::List var_opts) {
+std::vector<ColumnPtr> createAllColumns(CharacterVector types, Rcpp::List var_opts, Iconv* pEncoder_) {
   int num_cols = static_cast<int>(types.size());
   std::vector<ColumnPtr> out;
 
   for (int i = 0; i < num_cols; ++i) {
-    out.push_back(Column::create(as<std::string>(types[i]), var_opts[i]));
+    out.push_back(Column::create(as<std::string>(types[i]), var_opts[i], pEncoder_));
   }
 
   return out;
