@@ -1,7 +1,7 @@
 #include <Rcpp.h>
 using namespace Rcpp;
 
-#include "Iconv.h"
+#include "iconv.h"
 
 Iconv::Iconv(const std::string& from, const std::string& to) {
   if (from == "UTF-8") {
