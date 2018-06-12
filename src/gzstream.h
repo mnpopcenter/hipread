@@ -36,5 +36,6 @@ public:
   bool isDone();
   size_t getTotalSizeEstimate();
   size_t getProgress();
+  void skipBOM();
 };
 #endif

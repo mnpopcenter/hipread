@@ -47,7 +47,7 @@ test_that("latin1 and utf-8 match", {
 test_that("skip bom in utf-8 bom", {
   expect_equal(
     readh_long(
-      hipread_example("test-enc-latin1.dat"),
+      hipread_example("test-enc-utf8.dat"),
       c("v1", "v2"),
       c("character", "integer"),
       1,

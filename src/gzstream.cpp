@@ -68,3 +68,50 @@ size_t GzStream::getProgress() {
   size_t out = static_cast<size_t>(gzoffset(file));
   return out;
 }
+
+void GzStream::skipBOM() {
+  /* Unicode Byte Order Marks
+   https://en.wikipedia.org/wiki/Byte_order_mark#Representations_of_byte_order_marks_by_encoding
+  00 00 FE FF: UTF-32BE
+  FF FE 00 00: UTF-32LE
+  FE FF:       UTF-16BE
+  FF FE:       UTF-16LE
+  EF BB BF:    UTF-8
+  */
+
+  switch (cur[0]) {
+  // UTF-32BE
+  case '\x00':
+    if (end - cur >= 4 && cur[1] == '\x00' && cur[2] == '\xFE' &&
+        cur[3] == '\xFF') {
+      cur += 4;
+    }
+    break;
+
+    // UTF-8
+  case '\xEF':
+    if (end - cur >= 3 && cur[1] == '\xBB' && cur[2] == '\xBF') {
+      cur += 3;
+    }
+    break;
+
+    // UTF-16BE
+  case '\xfe':
+    if (end - cur >= 2 && cur[1] == '\xff') {
+      cur += 2;
+    }
+    break;
+
+  case '\xff':
+    if (end - cur >= 2 && cur[1] == '\xfe') {
+
+      if (end - cur >= 4 && cur[2] == '\x00' && cur[3] == '\x00') { // UTF-32 LE
+        cur += 4;
+      } else { // UTF-16 LE
+        cur += 2;
+      }
+
+    }
+    break;
+  }
+}
