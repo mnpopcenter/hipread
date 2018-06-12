@@ -51,7 +51,8 @@
 #' )
 readh_long_chunked <- function(
   file, callback, chunk_size, var_names, var_types, rt_start, rt_width,
-  var_pos_info, var_opts, compression = NULL, progress = show_progress()
+  var_pos_info, var_opts, encoding = "UTF-8", compression = NULL,
+  progress = show_progress()
 ) {
   check_file(file)
   isgzipped <- is_gzip_compression(compression, file)
@@ -66,7 +67,7 @@ readh_long_chunked <- function(
 
   read_chunked_long(
     file, callback, chunk_size, var_names, var_types, rtinfo,
-    var_pos_info, var_opts, isgzipped, progress
+    var_pos_info, var_opts, isgzipped, encoding, progress
   )
 
   return(callback$result())

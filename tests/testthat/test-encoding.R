@@ -20,7 +20,8 @@ test_that("latin1 and utf-8 match", {
       list(
         list(trim_ws = TRUE),
         list()
-      )#, encoding = "latin1"
+      ),
+      encoding = "latin1"
     ),
     readh_long(
       hipread_example("test-enc-utf8.dat"),
@@ -38,9 +39,9 @@ test_that("latin1 and utf-8 match", {
       list(
         list(trim_ws = TRUE),
         list()
-      )#, encoding = "UTF-8"
+      ),
+      encoding = "UTF-8"
     )
-
   )
 })
 
@@ -62,7 +63,8 @@ test_that("skip bom in utf-8 bom", {
       list(
         list(trim_ws = TRUE),
         list()
-      )#, encoding = "latin1"
+      ),
+      encoding = "UTF-8"
     ),
     readh_long(
       hipread_example("test-enc-utf8bom.dat"),
@@ -80,7 +82,8 @@ test_that("skip bom in utf-8 bom", {
       list(
         list(trim_ws = TRUE),
         list()
-      )#, encoding = "UTF-8"
+      ),
+      encoding = "UTF-8"
     )
 
   )
