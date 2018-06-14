@@ -17,9 +17,10 @@ class DataSource {
 public:
   DataSource(std::string filename) : filename_(filename){}
   virtual ~DataSource(){}
-  virtual void getLine(const char* &start, const char* &end);
+  virtual void getLine(const char* &start, const char* &end) = 0;
   virtual bool isDone() = 0;
   virtual std::pair<double, size_t> progress_info() = 0;
+  virtual void skipLines(int skip);
 };
 
 

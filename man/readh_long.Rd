@@ -5,8 +5,8 @@
 \title{Read a hierarchical data file to long format}
 \usage{
 readh_long(file, var_names, var_types, rt_start, rt_width, var_pos_info,
-  var_opts, compression = NULL, encoding = "UTF-8",
-  progress = show_progress())
+  var_opts, compression = NULL, skip = 0, n_max = -1,
+  encoding = "UTF-8", progress = show_progress())
 }
 \arguments{
 \item{file}{A filename}
@@ -41,6 +41,11 @@ in the variable (defaults to 0).}
 file extension (if extension is "gz" uses gzip, otherwise
 treats as plain text), can specify it with a string ("txt"
 indicates plain text and "gz" for gzip).}
+
+\item{skip}{Number of lines to skip at the start of the data (defaluts to 0).}
+
+\item{n_max}{Maximum number of lines to read. Negative numbers (the default)
+reads all lines.}
 
 \item{encoding}{(Defaults to UTF-8) A string indicating what encoding to use
 when reading the data, but like readr, the data will always be converted to

@@ -7,11 +7,13 @@ using namespace Rcpp;
 #include "boost.h"
 #include "datasource.h"
 
-// This should never be called, but I include it here to avoid
-// -Weverything warning about no out-of-line virtual class defintions
-void DataSource::getLine(const char* &start, const char* &end) {
-  start = nullptr;
-  end = nullptr;
+void DataSource::skipLines(int skip) {
+  const char* ignore_start;
+  const char* ignore_end;
+  for (int i = 0; i < skip; ++i) {
+    if (isDone()) break;
+    getLine(ignore_start, ignore_end);
+  }
 }
 
 void FileDataSource::getLine(const char* &start, const char* &end) {

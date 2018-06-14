@@ -131,3 +131,17 @@ is_integerish <- function(x) {
   all.equal(x, as.integer(x))
 }
 
+check_skip <- function(x) {
+  if (length(x) > 1) stop("skip must be length one")
+  if (!is_integerish(x) || x < 0) stop("skip must be a positive integer")
+
+  as.integer(x)
+}
+
+check_n_max <- function(x) {
+  if (length(x) > 1) stop("n_max must be length one")
+  if (is.infinite(x) | x < 0) x <- .Machine$integer.max
+  if (!is_integerish(x) || x < 0) stop("n_max must be a positive integer")
+
+  as.integer(x)
+}

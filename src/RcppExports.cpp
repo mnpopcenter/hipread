@@ -26,8 +26,8 @@ BEGIN_RCPP
 END_RCPP
 }
 // read_long
-RObject read_long(CharacterVector filename, CharacterVector var_names, CharacterVector var_types, List rt_info_, List var_pos_info_, List var_opts_, bool isGzipped, CharacterVector encoding, bool progress);
-RcppExport SEXP _hipread_read_long(SEXP filenameSEXP, SEXP var_namesSEXP, SEXP var_typesSEXP, SEXP rt_info_SEXP, SEXP var_pos_info_SEXP, SEXP var_opts_SEXP, SEXP isGzippedSEXP, SEXP encodingSEXP, SEXP progressSEXP) {
+RObject read_long(CharacterVector filename, CharacterVector var_names, CharacterVector var_types, List rt_info_, List var_pos_info_, List var_opts_, int skip, int n_max, bool isGzipped, CharacterVector encoding, bool progress);
+RcppExport SEXP _hipread_read_long(SEXP filenameSEXP, SEXP var_namesSEXP, SEXP var_typesSEXP, SEXP rt_info_SEXP, SEXP var_pos_info_SEXP, SEXP var_opts_SEXP, SEXP skipSEXP, SEXP n_maxSEXP, SEXP isGzippedSEXP, SEXP encodingSEXP, SEXP progressSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -37,17 +37,19 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< List >::type rt_info_(rt_info_SEXP);
     Rcpp::traits::input_parameter< List >::type var_pos_info_(var_pos_info_SEXP);
     Rcpp::traits::input_parameter< List >::type var_opts_(var_opts_SEXP);
+    Rcpp::traits::input_parameter< int >::type skip(skipSEXP);
+    Rcpp::traits::input_parameter< int >::type n_max(n_maxSEXP);
     Rcpp::traits::input_parameter< bool >::type isGzipped(isGzippedSEXP);
     Rcpp::traits::input_parameter< CharacterVector >::type encoding(encodingSEXP);
     Rcpp::traits::input_parameter< bool >::type progress(progressSEXP);
-    rcpp_result_gen = Rcpp::wrap(read_long(filename, var_names, var_types, rt_info_, var_pos_info_, var_opts_, isGzipped, encoding, progress));
+    rcpp_result_gen = Rcpp::wrap(read_long(filename, var_names, var_types, rt_info_, var_pos_info_, var_opts_, skip, n_max, isGzipped, encoding, progress));
     return rcpp_result_gen;
 END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
     {"_hipread_read_chunked_long", (DL_FUNC) &_hipread_read_chunked_long, 11},
-    {"_hipread_read_long", (DL_FUNC) &_hipread_read_long, 9},
+    {"_hipread_read_long", (DL_FUNC) &_hipread_read_long, 11},
     {NULL, NULL, 0}
 };
 

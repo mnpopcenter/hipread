@@ -28,6 +28,9 @@
 #'   (if missing it defaults to `TRUE`) and for double variables an
 #'   integer named `imp_dec` indicating the number of implicit decimals
 #'   in the variable (defaults to 0).
+#' @param skip Number of lines to skip at the start of the data (defaluts to 0).
+#' @param n_max Maximum number of lines to read. Negative numbers (the default)
+#'   reads all lines.
 #' @param encoding (Defaults to UTF-8) A string indicating what encoding to use
 #'   when reading the data, but like readr, the data will always be converted to
 #'   UTF-8 once it is imported. Note that UTF-16 and UTF-32 are not supported for
@@ -80,6 +83,7 @@
 readh_long <- function(
   file, var_names, var_types, rt_start, rt_width,
   var_pos_info, var_opts, compression = NULL,
+  skip = 0, n_max = -1,
   encoding = "UTF-8", progress = show_progress()
 ) {
   check_file(file)
@@ -88,9 +92,11 @@ readh_long <- function(
   var_pos_info <- check_long_var_pos_info(var_pos_info)
   check_long_arg_lengths(var_names, var_types, var_pos_info, var_opts)
   var_opts <- check_var_opts(var_opts, var_types)
+  skip <- check_skip(skip)
+  n_max <- check_n_max(n_max)
 
   read_long(
     file, var_names, var_types, rtinfo, var_pos_info,
-    var_opts, isgzipped, encoding, progress
+    var_opts, skip, n_max, isgzipped, encoding, progress
   )
 }

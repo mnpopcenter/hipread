@@ -17,6 +17,8 @@ RObject read_long(
     List rt_info_,
     List var_pos_info_,
     List var_opts_,
+    int skip,
+    int n_max,
     bool isGzipped,
     CharacterVector encoding,
     bool progress
@@ -28,7 +30,7 @@ RObject read_long(
   Iconv pEncoder_(as<std::string>(encoding));
 
   DataSourcePtr data = newDataSource(as<std::string>(filename[0]), isGzipped);
-  // TODO: data skip lines
+  data->skipLines(skip);
 
   Progress ProgressBar = Progress();
 
@@ -40,7 +42,7 @@ RObject read_long(
   int i = 0;
   const char* line_start;
   const char* line_end;
-  while (!data->isDone()) { // TODO: and less than n_max
+  while (!data->isDone() && i < n_max) {
     data->getLine(line_start, line_end);
 
     if (line_end - line_start == 0 && data->isDone()) {

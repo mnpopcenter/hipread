@@ -5,7 +5,7 @@ read_chunked_long <- function(filename, callback, chunksize, var_names, var_type
     invisible(.Call(`_hipread_read_chunked_long`, filename, callback, chunksize, var_names, var_types, rt_info_, var_pos_info_, var_opts_, isGzipped, encoding, progress))
 }
 
-read_long <- function(filename, var_names, var_types, rt_info_, var_pos_info_, var_opts_, isGzipped, encoding, progress) {
-    .Call(`_hipread_read_long`, filename, var_names, var_types, rt_info_, var_pos_info_, var_opts_, isGzipped, encoding, progress)
+read_long <- function(filename, var_names, var_types, rt_info_, var_pos_info_, var_opts_, skip, n_max, isGzipped, encoding, progress) {
+    .Call(`_hipread_read_long`, filename, var_names, var_types, rt_info_, var_pos_info_, var_opts_, skip, n_max, isGzipped, encoding, progress)
 }
 
