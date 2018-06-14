@@ -5,8 +5,8 @@
 \title{Read a hierarchical data file to long format, in chunks}
 \usage{
 readh_long_chunked(file, callback, chunk_size, var_names, var_types, rt_start,
-  rt_width, var_pos_info, var_opts, encoding = "UTF-8", compression = NULL,
-  progress = show_progress())
+  rt_width, var_pos_info, var_opts, skip = 0, encoding = "UTF-8",
+  compression = NULL, progress = show_progress())
 }
 \arguments{
 \item{file}{A filename}
@@ -42,6 +42,8 @@ string variables, a logical indicator named \code{trim_ws} is allowed
 (if missing it defaults to \code{TRUE}) and for double variables an
 integer named \code{imp_dec} indicating the number of implicit decimals
 in the variable (defaults to 0).}
+
+\item{skip}{Number of lines to skip at the start of the data (defaluts to 0).}
 
 \item{encoding}{(Defaults to UTF-8) A string indicating what encoding to use
 when reading the data, but like readr, the data will always be converted to

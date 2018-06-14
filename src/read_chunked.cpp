@@ -20,8 +20,6 @@ static bool isTrue(SEXP x) {
   return LOGICAL(x)[0] == TRUE;
 }
 
-// https://stackoverflow.com/questions/25288604/how-to-read-non-ascii-lines-from-file-with-stdifstream-on-linux
-
 // [[Rcpp::export]]
 void read_chunked_long(
     CharacterVector filename,
@@ -32,6 +30,7 @@ void read_chunked_long(
     List rt_info_,
     List var_pos_info_,
     List var_opts_,
+    int skip,
     bool isGzipped,
     CharacterVector encoding,
     bool progress
@@ -42,6 +41,7 @@ void read_chunked_long(
   Iconv pEncoder_(as<std::string>(encoding));
 
   DataSourcePtr data = newDataSource(as<std::string>(filename[0]), isGzipped);
+  data->skipLines(skip);
 
   Progress ProgressBar = Progress();
 

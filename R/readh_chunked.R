@@ -51,7 +51,7 @@
 #' )
 readh_long_chunked <- function(
   file, callback, chunk_size, var_names, var_types, rt_start, rt_width,
-  var_pos_info, var_opts, encoding = "UTF-8", compression = NULL,
+  var_pos_info, var_opts, skip = 0, encoding = "UTF-8", compression = NULL,
   progress = show_progress()
 ) {
   check_file(file)
@@ -60,14 +60,14 @@ readh_long_chunked <- function(
   var_pos_info <- check_long_var_pos_info(var_pos_info)
   check_long_arg_lengths(var_names, var_types, var_pos_info, var_opts)
   var_opts <- check_var_opts(var_opts, var_types)
-
+  skip <- check_skip(skip)
 
   callback <- as_chunk_callback(callback)
   on.exit(callback$finally(), add = TRUE)
 
   read_chunked_long(
     file, callback, chunk_size, var_names, var_types, rtinfo,
-    var_pos_info, var_opts, isgzipped, encoding, progress
+    var_pos_info, var_opts, skip, isgzipped, encoding, progress
   )
 
   return(callback$result())
