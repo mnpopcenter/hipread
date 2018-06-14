@@ -29,7 +29,7 @@ Iconv::~Iconv() {
 }
 
 size_t Iconv::convert(const char* start, const char* end) {
-  size_t n = end - start;
+  size_t n = static_cast<size_t>(end - start);
 
   // Ensure buffer is big enough: one input byte can never generate
   // more than 4 output bytes
@@ -78,14 +78,14 @@ SEXP safeMakeChar(const char* start, size_t n, bool hasNull) {
   if (m > INT_MAX) {
     Rf_error("R character strings are limited to 2^31-1 bytes");
   }
-  return Rf_mkCharLenCE(start, m, CE_UTF8);
+  return Rf_mkCharLenCE(start, static_cast<int>(m), CE_UTF8);
 }
 
 SEXP Iconv::makeSEXP(const char* start, const char* end, bool hasNull) {
   if (cd_ == NULL)
-    return safeMakeChar(start, end - start, hasNull);
+    return safeMakeChar(start, static_cast<size_t>(end - start), hasNull);
 
-  int n = convert(start, end);
+  size_t n = convert(start, end);
   return safeMakeChar(&buffer_[0], n, hasNull);
 }
 
@@ -93,6 +93,6 @@ std::string Iconv::makeString(const char* start, const char* end) {
   if (cd_ == NULL)
     return std::string(start, end);
 
-  int n = convert(start, end);
+  size_t n = convert(start, end);
   return std::string(&buffer_[0], n);
 }
