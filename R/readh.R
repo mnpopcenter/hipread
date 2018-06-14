@@ -82,7 +82,7 @@
 
 readh_long <- function(
   file, var_names, var_types, rt_start, rt_width,
-  var_pos_info, var_opts, compression = NULL,
+  var_pos_info, var_opts = NULL, compression = NULL,
   skip = 0, n_max = -1,
   encoding = "UTF-8", progress = show_progress()
 ) {
@@ -90,8 +90,8 @@ readh_long <- function(
   isgzipped <- is_gzip_compression(compression, file)
   rtinfo <- create_rt_info(rt_start, rt_width)
   var_pos_info <- check_long_var_pos_info(var_pos_info)
+  var_opts <- check_var_opts(var_opts, var_types, var_names)
   check_long_arg_lengths(var_names, var_types, var_pos_info, var_opts)
-  var_opts <- check_var_opts(var_opts, var_types)
   skip <- check_skip(skip)
   n_max <- check_n_max(n_max)
 

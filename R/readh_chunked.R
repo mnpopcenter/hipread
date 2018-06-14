@@ -51,15 +51,15 @@
 #' )
 readh_long_chunked <- function(
   file, callback, chunk_size, var_names, var_types, rt_start, rt_width,
-  var_pos_info, var_opts, skip = 0, encoding = "UTF-8", compression = NULL,
+  var_pos_info, var_opts = NULL, skip = 0, encoding = "UTF-8", compression = NULL,
   progress = show_progress()
 ) {
   check_file(file)
   isgzipped <- is_gzip_compression(compression, file)
   rtinfo <- create_rt_info(rt_start, rt_width)
   var_pos_info <- check_long_var_pos_info(var_pos_info)
+  var_opts <- check_var_opts(var_opts, var_types, var_names)
   check_long_arg_lengths(var_names, var_types, var_pos_info, var_opts)
-  var_opts <- check_var_opts(var_opts, var_types)
   skip <- check_skip(skip)
 
   callback <- as_chunk_callback(callback)

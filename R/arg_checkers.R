@@ -98,7 +98,8 @@ check_long_var_pos_info <- function(var_pos) {
   out
 }
 
-check_var_opts <- function(var_opts, var_types) {
+check_var_opts <- function(var_opts, var_types, var_names) {
+  if (is.null(var_opts)) var_opts <- lapply(var_names, function(x) list())
   lapply(seq_along(var_opts), function(iii) {
     vt <- var_types[[iii]]
     opt <- var_opts[[iii]]
