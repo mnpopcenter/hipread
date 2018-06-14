@@ -5,10 +5,10 @@ using namespace Rcpp;
 
 Iconv::Iconv(const std::string& from, const std::string& to) {
   if (from == "UTF-8") {
-    cd_ = NULL;
+    cd_ = nullptr;
   } else {
     cd_ = Riconv_open(to.c_str(), from.c_str());
-    if (cd_ == (void*)-1) {
+    if (cd_ == reinterpret_cast<void*>(-1)) {
       if (errno == EINVAL) {
         stop("Can't convert from %s to %s", from, to);
       } else {
@@ -22,9 +22,9 @@ Iconv::Iconv(const std::string& from, const std::string& to) {
 }
 
 Iconv::~Iconv() {
-  if (cd_ != NULL) {
+  if (cd_ != nullptr) {
     Riconv_close(cd_);
-    cd_ = NULL;
+    cd_ = nullptr;
   }
 }
 
@@ -41,7 +41,7 @@ size_t Iconv::convert(const char* start, const char* end) {
   size_t inbytesleft = n, outbytesleft = max_size;
   size_t res = Riconv(cd_, &start, &inbytesleft, &outbuf, &outbytesleft);
 
-  if (res == (size_t)-1) {
+  if (res == static_cast<size_t>(-1)) {
     switch (errno) {
     case EILSEQ:
       stop("Invalid multibyte sequence");
@@ -82,7 +82,7 @@ SEXP safeMakeChar(const char* start, size_t n, bool hasNull) {
 }
 
 SEXP Iconv::makeSEXP(const char* start, const char* end, bool hasNull) {
-  if (cd_ == NULL)
+  if (cd_ == nullptr)
     return safeMakeChar(start, static_cast<size_t>(end - start), hasNull);
 
   size_t n = convert(start, end);
@@ -90,7 +90,7 @@ SEXP Iconv::makeSEXP(const char* start, const char* end, bool hasNull) {
 }
 
 std::string Iconv::makeString(const char* start, const char* end) {
-  if (cd_ == NULL)
+  if (cd_ == nullptr)
     return std::string(start, end);
 
   size_t n = convert(start, end);
