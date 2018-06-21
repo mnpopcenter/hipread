@@ -40,92 +40,65 @@ is_gzip_compression <- function(comp, file) {
   }
 }
 
-check_long_var_pos_info <- function(var_pos) {
-  if (is.null(names(var_pos))) {
-    if (length(var_pos) == 1) {
-      names(var_pos) <- "Rectangular"
+get_var_names <- function(var_info) {
+  Reduce(function(x, y) {union(x, y$col_names)}, var_info, character(0))
+}
+
+get_var_pos <- function(var_info, var_names) {
+  if (is.null(names(var_info))) {
+    if (length(var_info) == 1) {
+      names(var_info) <- "rectangular"
     } else {
-      stop("Variable position information requires names if there's more than 1 record type")
+      stop("Variable information requires names if there's more than 1 record type")
     }
   }
-  required_var_names <- c("start", "width", "var_pos")
-  out <- lapply(names(var_pos), function(rt_name) {
-    rt <- var_pos[[rt_name]]
-    missing_var <- setdiff(names(rt), required_var_names)
-    if (length(missing_var) > 0) {
-      stop(paste0(
-        "Variable position information for record type ", rt_name, " is missing ",
-        paste(missing_var, collapse = ", ")
-      ))
-    }
 
-    var_lens <- vapply(required_var_names, function(x) length(rt[[x]]), integer(1))
-    if (!all(var_lens == var_lens[1])) stop(paste0(
-      "Not all positon information for record type ", rt_name, " is the same length ",
-      paste(required_var_names, " (", var_lens, ")", collapse = ", ")
-    ))
-    if (length(rt$start) > 0) {
-      if (!is_integerish(rt$start)) stop(paste0(
-        "start must be integers but is ", paste(rt$start, collapse = ", ")
-      ))
-      if (!is_integerish(rt$width)) stop(paste0(
-        "width must be integers but is ", paste(rt$width, collapse = ", ")
-      ))
-      if (!is_integerish(rt$var_pos)) stop(paste0(
-        "var_pos must be integers but is ", paste(rt$var_pos, collapse = ", ")
-      ))
-      if (any(rt$start < 1)) stop(paste0(
-        "For rectype ", rt_name, " some variable starts are less than 1"
-      ))
-      if (any(rt$width < 0)) stop(paste0(
-        "For rectype ", rt_name, " some variable widths are less than 0"
-      ))
-      if (any(rt$var_pos < 1)) stop(paste0(
-        "For rectype ", rt_name, " some variable positions are less than 1"
-      ))
-
-      # C++ Is 0 indexed
-      rt$start <- rt$start - 1
-      rt$var_pos <- rt$var_pos - 1
-      rt$max_end <- max(rt$start + rt$width)
-    } else {
-      rt$max_end <- integer(0)
-    }
-    rt
+  out <- lapply(var_info, function(vp) {
+    list(
+      start = vp$start,
+      width = vp$end - vp$start,
+      var_pos = match(vp$col_names, var_names) - 1,
+      max_end = max(vp$end)
+    )
   })
+  names(out) <- names(var_info)
 
-  names(out) <- names(var_pos)
   out
 }
 
-check_var_opts <- function(var_opts, var_types, var_names) {
-  if (is.null(var_opts)) var_opts <- lapply(var_names, function(x) list())
-  lapply(seq_along(var_opts), function(iii) {
-    vt <- var_types[[iii]]
-    opt <- var_opts[[iii]]
-    if (vt == "character" && !("trim_ws" %in% names(opt))) {
-      opt$trim_ws <- TRUE
-    } else if (vt == "double" && !("imp_dec" %in% names(opt))) {
-      opt$imp_dec <- 0
-    }
-    opt$ignore <- TRUE
-    opt
-  })
+get_var_types <- function(var_info, var_names) {
+  var_types <- lapply(var_info, function(x) dplyr::select_at(x, c("col_names", "col_types")))
+  names(var_types) <- names(var_info)
+  var_types <- dplyr::bind_rows(var_types, .id = "rectype")
+
+  check_option_consistency(var_types, "col_types")
+  var_types <- dplyr::select(var_types, -.data$rectype)
+  var_types <- dplyr::distinct(var_types)
+
+  var_types$col_types[match(var_types$col_names, var_names)]
 }
 
-check_long_arg_lengths <- function(var_names, var_types, var_pos_info, var_opts) {
-  all_lengths <- lengths(list(var_names, var_types, var_opts))
-  if (length(unique(all_lengths)) != 1) stop(paste0(
-    "variable names (length: ", all_lengths[1], "), variable types (", all_lengths[2],
-    ") and variable options (", all_lengths[3], ") must all be the same length."
-  ))
+get_var_opts <- function(var_info, var_names) {
+  var_opts <- lapply(
+    var_info, function(x) dplyr::select_at(x, c("col_names", "col_types", "trim_ws", "imp_dec"))
+  )
+  names(var_opts) <- names(var_info)
+  var_opts <- dplyr::bind_rows(var_opts, .id = "rectype")
+  var_opts <- dplyr::mutate(
+    var_opts,
+    trim_ws = ifelse(.data$col_types == "character", .data$trim_ws, NA),
+    imp_dec = ifelse(.data$col_types == "double", .data$imp_dec, NA)
+  )
 
-  checks <- lapply(names(var_pos_info), function(rt_name) {
-    if (any(var_pos_info[[rt_name]]$var_pos + 1 > all_lengths[1])) stop(paste0(
-      "For rectype ", rt_name, " variable positions exceeds number of variables."
-    ))
+  check_option_consistency(var_opts, "trim_ws")
+  check_option_consistency(var_opts, "imp_dec")
+
+  lapply(var_names, function(vvv) {
+    list(
+      trim_ws = var_opts$trim_ws[var_opts$col_names == vvv][[1]],
+      imp_dec = var_opts$imp_dec[var_opts$col_names == vvv][[1]]
+    )
   })
-  invisible(NULL)
 }
 
 is_integerish <- function(x) {
@@ -145,4 +118,69 @@ check_n_max <- function(x) {
   if (!is_integerish(x) || x < 0) stop("n_max must be a positive integer")
 
   as.integer(x)
+}
+
+convert_readr_collector <- function(x, var_names) {
+  specified <- readr_col_to_string(x$cols)
+  if (is.null(names(specified)) & length(specified) > 0) {
+    if (length(specified) != length(var_names)) {
+      stop("Column name lengths don't match column position and type specifications.")
+    }
+    names(specified) <- var_names
+  }
+
+  default <- readr_col_to_string(x$default)
+
+  out <- specified[match(var_names, names(specified))]
+  if (any(is.na(out))) out[is.na(out)] <- default
+
+  bad_values <-!(out %in% c("double", "character", "integer"))
+  if (any(bad_values)) {
+    stop(paste0(
+      "Only 'character', 'double', and 'integer' type columns are allowed, but ",
+      "these variables have other types: ",
+      paste0(var_names[bad_values], " (", out[bad_values], ")", collapse = ", ")
+    ))
+  }
+  out
+}
+
+readr_col_to_string <- function(x) {
+  out <- vapply(x, function(vvv) {
+    if (inherits(vvv, "collector_double")) {
+      "double"
+    } else if (inherits(vvv, "collector_character")) {
+      "character"
+    } else if (inherits(vvv, "collector_integer")) {
+      "integer"
+    } else {
+      class(vvv)[[1]]
+    }
+  }, "")
+  names(out) <- names(x)
+  out
+}
+
+add_level_to_rect <- function(x) {
+  if (inherits(x, "hip_pos")) x <- list(rectangular = x)
+  x
+}
+
+check_option_consistency <- function(opts, opt_name) {
+  opts <- dplyr::group_by_at(opts, c("col_names"))
+  opts <- dplyr::mutate(opts, num_unique_opts = length(unique(.data[[opt_name]])))
+
+  if (any(opts$num_unique_opts > 1)) {
+    bad_types <- dplyr::filter(opts, .data$num_unique_opts > 1)
+    bad_types <- dplyr::summarize(
+      bad_types,
+      message = paste0(
+        col_names[1], "(", paste(.data$rectype, "-", .data[[opt_name]], collapse = " & "), ")"
+      )
+    )
+    stop(paste0(
+      "Varibles with the same name must have the same ", opt_name, " across all record ",
+      "types but these do not: ", paste(bad_types$message, collapse = ", ")
+    ))
+  }
 }

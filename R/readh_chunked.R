@@ -7,7 +7,7 @@
 #' there is one row per observation, and variables that don't apply to
 #' the current observation receive missing values.
 #'
-#' @inheritParams readh_long
+#' @inheritParams hipread_long
 #' @param callback A [`callback`] function, allowing you to perform a
 #'   function on each chunk.
 #' @param chunk_size The size of the chunks that will be read as a

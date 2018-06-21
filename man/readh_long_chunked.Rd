@@ -5,7 +5,7 @@
 \title{Read a hierarchical data file to long format, in chunks}
 \usage{
 readh_long_chunked(file, callback, chunk_size, var_names, var_types, rt_start,
-  rt_width, var_pos_info, var_opts, skip = 0, encoding = "UTF-8",
+  rt_width, var_pos_info, var_opts = NULL, skip = 0, encoding = "UTF-8",
   compression = NULL, progress = show_progress())
 }
 \arguments{

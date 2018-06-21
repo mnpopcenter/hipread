@@ -1,6 +1,24 @@
 #' @useDynLib hipread, .registration = TRUE
 #' @importFrom Rcpp sourceCpp
+#' @importFrom rlang .data
 NULL
+
+#' @importFrom readr col_character
+#' @export
+readr::col_character
+
+#' @importFrom readr col_double
+#' @export
+readr::col_double
+
+#' @importFrom readr col_integer
+#' @export
+readr::col_integer
+
+#' @importFrom readr cols
+#' @export
+readr::cols
+
 
 #' Get path to hipread's example datasets
 #'

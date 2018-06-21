@@ -50,48 +50,36 @@
 #'
 #' @examples
 #' # Read an example data.frame
-#' data <- readh_long(
+#' data <- hipread_long(
 #'   hipread_example("test-basic.dat"),
-#'   c("rt", "hhnum", "hh_char", "hh_dbl", "hh_impdbl", "pernum", "per_dbl", "per_mix"),
-#'   c("character", "character", "character", "double", "double", "integer", "double", "character"),
-#'   1,
-#'   1,
 #'   list(
-#'     H = list(
-#'       start = c(1, 2, 5, 8, 11),
-#'       width = c(1, 3, 3, 3, 2),
-#'       var_pos = c(1, 2, 3, 4, 5)
+#'     H = hip_fwf_positions(
+#'       c(1, 2, 5, 8),
+#'       c(1, 4, 7, 10),
+#'       c("rt", "hhnum", "hh_char", "hh_dbl"),
+#'       cols(col_character(), col_integer(), col_character(), col_double())
 #'     ),
-#'     P = list(
-#'       start = c(1, 2, 5, 6, 9),
-#'       width = c(1, 3, 1, 3, 1),
-#'       var_pos = c(1, 2, 6, 7, 8)
+#'     P = hip_fwf_widths(
+#'       c(1, 3, 1, 3, 1),
+#'       c("rt", "hhnum",  "pernum", "per_dbl", "per_mix"),
+#'       cols(col_character(), col_integer(), col_integer(), col_double(), col_character())
 #'     )
 #'   ),
-#'   list(
-#'     list(trim_ws = TRUE),
-#'     list(trim_ws = FALSE),
-#'     list(trim_ws = TRUE),
-#'     list(imp_dec = 0L),
-#'     list(imp_dec = 1L),
-#'     list(),
-#'     list(imp_dec = 0L),
-#'     list(trim_ws = TRUE)
-#'   )
+#'   1,
+#'   1
 #' )
-
-readh_long <- function(
-  file, var_names, var_types, rt_start, rt_width,
-  var_pos_info, var_opts = NULL, compression = NULL,
-  skip = 0, n_max = -1,
-  encoding = "UTF-8", progress = show_progress()
+hipread_long <- function(
+  file, var_info, rt_start = 1, rt_width = 0, compression = NULL,
+  skip = 0, n_max = -1, encoding = "UTF-8", progress = show_progress()
 ) {
   check_file(file)
   isgzipped <- is_gzip_compression(compression, file)
   rtinfo <- create_rt_info(rt_start, rt_width)
-  var_pos_info <- check_long_var_pos_info(var_pos_info)
-  var_opts <- check_var_opts(var_opts, var_types, var_names)
-  check_long_arg_lengths(var_names, var_types, var_pos_info, var_opts)
+  var_info <- add_level_to_rect(var_info)
+  var_names <- get_var_names(var_info)
+  var_pos_info <- get_var_pos(var_info, var_names)
+  var_types <- get_var_types(var_info, var_names)
+  var_opts <- get_var_opts(var_info, var_names)
   skip <- check_skip(skip)
   n_max <- check_n_max(n_max)
 
