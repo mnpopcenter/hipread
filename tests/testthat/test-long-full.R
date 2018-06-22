@@ -9,34 +9,25 @@ PERMIX <- c(NA, "x", "1", "1", NA, "d", "1", NA, "d")
 HIMPDEC <- c(1, NA, NA, NA, 4.5, NA, NA, 2.4, NA)
 
 test_that("Can read a basic example", {
-  actual <- readh_long(
+  actual <- hipread_long(
     hipread_example("test-basic.dat"),
-    c("rt", "hhnum", "hh_char", "hh_dbl", "hh_impdbl", "pernum", "per_dbl", "per_mix"),
-    c("character", "character", "character", "double", "double", "integer", "double", "character"),
-    1,
-    1,
     list(
-      H = list(
-        start = c(1, 2, 5, 8, 11),
-        width = c(1, 3, 3, 3, 2),
-        var_pos = c(1, 2, 3, 4, 5)
+      H = hip_fwf_widths(
+        c(1, 3, 3, 3, 2),
+        c("rt", "hhnum", "hh_char", "hh_dbl", "hh_impdbl"),
+        c("character", "character", "character", "double", "double"),
+        trim_ws = c(TRUE, FALSE, TRUE, NA, NA),
+        imp_dec = c(NA, NA, NA, 0, 1)
       ),
-      P = list(
-        start = c(1, 2, 5, 6, 9),
-        width = c(1, 3, 1, 3, 1),
-        var_pos = c(1, 2, 6, 7, 8)
+      P = hip_fwf_widths(
+        c(1, 3, 1, 3, 1),
+        c("rt", "hhnum", "pernum", "per_dbl", "per_mix"),
+        c("character", "character", "integer", "double", "character"),
+        trim_ws = c(TRUE, FALSE, NA, NA, TRUE),
+        imp_dec = c(NA, NA, NA, 0, NA)
       )
     ),
-    list(
-      list(trim_ws = TRUE),
-      list(trim_ws = FALSE),
-      list(trim_ws = TRUE),
-      list(imp_dec = 0L),
-      list(imp_dec = 1L),
-      list(),
-      list(imp_dec = 0L),
-      list(trim_ws = TRUE)
-    )
+    hip_rt(1, 1)
   )
 
   expect_equal(nrow(actual), NROW)
@@ -47,34 +38,25 @@ test_that("Can read a basic example", {
 })
 
 test_that("Can read a basic gzipped example", {
-  actual <- readh_long(
+  actual <- hipread_long(
     hipread_example("test-basic.dat.gz"),
-    c("rt", "hhnum", "hh_char", "hh_dbl", "hh_impdbl", "pernum", "per_dbl", "per_mix"),
-    c("character", "character", "character", "double", "double", "integer", "double", "character"),
-    1,
-    1,
     list(
-      H = list(
-        start = c(1, 2, 5, 8, 11),
-        width = c(1, 3, 3, 3, 2),
-        var_pos = c(1, 2, 3, 4, 5)
+      H = hip_fwf_widths(
+        c(1, 3, 3, 3, 2),
+        c("rt", "hhnum", "hh_char", "hh_dbl", "hh_impdbl"),
+        c("character", "character", "character", "double", "double"),
+        trim_ws = c(TRUE, FALSE, TRUE, NA, NA),
+        imp_dec = c(NA, NA, NA, 0, 1)
       ),
-      P = list(
-        start = c(1, 2, 5, 6, 9),
-        width = c(1, 3, 1, 3, 1),
-        var_pos = c(1, 2, 6, 7, 8)
+      P = hip_fwf_widths(
+        c(1, 3, 1, 3, 1),
+        c("rt", "hhnum", "pernum", "per_dbl", "per_mix"),
+        c("character", "character", "integer", "double", "character"),
+        trim_ws = c(TRUE, FALSE, NA, NA, TRUE),
+        imp_dec = c(NA, NA, NA, 0, NA)
       )
     ),
-    list(
-      list(trim_ws = TRUE),
-      list(trim_ws = FALSE),
-      list(trim_ws = TRUE),
-      list(imp_dec = 0L),
-      list(imp_dec = 1L),
-      list(),
-      list(imp_dec = 0L),
-      list(trim_ws = TRUE)
-    )
+    hip_rt(1, 1)
   )
   expect_equal(nrow(actual), NROW)
   expect_equal(ncol(actual), NCOL)
@@ -84,34 +66,25 @@ test_that("Can read a basic gzipped example", {
 })
 
 test_that("Can skip in a basic example", {
-  actual <- readh_long(
+  actual <- hipread_long(
     hipread_example("test-basic.dat"),
-    c("rt", "hhnum", "hh_char", "hh_dbl", "hh_impdbl", "pernum", "per_dbl", "per_mix"),
-    c("character", "character", "character", "double", "double", "integer", "double", "character"),
-    1,
-    1,
     list(
-      H = list(
-        start = c(1, 2, 5, 8, 11),
-        width = c(1, 3, 3, 3, 2),
-        var_pos = c(1, 2, 3, 4, 5)
+      H = hip_fwf_widths(
+        c(1, 3, 3, 3, 2),
+        c("rt", "hhnum", "hh_char", "hh_dbl", "hh_impdbl"),
+        c("character", "character", "character", "double", "double"),
+        trim_ws = c(TRUE, FALSE, TRUE, NA, NA),
+        imp_dec = c(NA, NA, NA, 0, 1)
       ),
-      P = list(
-        start = c(1, 2, 5, 6, 9),
-        width = c(1, 3, 1, 3, 1),
-        var_pos = c(1, 2, 6, 7, 8)
+      P = hip_fwf_widths(
+        c(1, 3, 1, 3, 1),
+        c("rt", "hhnum", "pernum", "per_dbl", "per_mix"),
+        c("character", "character", "integer", "double", "character"),
+        trim_ws = c(TRUE, FALSE, NA, NA, TRUE),
+        imp_dec = c(NA, NA, NA, 0, NA)
       )
     ),
-    list(
-      list(trim_ws = TRUE),
-      list(trim_ws = FALSE),
-      list(trim_ws = TRUE),
-      list(imp_dec = 0L),
-      list(imp_dec = 1L),
-      list(),
-      list(imp_dec = 0L),
-      list(trim_ws = TRUE)
-    ),
+    hip_rt(1, 1),
     skip = 2
   )
 
@@ -123,34 +96,25 @@ test_that("Can skip in a basic example", {
 })
 
 test_that("Can n_max in a basic example", {
-  actual <- readh_long(
+  actual <- hipread_long(
     hipread_example("test-basic.dat"),
-    c("rt", "hhnum", "hh_char", "hh_dbl", "hh_impdbl", "pernum", "per_dbl", "per_mix"),
-    c("character", "character", "character", "double", "double", "integer", "double", "character"),
-    1,
-    1,
     list(
-      H = list(
-        start = c(1, 2, 5, 8, 11),
-        width = c(1, 3, 3, 3, 2),
-        var_pos = c(1, 2, 3, 4, 5)
+      H = hip_fwf_widths(
+        c(1, 3, 3, 3, 2),
+        c("rt", "hhnum", "hh_char", "hh_dbl", "hh_impdbl"),
+        c("character", "character", "character", "double", "double"),
+        trim_ws = c(TRUE, FALSE, TRUE, NA, NA),
+        imp_dec = c(NA, NA, NA, 0, 1)
       ),
-      P = list(
-        start = c(1, 2, 5, 6, 9),
-        width = c(1, 3, 1, 3, 1),
-        var_pos = c(1, 2, 6, 7, 8)
+      P = hip_fwf_widths(
+        c(1, 3, 1, 3, 1),
+        c("rt", "hhnum", "pernum", "per_dbl", "per_mix"),
+        c("character", "character", "integer", "double", "character"),
+        trim_ws = c(TRUE, FALSE, NA, NA, TRUE),
+        imp_dec = c(NA, NA, NA, 0, NA)
       )
     ),
-    list(
-      list(trim_ws = TRUE),
-      list(trim_ws = FALSE),
-      list(trim_ws = TRUE),
-      list(imp_dec = 0L),
-      list(imp_dec = 1L),
-      list(),
-      list(imp_dec = 0L),
-      list(trim_ws = TRUE)
-    ),
+    hip_rt(1, 1),
     n_max = 4
   )
 
@@ -165,26 +129,14 @@ NROW <- 9
 NCOL <- 3
 VAR1 <- c("H", "P", "P", "P", "H", "P", "P", "H", "P")
 test_that("Can read a rectangular example", {
-  var_info <- list(
-    list(
-      start = c(1, 2, 4),
-      width = c(1, 2, 1),
-      var_pos = c(1, 2, 3)
-    )
-  )
-  # names(var_info) <- "H"
-  actual <- readh_long(
+  actual <- hipread_long(
     hipread_example("test-basic.dat"),
-    c("var1", "var2", "var3"),
-    c("character", "character", "character"),
-    1,
-    0,
-    var_info,
-    list(
-      list(trim_ws = TRUE),
-      list(trim_ws = TRUE),
-      list(trim_ws = TRUE)
-    )
+    hip_fwf_widths(
+      c(1, 2, 1),
+      c("var1", "var2", "var3"),
+      c("character", "character", "character")
+    ),
+    hip_rt(1, 0)
   )
 
   expect_equal(nrow(actual), NROW)
@@ -208,82 +160,16 @@ test_that("Can read a large gzipped example", {
   close(temp_conn)
   rm(full_data)
 
-  actual <- readh_long(
+  actual <- hipread_long(
     temp_file,
-    c("var1", "var2", "var3"),
-    c("character", "integer", "character"),
-    1,
-    0,
-    list(
-      list(
-        start = c(1, 4, 7),
-        width = c(3, 3, 3),
-        var_pos = c(1, 2, 3)
-      )
-    ),
-    list(
-      list(trim_ws = TRUE),
-      list(),
-      list(trim_ws = TRUE)
+    hip_fwf_widths(
+      c(3, 3, 3),
+      c("var1", "var2", "var3"),
+      c("character", "integer", "character")
     )
   )
 
   expect_equal(nrow(actual), NROW * length(TEXT))
   expect_equal(ncol(actual), NCOL)
   expect_equal(actual$var1, VAR1)
-})
-
-
-test_that("Default var_opts work", {
-  specified <- readh_long(
-    hipread_example("test-basic.dat"),
-    c("rt", "hhnum", "hh_char", "hh_dbl", "hh_impdbl", "pernum", "per_dbl", "per_mix"),
-    c("character", "character", "character", "double", "double", "integer", "double", "character"),
-    1,
-    1,
-    list(
-      H = list(
-        start = c(1, 2, 5, 8, 11),
-        width = c(1, 3, 3, 3, 2),
-        var_pos = c(1, 2, 3, 4, 5)
-      ),
-      P = list(
-        start = c(1, 2, 5, 6, 9),
-        width = c(1, 3, 1, 3, 1),
-        var_pos = c(1, 2, 6, 7, 8)
-      )
-    ),
-    list(
-      list(trim_ws = TRUE),
-      list(trim_ws = TRUE),
-      list(trim_ws = TRUE),
-      list(imp_dec = 0L),
-      list(imp_dec = 0L),
-      list(),
-      list(imp_dec = 0L),
-      list(trim_ws = TRUE)
-    )
-  )
-
-  default <- readh_long(
-    hipread_example("test-basic.dat"),
-    c("rt", "hhnum", "hh_char", "hh_dbl", "hh_impdbl", "pernum", "per_dbl", "per_mix"),
-    c("character", "character", "character", "double", "double", "integer", "double", "character"),
-    1,
-    1,
-    list(
-      H = list(
-        start = c(1, 2, 5, 8, 11),
-        width = c(1, 3, 3, 3, 2),
-        var_pos = c(1, 2, 3, 4, 5)
-      ),
-      P = list(
-        start = c(1, 2, 5, 6, 9),
-        width = c(1, 3, 1, 3, 1),
-        var_pos = c(1, 2, 6, 7, 8)
-      )
-    )
-  )
-
-  expect_equal(specified, default)
 })
