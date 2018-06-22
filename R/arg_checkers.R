@@ -22,7 +22,7 @@ get_var_names <- function(var_info) {
   Reduce(function(x, y) {union(x, y$col_names)}, var_info, character(0))
 }
 
-get_var_pos <- function(var_info, var_names) {
+get_var_pos <- function(var_info, var_names = NULL) {
   if (is.null(names(var_info))) {
     if (length(var_info) == 1) {
       names(var_info) <- "rectangular"
@@ -135,4 +135,33 @@ check_option_consistency <- function(opts, opt_name) {
       "types but these do not: ", paste(bad_types$message, collapse = ", ")
     ))
   }
+}
+
+
+get_vinfo_col_as_list <- function(var_info, col) {
+  out <- lapply(var_info, function(x) {
+    x[[col]]
+  })
+  names(out) <- names(var_info)
+  out
+}
+
+
+get_var_opts_list <- function(var_info) {
+  out <- lapply(var_info, function(x) {
+    opts <- dplyr::select_at(x, c("col_names", "col_types", "trim_ws", "imp_dec"))
+    opts <- dplyr::mutate(
+      opts,
+      trim_ws = ifelse(.data$col_types == "character", .data$trim_ws, NA),
+      imp_dec = ifelse(.data$col_types == "double", .data$imp_dec, NA)
+    )
+
+    out <- lapply(seq_len(nrow(opts)), function(iii) {
+      list(trim_ws = opts$trim_ws[iii], imp_dec = opts$imp_dec[iii])
+    })
+    names(out) <- opts$col_names
+    out
+  })
+  names(out) <- names(var_info)
+  out
 }
