@@ -26,6 +26,27 @@ BEGIN_RCPP
     return R_NilValue;
 END_RCPP
 }
+// read_chunked_list
+void read_chunked_list(CharacterVector filename, Environment callback, int chunksize, List var_names_, List var_types_, List rt_info_, List var_pos_info_, List var_opts_, int skip, bool isGzipped, CharacterVector encoding, bool progress);
+RcppExport SEXP _hipread_read_chunked_list(SEXP filenameSEXP, SEXP callbackSEXP, SEXP chunksizeSEXP, SEXP var_names_SEXP, SEXP var_types_SEXP, SEXP rt_info_SEXP, SEXP var_pos_info_SEXP, SEXP var_opts_SEXP, SEXP skipSEXP, SEXP isGzippedSEXP, SEXP encodingSEXP, SEXP progressSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< CharacterVector >::type filename(filenameSEXP);
+    Rcpp::traits::input_parameter< Environment >::type callback(callbackSEXP);
+    Rcpp::traits::input_parameter< int >::type chunksize(chunksizeSEXP);
+    Rcpp::traits::input_parameter< List >::type var_names_(var_names_SEXP);
+    Rcpp::traits::input_parameter< List >::type var_types_(var_types_SEXP);
+    Rcpp::traits::input_parameter< List >::type rt_info_(rt_info_SEXP);
+    Rcpp::traits::input_parameter< List >::type var_pos_info_(var_pos_info_SEXP);
+    Rcpp::traits::input_parameter< List >::type var_opts_(var_opts_SEXP);
+    Rcpp::traits::input_parameter< int >::type skip(skipSEXP);
+    Rcpp::traits::input_parameter< bool >::type isGzipped(isGzippedSEXP);
+    Rcpp::traits::input_parameter< CharacterVector >::type encoding(encodingSEXP);
+    Rcpp::traits::input_parameter< bool >::type progress(progressSEXP);
+    read_chunked_list(filename, callback, chunksize, var_names_, var_types_, rt_info_, var_pos_info_, var_opts_, skip, isGzipped, encoding, progress);
+    return R_NilValue;
+END_RCPP
+}
 // read_long
 RObject read_long(CharacterVector filename, CharacterVector var_names, CharacterVector var_types, List rt_info_, List var_pos_info_, List var_opts_, int skip, int n_max, bool isGzipped, CharacterVector encoding, bool progress);
 RcppExport SEXP _hipread_read_long(SEXP filenameSEXP, SEXP var_namesSEXP, SEXP var_typesSEXP, SEXP rt_info_SEXP, SEXP var_pos_info_SEXP, SEXP var_opts_SEXP, SEXP skipSEXP, SEXP n_maxSEXP, SEXP isGzippedSEXP, SEXP encodingSEXP, SEXP progressSEXP) {
@@ -71,6 +92,7 @@ END_RCPP
 
 static const R_CallMethodDef CallEntries[] = {
     {"_hipread_read_chunked_long", (DL_FUNC) &_hipread_read_chunked_long, 12},
+    {"_hipread_read_chunked_list", (DL_FUNC) &_hipread_read_chunked_list, 12},
     {"_hipread_read_long", (DL_FUNC) &_hipread_read_long, 11},
     {"_hipread_read_list", (DL_FUNC) &_hipread_read_list, 11},
     {NULL, NULL, 0}

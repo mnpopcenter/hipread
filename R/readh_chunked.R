@@ -1,11 +1,13 @@
-#' Read a hierarchical data file to long format, in chunks
+#' Read a hierarchical fixed width data file, in chunks
 #'
 #' Analagous to [readr::read_fwf()], but with chunks, and allowing for
 #' hierarchical fixed width data files (where the data file has rows of
 #' different record types, each with their own variables and column
-#' specifications). Reads the data into "long" format, meaning that
-#' there is one row per observation, and variables that don't apply to
-#' the current observation receive missing values.
+#' specifications). `hipread_long_chunked()` reads hierarchical data into "long"
+#' format, meaning that there is one row per observation, and variables
+#' that don't apply to the current observation receive missing values.
+#' Alternatively, `hipread_list_chunked()` reads hierarchical data into "list"
+#' format, which returns a list that has one data.frame per record type.
 #'
 #' @inheritParams hipread_long
 #' @param callback A [`callback`] function, allowing you to perform a
@@ -55,6 +57,34 @@ hipread_long_chunked <- function(
   on.exit(callback$finally(), add = TRUE)
 
   read_chunked_long(
+    file, callback, chunk_size, var_names, var_types, rt_info,
+    var_pos_info, var_opts, skip, isgzipped, encoding, progress
+  )
+
+  return(callback$result())
+}
+
+
+#' @rdname hipread_long_chunked
+#' @export
+hipread_list_chunked <- function(
+  file, callback, chunk_size, var_info, rt_info = hip_rt(1, 0),
+  compression = NULL, skip = 0, encoding = "UTF-8",
+  progress = show_progress()
+) {
+  file <- check_file(file)
+  isgzipped <- is_gzip_compression(compression, file)
+  var_info <- add_level_to_rect(var_info)
+  var_names <- get_vinfo_col_as_list(var_info, "col_names")
+  var_pos_info <- get_var_pos(var_info)
+  var_types <- get_vinfo_col_as_list(var_info, "col_types")
+  var_opts <- get_var_opts_list(var_info)
+  skip <- check_skip(skip)
+
+  callback <- as_chunk_callback(callback)
+  on.exit(callback$finally(), add = TRUE)
+
+  read_chunked_list(
     file, callback, chunk_size, var_names, var_types, rt_info,
     var_pos_info, var_opts, skip, isgzipped, encoding, progress
   )

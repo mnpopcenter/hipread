@@ -2,9 +2,14 @@
 % Please edit documentation in R/readh_chunked.R
 \name{hipread_long_chunked}
 \alias{hipread_long_chunked}
-\title{Read a hierarchical data file to long format, in chunks}
+\alias{hipread_list_chunked}
+\title{Read a hierarchical fixed width data file, in chunks}
 \usage{
 hipread_long_chunked(file, callback, chunk_size, var_info, rt_info = hip_rt(1,
+  0), compression = NULL, skip = 0, encoding = "UTF-8",
+  progress = show_progress())
+
+hipread_list_chunked(file, callback, chunk_size, var_info, rt_info = hip_rt(1,
   0), compression = NULL, skip = 0, encoding = "UTF-8",
   progress = show_progress())
 }
@@ -53,9 +58,11 @@ Depends on the type of \code{\link{callback}} function you use
 Analagous to \code{\link[readr:read_fwf]{readr::read_fwf()}}, but with chunks, and allowing for
 hierarchical fixed width data files (where the data file has rows of
 different record types, each with their own variables and column
-specifications). Reads the data into "long" format, meaning that
-there is one row per observation, and variables that don't apply to
-the current observation receive missing values.
+specifications). \code{hipread_long_chunked()} reads hierarchical data into "long"
+format, meaning that there is one row per observation, and variables
+that don't apply to the current observation receive missing values.
+Alternatively, \code{hipread_list_chunked()} reads hierarchical data into "list"
+format, which returns a list that has one data.frame per record type.
 }
 \examples{
 # Read in a data, filtering out hhnum == "002"
