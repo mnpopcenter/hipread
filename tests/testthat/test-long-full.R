@@ -173,3 +173,26 @@ test_that("Can read a large gzipped example", {
   expect_equal(ncol(actual), NCOL)
   expect_equal(actual$var1, VAR1)
 })
+
+test_that("reading from fwf_positions correctly uses defaults", {
+  expect_equal(
+    hipread_long(
+      hipread_example("test-whitespace.dat"),
+      hip_fwf_widths(
+        c(3, 1),
+        c("var1", "var2"),
+        c("c", "d")
+      )
+    ),
+    hipread_long(
+      hipread_example("test-whitespace.dat"),
+      hip_fwf_widths(
+        c(3, 1),
+        c("var1", "var2"),
+        c("c", "d"),
+        trim_ws = c(TRUE, NA),
+        imp_dec = c(100, 0)
+      )
+    )
+  )
+})
