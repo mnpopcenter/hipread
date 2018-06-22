@@ -17,32 +17,6 @@ function on each chunk.}
 \item{chunk_size}{The size of the chunks that will be read as a
 single unit (defaults to 10000)}
 
-\item{var_names}{A character vector of names for the variables}
-
-\item{var_types}{A character vector of types for the variables. Allowed
-types are \code{"character"}, \code{"double"} and \code{"integer"}.}
-
-\item{rt_start}{An integer indicating the start position of the rectype
-variable (1 indicates the first character)}
-
-\item{rt_width}{An integer indicating the width of the rectype variable,
-if there's only one record type, this width can be 0.}
-
-\item{var_pos_info}{A list of fixed width file definitions by rectype,
-if there's only one rectype, no name is required, otherwise the name
-indicates the value for the rectype variable that indicates the row
-is this rectype. Each of these lists must contain a list with equal
-length vectors of \code{start} to indicate the starting positions starting
-at 1, \code{width} to indicate the widths, and \code{var_pos} which indicates
-what order in the data.frame the variable is located (again starting
-at 1).}
-
-\item{var_opts}{A vector of lists with variable specific options. For
-string variables, a logical indicator named \code{trim_ws} is allowed
-(if missing it defaults to \code{TRUE}) and for double variables an
-integer named \code{imp_dec} indicating the number of implicit decimals
-in the variable (defaults to 0).}
-
 \item{skip}{Number of lines to skip at the start of the data (defaluts to 0).}
 
 \item{encoding}{(Defaults to UTF-8) A string indicating what encoding to use
