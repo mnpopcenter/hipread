@@ -69,12 +69,11 @@
 #'   1
 #' )
 hipread_long <- function(
-  file, var_info, rt_start = 1, rt_width = 0, compression = NULL,
+  file, var_info, rtinfo = hip_rt(1, 0), compression = NULL,
   skip = 0, n_max = -1, encoding = "UTF-8", progress = show_progress()
 ) {
-  check_file(file)
+  file <- check_file(file)
   isgzipped <- is_gzip_compression(compression, file)
-  rtinfo <- create_rt_info(rt_start, rt_width)
   var_info <- add_level_to_rect(var_info)
   var_names <- get_var_names(var_info)
   var_pos_info <- get_var_pos(var_info, var_names)

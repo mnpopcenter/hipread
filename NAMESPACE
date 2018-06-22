@@ -3,6 +3,7 @@
 export(HipDataFrameCallback)
 export(hip_fwf_positions)
 export(hip_fwf_widths)
+export(hip_rt)
 export(hipread_example)
 export(hipread_long)
 export(readh_long_chunked)

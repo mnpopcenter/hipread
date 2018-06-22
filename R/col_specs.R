@@ -77,3 +77,40 @@ hip_fwf_widths <- function(
     pos[-length(pos)], pos[-1] - 1L, col_names, col_types, trim_ws, imp_dec
   )
 }
+
+
+
+#' Create a record type information object
+#'
+#' Create a record type informaiton object for hipread to use
+#' when reading hierarchical files. A width of 0 indicates that
+#' the file is rectangular (eg a standard fixed width file).
+#'
+#' @param start Start position of the record type variable
+#' @param width The width of the record type variable
+#'
+#' @return A list, really only inteded to be used internally by hipread
+#' @export
+hip_rt <- function(start, width) {
+  if (length(start) > 1) stop(paste0(
+    "rectype start must be a single integer, but is of size ", length(start)
+  ))
+
+  if (length(width) > 1) stop(paste0(
+    "rectype width must be a single integer, but is of size ", length(width)
+  ))
+
+  if (!is_integerish(start)) stop(paste0(
+    "rectype start must be an integer but is ", start
+  ))
+
+  if (!is_integerish(width)) stop(paste0(
+    "rectype width must be an integer but is ", width
+  ))
+
+  if (start < 1) stop(paste0(
+    "rectype start must be greater than 1 but is ", start
+  ))
+
+  list(start = start - 1, width = width)
+}

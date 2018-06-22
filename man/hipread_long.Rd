@@ -4,18 +4,11 @@
 \alias{hipread_long}
 \title{Read a hierarchical data file to long format}
 \usage{
-hipread_long(file, var_info, rt_start = 1, rt_width = 0,
-  compression = NULL, skip = 0, n_max = -1, encoding = "UTF-8",
-  progress = show_progress())
+hipread_long(file, var_info, rtinfo = hip_rt(1, 0), compression = NULL,
+  skip = 0, n_max = -1, encoding = "UTF-8", progress = show_progress())
 }
 \arguments{
 \item{file}{A filename}
-
-\item{rt_start}{An integer indicating the start position of the rectype
-variable (1 indicates the first character)}
-
-\item{rt_width}{An integer indicating the width of the rectype variable,
-if there's only one record type, this width can be 0.}
 
 \item{compression}{If \code{NULL}, guesses the compression from the
 file extension (if extension is "gz" uses gzip, otherwise
@@ -42,6 +35,12 @@ the option \code{options("readr.show_progress")}.}
 
 \item{var_types}{A character vector of types for the variables. Allowed
 types are \code{"character"}, \code{"double"} and \code{"integer"}.}
+
+\item{rt_start}{An integer indicating the start position of the rectype
+variable (1 indicates the first character)}
+
+\item{rt_width}{An integer indicating the width of the rectype variable,
+if there's only one record type, this width can be 0.}
 
 \item{var_pos_info}{A list of fixed width file definitions by rectype,
 if there's only one rectype, no name is required, otherwise the name

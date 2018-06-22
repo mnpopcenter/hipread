@@ -1,28 +1,5 @@
-create_rt_info <- function(start, width) {
-  if (length(start) > 1) stop(paste0(
-    "rectype start must be a single integer, but is of size ", length(start)
-  ))
-
-  if (length(width) > 1) stop(paste0(
-    "rectype width must be a single integer, but is of size ", length(width)
-  ))
-
-  if (!is_integerish(start)) stop(paste0(
-    "rectype start must be an integer but is ", start
-  ))
-
-  if (!is_integerish(width)) stop(paste0(
-    "rectype width must be an integer but is ", width
-  ))
-
-  if (start < 1) stop(paste0(
-    "rectype start must be greater than 1 but is ", start
-  ))
-
-  list(start = start - 1, width = width)
-}
-
 check_file <- function(file) {
+  file <- enc2native(normalizePath(file))
   if (!file.exists(file)) stop(paste0("Could not find file: ", file))
 }
 
