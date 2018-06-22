@@ -1,6 +1,7 @@
 check_file <- function(file) {
   file <- enc2native(normalizePath(file))
   if (!file.exists(file)) stop(paste0("Could not find file: ", file))
+  file
 }
 
 is_gzip_compression <- function(comp, file) {
