@@ -16,8 +16,9 @@ of each field}
 
 \item{col_names}{A character vector of variable names}
 
-\item{col_types}{A vector of column types (specified with
-\code{col_character()}, \code{col_double()} and \code{col_integer()}).}
+\item{col_types}{A vector of column types (specified as either
+"c" or "character" for character, "d" or "double" for double and
+"i" or "integer" for integer).}
 
 \item{trim_ws}{A logical vector, indicating whether to trim whitespace
 on both sides of character columns (Defaults to \code{TRUE}, ignored on
@@ -46,14 +47,14 @@ hip_fwf_positions(
   c(1, 3, 7),
   c(2, 6, 10),
   c("Var1", "Var2", "Var3"),
-  cols(col_character(), col_integer(), col_double())
+  c("c", "i", "d")
 )
 
 # The same 3 columns, specified by width
 hip_fwf_widths(
   c(2, 4, 4),
   c("Var1", "Var2", "Var3"),
-  cols(col_character(), col_integer(), col_double())
+  c("c", "i", "d")
 )
 
 }

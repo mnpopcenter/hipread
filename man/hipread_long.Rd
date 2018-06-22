@@ -76,14 +76,14 @@ data <- hipread_long(
   list(
     H = hip_fwf_positions(
       c(1, 2, 5, 8),
-      c(2, 4, 7, 10),
+      c(1, 4, 7, 10),
       c("rt", "hhnum", "hh_char", "hh_dbl"),
-      cols(col_character(), col_integer(), col_character(), col_double())
+      c("c", "i", "c", "d")
     ),
     P = hip_fwf_widths(
       c(1, 3, 1, 3, 1),
       c("rt", "hhnum",  "pernum", "per_dbl", "per_mix"),
-      cols(col_character(), col_character(), col_integer(), col_double(), col_character())
+      c("c", "i", "i", "d", "c")
     )
   ),
   1,

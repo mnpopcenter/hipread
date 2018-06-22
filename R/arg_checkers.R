@@ -120,44 +120,18 @@ check_n_max <- function(x) {
   as.integer(x)
 }
 
-convert_readr_collector <- function(x, var_names) {
-  specified <- readr_col_to_string(x$cols)
-  if (is.null(names(specified)) & length(specified) > 0) {
-    if (length(specified) != length(var_names)) {
-      stop("Column name lengths don't match column position and type specifications.")
-    }
-    names(specified) <- var_names
+standardize_col_types <- function(x) {
+  out <- dplyr::case_when(
+    x %in% c("c", "character") ~ "character",
+    x %in% c("d", "double") ~ "double",
+    x %in% c("i", "integer") ~ "integer",
+    TRUE ~ NA_character_
+  )
+
+  if (any(is.na(out))) {
+    bad_types <- unique(x[is.na(out)])
+    stop("Unrecognized column types: ", paste(bad_types, collapse = ", "))
   }
-
-  default <- readr_col_to_string(x$default)
-
-  out <- specified[match(var_names, names(specified))]
-  if (any(is.na(out))) out[is.na(out)] <- default
-
-  bad_values <-!(out %in% c("double", "character", "integer"))
-  if (any(bad_values)) {
-    stop(paste0(
-      "Only 'character', 'double', and 'integer' type columns are allowed, but ",
-      "these variables have other types: ",
-      paste0(var_names[bad_values], " (", out[bad_values], ")", collapse = ", ")
-    ))
-  }
-  out
-}
-
-readr_col_to_string <- function(x) {
-  out <- vapply(x, function(vvv) {
-    if (inherits(vvv, "collector_double")) {
-      "double"
-    } else if (inherits(vvv, "collector_character")) {
-      "character"
-    } else if (inherits(vvv, "collector_integer")) {
-      "integer"
-    } else {
-      class(vvv)[[1]]
-    }
-  }, "")
-  names(out) <- names(x)
   out
 }
 

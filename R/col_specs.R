@@ -10,8 +10,9 @@
 #' @param start,end A vector integers describing the start and end positions
 #'   of each field
 #' @param col_names A character vector of variable names
-#' @param col_types A vector of column types (specified with
-#'   `col_character()`, `col_double()` and `col_integer()`).
+#' @param col_types A vector of column types (specified as either
+#'   "c" or "character" for character, "d" or "double" for double and
+#'   "i" or "integer" for integer).
 #' @param trim_ws A logical vector, indicating whether to trim whitespace
 #'   on both sides of character columns (Defaults to `TRUE`, ignored on
 #'   non-character columns).
@@ -27,14 +28,14 @@
 #'   c(1, 3, 7),
 #'   c(2, 6, 10),
 #'   c("Var1", "Var2", "Var3"),
-#'   cols(col_character(), col_integer(), col_double())
+#'   c("c", "i", "d")
 #' )
 #'
 #' # The same 3 columns, specified by width
 #' hip_fwf_widths(
 #'   c(2, 4, 4),
 #'   c("Var1", "Var2", "Var3"),
-#'   cols(col_character(), col_integer(), col_double())
+#'   c("c", "i", "d")
 #' )
 #'
 hip_fwf_positions <- function(
@@ -51,7 +52,7 @@ hip_fwf_positions <- function(
     start = start - 1,
     end = end,
     col_names = col_names,
-    col_types = convert_readr_collector(col_types, col_names),
+    col_types = standardize_col_types(col_types),
     trim_ws = trim_ws,
     imp_dec = imp_dec
   )
