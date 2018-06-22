@@ -86,3 +86,95 @@ RObject read_long(
   return columnsToDf(out, var_names);
 }
 
+// [[Rcpp::export]]
+RObject read_list(
+    CharacterVector filename,
+    List var_names_,
+    List var_types_,
+    List rt_info_,
+    List var_pos_info_,
+    List var_opts_,
+    int skip,
+    int n_max,
+    bool isGzipped,
+    CharacterVector encoding,
+    bool progress
+) {
+  const int PROGRESS_TICK = 16384;
+
+  List var_names = as<List>(var_names_);
+  List var_types = as<List>(var_types_);
+  List rt_info = as<List>(rt_info_);
+  List var_pos_info = as<List>(var_pos_info_);
+  List var_opts = as<List>(var_opts_);
+  Iconv pEncoder_(as<std::string>(encoding));
+
+  DataSourcePtr data = newDataSource(as<std::string>(filename[0]), isGzipped);
+  data->skipLines(skip);
+
+  Progress ProgressBar = Progress();
+
+  RtInfo rts(rt_info, var_pos_info.names());
+  VarInfo vars(var_pos_info, rts.getNumRts());
+
+  std::vector<std::vector<ColumnPtr> > out;
+  std::vector<int> cur_pos_rt;
+  for (size_t i = 0; i < rts.getNumRts(); ++i) {
+    Rcpp::CharacterVector vt = var_types[i];
+    out.push_back(createAllColumns(vt, var_opts[i], &pEncoder_));
+    resizeAllColumns(out[i], 10000); // Start out with 10k rows
+    cur_pos_rt.push_back(-1);
+  }
+
+  int i = 0;
+  const char* line_start;
+  const char* line_end;
+  while (!data->isDone() && i < n_max) {
+    data->getLine(line_start, line_end);
+
+    if (line_end - line_start == 0 && data->isDone()) {
+      break;
+    }
+
+    size_t rt_index;
+    bool rt_found = rts.getRtIndex(line_start, line_end, rt_index);
+    if (!rt_found) {
+      // TODO: Should this be a warning?
+      continue;
+    }
+    cur_pos_rt[rt_index]++;
+
+    if (cur_pos_rt[rt_index] >= out[rt_index][0]->size()) {
+      // Resize by guessing from the progress bar
+      resizeAllColumns(out[rt_index], static_cast<int>((cur_pos_rt[rt_found] / data->progress_info().first) * 1.1));
+    }
+
+    // Check if raw line is long enough
+    if (line_end - line_start < vars.get_max_end(rt_index)) {
+      Rcpp::stop("Line is too short for rectype.");
+    }
+
+    // Loop through vars in rectype and add to out
+    for (size_t j = 0; j < vars.get_num_vars(rt_index); j++) {
+      const char *x_start = line_start + vars.get_start(rt_index, j);
+      const char *x_end = x_start + vars.get_width(rt_index, j);
+
+      out[rt_index][j]->setValue(cur_pos_rt[rt_index], x_start, x_end);
+    }
+
+    if (progress && i % PROGRESS_TICK == 0) {
+      ProgressBar.show(data->progress_info());
+    }
+    ++i;
+  }
+
+  List out_r;
+  for (size_t i = 0;  i < rts.getNumRts(); ++i) {
+    resizeAllColumns(out[i], cur_pos_rt[i] + 1);
+    out_r.push_back(columnsToDf(out[i], var_names[i]));
+  }
+  out_r.names() = var_pos_info.names();
+
+  ProgressBar.stop();
+  return out_r;
+}

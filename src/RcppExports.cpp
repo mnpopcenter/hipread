@@ -47,10 +47,32 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// read_list
+RObject read_list(CharacterVector filename, List var_names_, List var_types_, List rt_info_, List var_pos_info_, List var_opts_, int skip, int n_max, bool isGzipped, CharacterVector encoding, bool progress);
+RcppExport SEXP _hipread_read_list(SEXP filenameSEXP, SEXP var_names_SEXP, SEXP var_types_SEXP, SEXP rt_info_SEXP, SEXP var_pos_info_SEXP, SEXP var_opts_SEXP, SEXP skipSEXP, SEXP n_maxSEXP, SEXP isGzippedSEXP, SEXP encodingSEXP, SEXP progressSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< CharacterVector >::type filename(filenameSEXP);
+    Rcpp::traits::input_parameter< List >::type var_names_(var_names_SEXP);
+    Rcpp::traits::input_parameter< List >::type var_types_(var_types_SEXP);
+    Rcpp::traits::input_parameter< List >::type rt_info_(rt_info_SEXP);
+    Rcpp::traits::input_parameter< List >::type var_pos_info_(var_pos_info_SEXP);
+    Rcpp::traits::input_parameter< List >::type var_opts_(var_opts_SEXP);
+    Rcpp::traits::input_parameter< int >::type skip(skipSEXP);
+    Rcpp::traits::input_parameter< int >::type n_max(n_maxSEXP);
+    Rcpp::traits::input_parameter< bool >::type isGzipped(isGzippedSEXP);
+    Rcpp::traits::input_parameter< CharacterVector >::type encoding(encodingSEXP);
+    Rcpp::traits::input_parameter< bool >::type progress(progressSEXP);
+    rcpp_result_gen = Rcpp::wrap(read_list(filename, var_names_, var_types_, rt_info_, var_pos_info_, var_opts_, skip, n_max, isGzipped, encoding, progress));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_hipread_read_chunked_long", (DL_FUNC) &_hipread_read_chunked_long, 12},
     {"_hipread_read_long", (DL_FUNC) &_hipread_read_long, 11},
+    {"_hipread_read_list", (DL_FUNC) &_hipread_read_list, 11},
     {NULL, NULL, 0}
 };
 

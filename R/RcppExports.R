@@ -9,3 +9,7 @@ read_long <- function(filename, var_names, var_types, rt_info_, var_pos_info_, v
     .Call(`_hipread_read_long`, filename, var_names, var_types, rt_info_, var_pos_info_, var_opts_, skip, n_max, isGzipped, encoding, progress)
 }
 
+read_list <- function(filename, var_names_, var_types_, rt_info_, var_pos_info_, var_opts_, skip, n_max, isGzipped, encoding, progress) {
+    .Call(`_hipread_read_list`, filename, var_names_, var_types_, rt_info_, var_pos_info_, var_opts_, skip, n_max, isGzipped, encoding, progress)
+}
+
