@@ -4,7 +4,7 @@
 \alias{hipread_long_chunked}
 \title{Read a hierarchical data file to long format, in chunks}
 \usage{
-hipread_long_chunked(file, callback, chunk_size, var_info, rtinfo = hip_rt(1,
+hipread_long_chunked(file, callback, chunk_size, var_info, rt_info = hip_rt(1,
   0), compression = NULL, skip = 0, encoding = "UTF-8",
   progress = show_progress())
 }
@@ -17,10 +17,16 @@ function on each chunk.}
 \item{chunk_size}{The size of the chunks that will be read as a
 single unit (defaults to 10000)}
 
-\item{var_info}{Variable information, specified by either \code{\link[=hip_fwf_positons]{hip_fwf_positons()}}
+\item{var_info}{Variable information, specified by either \code{\link[=hip_fwf_positions]{hip_fwf_positions()}}
 or \code{hip_fwf_widths()}. For hierarchical data files, there should be a named list,
 where the name is the value indicated by the recordtype variable and there is
 one variable information per record type.}
+
+\item{rt_info}{A rectype information object, created by \code{\link[=hip_rt]{hip_rt()}}, which
+contains information about the location of the record type variable that
+defines the record type for each observation. The default contains width
+0, which indicates that there the data is rectangular and does not have
+a record type variable.}
 
 \item{compression}{If \code{NULL}, guesses the compression from the
 file extension (if extension is "gz" uses gzip, otherwise

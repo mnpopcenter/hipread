@@ -127,7 +127,7 @@ check_option_consistency <- function(opts, opt_name) {
     bad_types <- dplyr::summarize(
       bad_types,
       message = paste0(
-        col_names[1], "(", paste(.data$rectype, "-", .data[[opt_name]], collapse = " & "), ")"
+        .data$col_names[1], "(", paste(.data$rectype, "-", .data[[opt_name]], collapse = " & "), ")"
       )
     )
     stop(paste0(

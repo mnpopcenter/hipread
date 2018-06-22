@@ -29,7 +29,8 @@ Imports:
     Rcpp,
     readr,
     dplyr,
-    R6
+    R6,
+    rlang
 SystemRequirements:
     C++11
 RoxygenNote: 6.0.1

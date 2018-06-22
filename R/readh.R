@@ -8,7 +8,7 @@
 #' the current observation receive missing values.
 #'
 #' @param file A filename
-#' @param var_info Variable information, specified by either [`hip_fwf_positons()`]
+#' @param var_info Variable information, specified by either [`hip_fwf_positions()`]
 #'   or `hip_fwf_widths()`. For hierarchical data files, there should be a named list,
 #'   where the name is the value indicated by the recordtype variable and there is
 #'   one variable information per record type.
@@ -68,7 +68,7 @@
 #'   )
 #' )
 hipread_long <- function(
-  file, var_info, rtinfo = hip_rt(1, 0), compression = NULL,
+  file, var_info, rt_info = hip_rt(1, 0), compression = NULL,
   skip = 0, n_max = -1, encoding = "UTF-8", progress = show_progress()
 ) {
   file <- check_file(file)
@@ -82,7 +82,7 @@ hipread_long <- function(
   n_max <- check_n_max(n_max)
 
   read_long(
-    file, var_names, var_types, rtinfo, var_pos_info,
+    file, var_names, var_types, rt_info, var_pos_info,
     var_opts, skip, n_max, isgzipped, encoding, progress
   )
 }

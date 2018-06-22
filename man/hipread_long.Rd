@@ -4,16 +4,22 @@
 \alias{hipread_long}
 \title{Read a hierarchical data file to long format}
 \usage{
-hipread_long(file, var_info, rtinfo = hip_rt(1, 0), compression = NULL,
+hipread_long(file, var_info, rt_info = hip_rt(1, 0), compression = NULL,
   skip = 0, n_max = -1, encoding = "UTF-8", progress = show_progress())
 }
 \arguments{
 \item{file}{A filename}
 
-\item{var_info}{Variable information, specified by either \code{\link[=hip_fwf_positons]{hip_fwf_positons()}}
+\item{var_info}{Variable information, specified by either \code{\link[=hip_fwf_positions]{hip_fwf_positions()}}
 or \code{hip_fwf_widths()}. For hierarchical data files, there should be a named list,
 where the name is the value indicated by the recordtype variable and there is
 one variable information per record type.}
+
+\item{rt_info}{A rectype information object, created by \code{\link[=hip_rt]{hip_rt()}}, which
+contains information about the location of the record type variable that
+defines the record type for each observation. The default contains width
+0, which indicates that there the data is rectangular and does not have
+a record type variable.}
 
 \item{compression}{If \code{NULL}, guesses the compression from the
 file extension (if extension is "gz" uses gzip, otherwise
@@ -35,12 +41,6 @@ displayed on the screen, defaults to showing progress unless
 the current context is non-interactive or in a knitr document or
 if the user has turned off readr's progress by default using
 the option \code{options("readr.show_progress")}.}
-
-\item{rt_info}{A rectype information object, created by \code{\link[=hip_rt]{hip_rt()}}, which
-contains information about the location of the record type variable that
-defines the record type for each observation. The default contains width
-0, which indicates that there the data is rectangular and does not have
-a record type variable.}
 }
 \value{
 A \code{tbl_df} data frame

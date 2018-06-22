@@ -38,7 +38,7 @@
 #'   hip_rt(1, 1)
 #' )
 hipread_long_chunked <- function(
-  file, callback, chunk_size, var_info, rtinfo = hip_rt(1, 0),
+  file, callback, chunk_size, var_info, rt_info = hip_rt(1, 0),
   compression = NULL, skip = 0, encoding = "UTF-8",
   progress = show_progress()
 ) {
@@ -55,7 +55,7 @@ hipread_long_chunked <- function(
   on.exit(callback$finally(), add = TRUE)
 
   read_chunked_long(
-    file, callback, chunk_size, var_names, var_types, rtinfo,
+    file, callback, chunk_size, var_names, var_types, rt_info,
     var_pos_info, var_opts, skip, isgzipped, encoding, progress
   )
 
