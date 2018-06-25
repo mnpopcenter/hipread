@@ -9,28 +9,29 @@
 // I wish I could use the boost libraries but this makes me think that's not so easy:
 // https://github.com/eddelbuettel/bh/issues/49
 
-// This number has to be longer than all line lengths
-static const unsigned BUFLEN = 1048576;
-
 class GzStream {
 private:
   std::string filename_;
   gzFile file;
-  char buffer[BUFLEN];
+  char* buffer;
   char* cur;
   char* end;
   void fillBuffer();
   bool done;
+  size_t buffer_size;
 
 public:
   GzStream(std::string filename) : filename_(filename), done(false) {
     cur = nullptr;
     file = gzopen(filename.c_str(), "rb");
+    buffer_size = 1048576; // start large so that we don't have to copy as much (1048576)
+    buffer = new char[buffer_size];
     fillBuffer();
   }
   ~GzStream() {
     cur = nullptr;
     end = nullptr;
+    delete buffer;
   }
   bool getLine(const char* &line_start, const char* &line_end);
   bool isDone();
