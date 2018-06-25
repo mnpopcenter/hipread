@@ -130,7 +130,9 @@ void read_chunked_list(
     std::vector<std::vector<ColumnPtr> > chunk;
     std::vector<int> cur_pos_rt;
     for (size_t i = 0; i < rts.getNumRts(); ++i) {
-      chunk.push_back(createAllColumns(var_types[i], var_opts[i], &pEncoder_));
+      chunk.push_back(createAllColumns(
+          var_types[static_cast<R_xlen_t>(i)], var_opts[static_cast<R_xlen_t>(i)], &pEncoder_
+      ));
       resizeAllColumns(chunk[i], chunksize); // TODO: Could try to be smarter about allocation
       cur_pos_rt.push_back(-1);
     }
@@ -169,7 +171,7 @@ void read_chunked_list(
     List list_chunk;
     for (size_t j = 0; j < rts.getNumRts(); ++j) {
       resizeAllColumns(chunk[j], cur_pos_rt[j] + 1);
-      list_chunk.push_back(columnsToDf(chunk[j], var_names[j]));
+      list_chunk.push_back(columnsToDf(chunk[j], var_names[static_cast<R_xlen_t>(j)]));
     }
     list_chunk.names() = var_pos_info.names();
     R6method(callback, "receive")(list_chunk, i);
