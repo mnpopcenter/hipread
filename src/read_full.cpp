@@ -120,8 +120,8 @@ RObject read_list(
   std::vector<std::vector<ColumnPtr> > out;
   std::vector<int> cur_pos_rt;
   for (size_t i = 0; i < rts.getNumRts(); ++i) {
-    Rcpp::CharacterVector vt = var_types[i];
-    out.push_back(createAllColumns(vt, var_opts[i], &pEncoder_));
+    Rcpp::CharacterVector vt = var_types[static_cast<R_xlen_t>(i)];
+    out.push_back(createAllColumns(vt, var_opts[static_cast<R_xlen_t>(i)], &pEncoder_));
     resizeAllColumns(out[i], 10000); // Start out with 10k rows
     cur_pos_rt.push_back(-1);
   }
@@ -169,9 +169,9 @@ RObject read_list(
   }
 
   List out_r;
-  for (size_t i = 0;  i < rts.getNumRts(); ++i) {
-    resizeAllColumns(out[i], cur_pos_rt[i] + 1);
-    out_r.push_back(columnsToDf(out[i], var_names[i]));
+  for (size_t j = 0;  j < rts.getNumRts(); ++j) {
+    resizeAllColumns(out[j], cur_pos_rt[j] + 1);
+    out_r.push_back(columnsToDf(out[j], var_names[static_cast<R_xlen_t>(j)]));
   }
   out_r.names() = var_pos_info.names();
 
