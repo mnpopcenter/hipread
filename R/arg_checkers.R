@@ -36,7 +36,7 @@ get_var_pos <- function(var_info, var_names = NULL) {
       start = vp$start,
       width = vp$end - vp$start,
       var_pos = match(vp$col_names, var_names) - 1,
-      max_end = max(vp$end) - 1
+      max_end = max(vp$end)
     )
   })
   names(out) <- names(var_info)
