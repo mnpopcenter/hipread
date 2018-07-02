@@ -47,7 +47,7 @@ void read_chunked_long(
 
   RtInfo rts(rt_info, var_pos_info.names());
   VarInfo vars(var_pos_info, rts.getNumRts());
-
+  int chunk_start = 1;
   while (isTrue(R6method(callback, "continue")()) && !data->isDone()) {
     std::vector<ColumnPtr> chunk = createAllColumns(var_types, var_opts, &pEncoder_);
     resizeAllColumns(chunk, chunksize);
@@ -55,7 +55,7 @@ void read_chunked_long(
     int i;
     const char* line_start;
     const char* line_end;
-    for (i = 0; i < chunksize - 1; ++i) {
+    for (i = 0; i < chunksize; ++i) {
       data->getLine(line_start, line_end);
 
       if (line_start == line_end && data->isDone()) {
@@ -87,7 +87,8 @@ void read_chunked_long(
 
     resizeAllColumns(chunk, i);
     RObject chunk_df = columnsToDf(chunk, var_names);
-    R6method(callback, "receive")(chunk_df, i);
+    R6method(callback, "receive")(chunk_df, chunk_start);
+    chunk_start += i;
 
     if (progress) {
       ProgressBar.show(data->progress_info());
@@ -126,6 +127,7 @@ void read_chunked_list(
   RtInfo rts(rt_info, var_pos_info.names());
   VarInfo vars(var_pos_info, rts.getNumRts());
 
+  int chunk_start = 1;
   while (isTrue(R6method(callback, "continue")()) && !data->isDone()) {
     std::vector<std::vector<ColumnPtr> > chunk;
     std::vector<int> cur_pos_rt;
@@ -174,7 +176,8 @@ void read_chunked_list(
       list_chunk.push_back(columnsToDf(chunk[j], var_names[static_cast<R_xlen_t>(j)]));
     }
     list_chunk.names() = var_pos_info.names();
-    R6method(callback, "receive")(list_chunk, i);
+    R6method(callback, "receive")(list_chunk, chunk_start);
+    chunk_start += i;
 
     if (progress) {
       ProgressBar.show(data->progress_info());

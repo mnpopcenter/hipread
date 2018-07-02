@@ -114,3 +114,58 @@ test_that("Can read a rectangular chunked example", {
   expect_equal(ncol(actual), NCOL)
   expect_equal(actual$var1, VAR1)
 })
+
+
+test_that("Chunks are the correct size", {
+  actual <- hipread_long_chunked(
+    hipread_example("test-basic.dat"),
+    readr::ListCallback$new(function(x, pos) nrow(x)),
+    4,
+    list(
+      H = hip_fwf_widths(
+        c(1, 3, 3, 3, 2),
+        c("rt", "hhnum", "hh_char", "hh_dbl", "hh_impdbl"),
+        c("character", "character", "character", "double", "double"),
+        trim_ws = c(TRUE, FALSE, TRUE, NA, NA),
+        imp_dec = c(NA, NA, NA, 0, 1)
+      ),
+      P = hip_fwf_widths(
+        c(1, 3, 1, 3, 1),
+        c("rt", "hhnum", "pernum", "per_dbl", "per_mix"),
+        c("character", "character", "integer", "double", "character"),
+        trim_ws = c(TRUE, FALSE, NA, NA, TRUE),
+        imp_dec = c(NA, NA, NA, 0, NA)
+      )
+    ),
+    hip_rt(1, 1)
+  )
+
+  expect_equal(unlist(actual), c(4, 4, 1))
+})
+
+test_that("pos is correct", {
+  actual <- hipread_long_chunked(
+    hipread_example("test-basic.dat"),
+    readr::ListCallback$new(function(x, pos) pos),
+    4,
+    list(
+      H = hip_fwf_widths(
+        c(1, 3, 3, 3, 2),
+        c("rt", "hhnum", "hh_char", "hh_dbl", "hh_impdbl"),
+        c("character", "character", "character", "double", "double"),
+        trim_ws = c(TRUE, FALSE, TRUE, NA, NA),
+        imp_dec = c(NA, NA, NA, 0, 1)
+      ),
+      P = hip_fwf_widths(
+        c(1, 3, 1, 3, 1),
+        c("rt", "hhnum", "pernum", "per_dbl", "per_mix"),
+        c("character", "character", "integer", "double", "character"),
+        trim_ws = c(TRUE, FALSE, NA, NA, TRUE),
+        imp_dec = c(NA, NA, NA, 0, NA)
+      )
+    ),
+    hip_rt(1, 1)
+  )
+
+  expect_equal(unlist(actual), c(1, 5, 9))
+})
