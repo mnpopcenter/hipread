@@ -57,7 +57,6 @@ RObject read_long(
     size_t rt_index;
     bool rt_found = rts.getRtIndex(line_start, line_end, rt_index);
     if (!rt_found) {
-      // TODO: Should this be a warning?
       continue;
     }
 
@@ -142,7 +141,6 @@ RObject read_list(
     size_t rt_index;
     bool rt_found = rts.getRtIndex(line_start, line_end, rt_index);
     if (!rt_found) {
-      // TODO: Should this be a warning?
       continue;
     }
     cur_pos_rt[rt_index]++;

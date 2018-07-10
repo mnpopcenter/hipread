@@ -88,10 +88,12 @@ hip_fwf_widths <- function(
 #'
 #' @param start Start position of the record type variable
 #' @param width The width of the record type variable
+#' @param warn_on_missing Whether to warn when encountering a
+#'   record type that is not specified
 #'
 #' @return A list, really only inteded to be used internally by hipread
 #' @export
-hip_rt <- function(start, width) {
+hip_rt <- function(start, width, warn_on_missing = TRUE) {
   if (length(start) > 1) stop(paste0(
     "rectype start must be a single integer, but is of size ", length(start)
   ))
@@ -112,5 +114,8 @@ hip_rt <- function(start, width) {
     "rectype start must be greater than 1 but is ", start
   ))
 
-  list(start = start - 1, width = width)
+  list(
+    start = start - 1, width = width,
+    verbose_warning = as.logical(warn_on_missing)
+  )
 }

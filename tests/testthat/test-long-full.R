@@ -196,3 +196,38 @@ test_that("reading from fwf_positions correctly uses defaults", {
     )
   )
 })
+
+test_that("Unknown rectypes produce expected warnings", {
+  expect_warning(
+    hipread_long(
+      hipread_example("test-basic.dat"),
+      list(
+        H = hip_fwf_widths(
+          c(1, 3, 3, 3, 2),
+          c("rt", "hhnum", "hh_char", "hh_dbl", "hh_impdbl"),
+          c("character", "character", "character", "double", "double"),
+          trim_ws = c(TRUE, FALSE, TRUE, NA, NA),
+          imp_dec = c(NA, NA, NA, 0, 1)
+        )
+      ),
+      hip_rt(1, 1)
+    ),
+    "unknown record type"
+  )
+
+  expect_silent(
+    ignore <- hipread_long(
+      hipread_example("test-basic.dat"),
+      list(
+        H = hip_fwf_widths(
+          c(1, 3, 3, 3, 2),
+          c("rt", "hhnum", "hh_char", "hh_dbl", "hh_impdbl"),
+          c("character", "character", "character", "double", "double"),
+          trim_ws = c(TRUE, FALSE, TRUE, NA, NA),
+          imp_dec = c(NA, NA, NA, 0, 1)
+        )
+      ),
+      hip_rt(1, 1, FALSE)
+    )
+  )
+})

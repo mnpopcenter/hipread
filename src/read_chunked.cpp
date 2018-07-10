@@ -65,7 +65,6 @@ void read_chunked_long(
       size_t rt_index;
       bool rt_found = rts.getRtIndex(line_start, line_end, rt_index);
       if (!rt_found) {
-        // TODO: Should this be a warning?
         break;
       }
 
@@ -153,7 +152,6 @@ void read_chunked_list(
       size_t rt_index;
       bool rt_found = rts.getRtIndex(line_start, line_end, rt_index);
       if (!rt_found) {
-        // TODO: Should this be a warning?
         break;
       }
       cur_pos_rt[rt_index]++;
