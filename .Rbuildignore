@@ -3,3 +3,4 @@
 ^CONDUCT\.md$
 ^CONTRIBUTING\.md$
 ^NOTICE\.txt$
+^\.travis\.yml$
