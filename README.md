@@ -1,7 +1,8 @@
 # hipread
   
-  [![Travis build status](https://travis-ci.org/mnpopcenter/hipread.svg?branch=master)](https://travis-ci.org/mnpopcenter/hipread)
-  
+[![Travis build status](https://travis-ci.org/mnpopcenter/hipread.svg?branch=master)](https://travis-ci.org/mnpopcenter/hipread)
+[![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/mnpopcenter/hipread?branch=master&svg=true)](https://ci.appveyor.com/project/mnpopcenter/hipread)
+
 hipread (hierarchical IPUMS reader) is a fork from 
 [tidyverse readr](https://github.com/tidyverse/readr)
 to better serve the ipumsr package. 
