@@ -58,8 +58,12 @@ void read_chunked_long(
     for (i = 0; i < chunksize; ++i) {
       data->getLine(line_start, line_end);
 
-      if (line_start == line_end && data->isDone()) {
-        break;
+      if (line_end - line_start == 0) {
+        if (data->isDone()) {
+          break;
+        } else {
+          continue;
+        }
       }
 
       size_t rt_index;
@@ -145,8 +149,12 @@ void read_chunked_list(
     for (i = 0; i < chunksize; ++i) {
       data->getLine(line_start, line_end);
 
-      if (line_start == line_end && data->isDone()) {
-        break;
+      if (line_end - line_start == 0) {
+        if (data->isDone()) {
+          break;
+        } else {
+          continue;
+        }
       }
 
       size_t rt_index;

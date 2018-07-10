@@ -45,14 +45,19 @@ RObject read_long(
   while (!data->isDone() && i < n_max) {
     data->getLine(line_start, line_end);
 
-    if (line_end - line_start == 0 && data->isDone()) {
-      break;
+    if (line_end - line_start == 0) {
+      if (data->isDone()) {
+        break;
+      } else {
+        continue;
+      }
     }
 
     if (i >= out[0]->size()) {
       // Resize by guessing from the progress bar
       resizeAllColumns(out, static_cast<int>((i / data->progress_info().first) * 1.1));
     }
+
 
     size_t rt_index;
     bool rt_found = rts.getRtIndex(line_start, line_end, rt_index);
@@ -134,8 +139,12 @@ RObject read_list(
   while (!data->isDone() && i < n_max) {
     data->getLine(line_start, line_end);
 
-    if (line_end - line_start == 0 && data->isDone()) {
-      break;
+    if (line_end - line_start == 0) {
+      if (data->isDone()) {
+        break;
+      } else {
+        continue;
+      }
     }
 
     size_t rt_index;
