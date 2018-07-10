@@ -90,6 +90,7 @@ void read_chunked_long(
     R6method(callback, "receive")(chunk_df, chunk_start);
     chunk_start += i;
 
+    Rcpp::checkUserInterrupt();
     if (progress) {
       ProgressBar.show(data->progress_info());
     }
@@ -179,6 +180,7 @@ void read_chunked_list(
     R6method(callback, "receive")(list_chunk, chunk_start);
     chunk_start += i;
 
+    Rcpp::checkUserInterrupt();
     if (progress) {
       ProgressBar.show(data->progress_info());
     }

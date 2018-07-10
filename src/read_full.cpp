@@ -75,10 +75,13 @@ RObject read_long(
 
       out[cur_var_pos]->setValue(i, x_start, x_end);
     }
-
-    if (progress && i % PROGRESS_TICK == 0) {
-      ProgressBar.show(data->progress_info());
+    if (i % PROGRESS_TICK == 0) {
+      Rcpp::checkUserInterrupt();
+      if (progress) {
+        ProgressBar.show(data->progress_info());
+      }
     }
+
     ++i;
   }
   resizeAllColumns(out, i);
@@ -162,8 +165,11 @@ RObject read_list(
       out[rt_index][j]->setValue(cur_pos_rt[rt_index], x_start, x_end);
     }
 
-    if (progress && i % PROGRESS_TICK == 0) {
-      ProgressBar.show(data->progress_info());
+    if (i % PROGRESS_TICK == 0) {
+      Rcpp::checkUserInterrupt();
+      if (progress) {
+        ProgressBar.show(data->progress_info());
+      }
     }
     ++i;
   }
