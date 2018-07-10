@@ -17,7 +17,7 @@ void DataSource::skipLines(int skip) {
 }
 
 void FileDataSource::getLine(const char* &start, const char* &end) {
-  if (cur_end != nullptr) cur_begin = cur_end + 1; // TODO: Windows line breaks
+  if (cur_end != nullptr) cur_begin = cur_end + 1;
   cur_end = std::find_if(cur_begin, file_end, [](int ch) {
     return ch == '\n';
   });

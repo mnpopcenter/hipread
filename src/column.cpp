@@ -58,7 +58,6 @@ std::string Column::describe_failures(std::string var_name) {
 
 
 void ColumnCharacter::setValue(int i, const char* x_start, const char* x_end) {
-  // TODO: How would encoding affect this?
   if (trim_ws) IpStringUtils::newtrim(x_start, x_end);
   SET_STRING_ELT(values_, i, pEncoder_->makeSEXP(x_start, x_end));
 }
