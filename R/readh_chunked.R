@@ -52,6 +52,7 @@ hipread_long_chunked <- function(
   var_types <- get_var_types(var_info, var_names)
   var_opts <- get_var_opts(var_info, var_names)
   skip <- check_skip(skip)
+  if (is.null(encoding)) encoding <- "UTF-8"
 
   callback <- as_chunk_callback(callback)
   on.exit(callback$finally(), add = TRUE)
@@ -80,6 +81,7 @@ hipread_list_chunked <- function(
   var_types <- get_vinfo_col_as_list(var_info, "col_types")
   var_opts <- get_var_opts_list(var_info)
   skip <- check_skip(skip)
+  if (is.null(encoding)) encoding <- "UTF-8"
 
   callback <- as_chunk_callback(callback)
   on.exit(callback$finally(), add = TRUE)

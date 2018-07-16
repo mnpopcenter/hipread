@@ -101,6 +101,7 @@ hipread_long <- function(
   var_opts <- get_var_opts(var_info, var_names)
   skip <- check_skip(skip)
   n_max <- check_n_max(n_max)
+  if (is.null(encoding)) encoding <- "UTF-8"
 
   read_long(
     file, var_names, var_types, rt_info, var_pos_info,
@@ -124,6 +125,7 @@ hipread_list <- function(
   var_opts <- get_var_opts_list(var_info)
   skip <- check_skip(skip)
   n_max <- check_n_max(n_max)
+  if (is.null(encoding)) encoding <- "UTF-8"
 
   read_list(
     file, var_names, var_types, rt_info, var_pos_info,
