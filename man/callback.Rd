@@ -7,7 +7,7 @@
 \title{Callback classes}
 \description{
 These classes are used to define callback behaviors, and are based
-on readr's \code{\link[readr:chunked]{readr::chunked}} functions.
+on readr's \code{\link[readr:callback]{readr::callback}} functions.
 }
 \details{
 \itemize{

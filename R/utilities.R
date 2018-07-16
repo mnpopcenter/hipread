@@ -1,5 +1,6 @@
 #' @useDynLib hipread, .registration = TRUE
 #' @importFrom Rcpp sourceCpp
+#' @importFrom rlang .data
 NULL
 
 #' Get path to hipread's example datasets

@@ -9,6 +9,7 @@ private:
   int width;
   std::vector<std::string> rectypes;
   bool hierarchical;
+  bool verbose_warning;
 
 public:
   RtInfo(Rcpp::List rt_info, std::vector<std::string> rectypes_);

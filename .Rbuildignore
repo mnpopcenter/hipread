@@ -1,2 +1,7 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
+^CONDUCT\.md$
+^CONTRIBUTING\.md$
+^NOTICE\.txt$
+^\.travis\.yml$
+^appveyor\.yml$

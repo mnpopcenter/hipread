@@ -46,7 +46,6 @@ RObject read_freqs(
     size_t rt_index;
     bool rt_found = rts.getRtIndex(line_start, line_end, rt_index);
     if (!rt_found) {
-      // TODO: Should this be a warning?
       continue;
     }
 
@@ -69,8 +68,11 @@ RObject read_freqs(
       }
     }
 
-    if (progress && i % PROGRESS_TICK == 0) {
-      ProgressBar.show(data->progress_info());
+    if (i % PROGRESS_TICK == 0) {
+      Rcpp::checkUserInterrupt();
+      if (progress) {
+        ProgressBar.show(data->progress_info());
+      }
     }
     ++i;
   }
