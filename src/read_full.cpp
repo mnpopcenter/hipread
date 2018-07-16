@@ -45,7 +45,8 @@ RObject read_long(
   while (!data->isDone() && i < n_max) {
     data->getLine(line_start, line_end);
 
-    if (line_end - line_start == 0) {
+    if (line_end - line_start == 0 ||
+        (line_end - line_start == 1 && std::string(line_start, line_end) == "\r")) {
       if (data->isDone()) {
         break;
       } else {
@@ -139,7 +140,8 @@ RObject read_list(
   while (!data->isDone() && i < n_max) {
     data->getLine(line_start, line_end);
 
-    if (line_end - line_start == 0) {
+    if (line_end - line_start == 0 ||
+        (line_end - line_start == 1 && std::string(line_start, line_end) == "\r")) {
       if (data->isDone()) {
         break;
       } else {

@@ -39,8 +39,13 @@ RObject read_freqs(
   while (!data->isDone()) {
     data->getLine(line_start, line_end);
 
-    if (line_end - line_start == 0 && data->isDone()) {
-      break;
+    if (line_end - line_start == 0 ||
+        (line_end - line_start == 1 && std::string(line_start, line_end) == "\r")) {
+      if (data->isDone()) {
+        break;
+      } else {
+        continue;
+      }
     }
 
     size_t rt_index;

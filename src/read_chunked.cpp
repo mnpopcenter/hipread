@@ -58,7 +58,8 @@ void read_chunked_long(
     for (i = 0; i < chunksize; ++i) {
       data->getLine(line_start, line_end);
 
-      if (line_end - line_start == 0) {
+      if (line_end - line_start == 0 ||
+          (line_end - line_start == 1 && std::string(line_start, line_end) == "\r")) {
         if (data->isDone()) {
           break;
         } else {
@@ -149,7 +150,8 @@ void read_chunked_list(
     for (i = 0; i < chunksize; ++i) {
       data->getLine(line_start, line_end);
 
-      if (line_end - line_start == 0) {
+      if (line_end - line_start == 0 ||
+          (line_end - line_start == 1 && std::string(line_start, line_end) == "\r")) {
         if (data->isDone()) {
           break;
         } else {
