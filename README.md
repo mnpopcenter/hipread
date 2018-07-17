@@ -5,7 +5,8 @@
 
 hipread (hierarchical IPUMS reader) is a fork from 
 [tidyverse readr](https://github.com/tidyverse/readr)
-to better serve the ipumsr package. 
+that allows for reading hierarchical fixed width text files, like those created 
+by the CSPro software and commonly used by census data providers.
 
 Compared to readr it is:
 - Able to natively read the "hierarchical" fixed width file format that IPUMS and
