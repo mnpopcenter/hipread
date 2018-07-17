@@ -97,11 +97,14 @@ hipread_list_chunked <- function(
 # Copied from readr
 as_chunk_callback <- function(x) UseMethod("as_chunk_callback")
 as_chunk_callback.function <- function(x) {
-  readr::SideEffectChunkCallback$new(x)
+  HipSideEffectChunkCallback$new(x)
 }
 as_chunk_callback.R6ClassGenerator <- function(x) {
   as_chunk_callback(x$new())
 }
 as_chunk_callback.ChunkCallback <- function(x) {
+  x
+}
+as_chunk_callback.HipChunkCallback <- function(x) {
   x
 }

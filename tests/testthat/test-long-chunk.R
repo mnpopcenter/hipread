@@ -119,7 +119,7 @@ test_that("Can read a rectangular chunked example", {
 test_that("Chunks are the correct size", {
   actual <- hipread_long_chunked(
     hipread_example("test-basic.dat"),
-    readr::ListCallback$new(function(x, pos) nrow(x)),
+    HipListCallback$new(function(x, pos) nrow(x)),
     4,
     list(
       H = hip_fwf_widths(
@@ -146,7 +146,7 @@ test_that("Chunks are the correct size", {
 test_that("pos is correct", {
   actual <- hipread_long_chunked(
     hipread_example("test-basic.dat"),
-    readr::ListCallback$new(function(x, pos) pos),
+    HipListCallback$new(function(x, pos) pos),
     4,
     list(
       H = hip_fwf_widths(

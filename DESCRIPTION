@@ -27,13 +27,13 @@ LinkingTo:
     BH
 Imports: 
     Rcpp,
-    readr,
     dplyr,
     R6,
     rlang
+Suggests:
+    readr,
+    testthat
 SystemRequirements:
     C++11
 RoxygenNote: 6.0.1
-Suggests: 
-    testthat
 Roxygen: list(markdown = TRUE)

@@ -3,6 +3,9 @@
 \docType{data}
 \name{callback}
 \alias{callback}
+\alias{HipChunkCallback}
+\alias{HipSideEffectChunkCallback}
+\alias{HipListCallback}
 \alias{HipDataFrameCallback}
 \title{Callback classes}
 \description{
@@ -11,8 +14,12 @@ on readr's \code{\link[readr:callback]{readr::callback}} functions.
 }
 \details{
 \itemize{
-\item The function \code{HipDataFrameCallback()} is similar to
-\code{\link[readr:DataFrameCallback]{readr::DataFrameCallback()}} except that it uses \code{dplyr::bind_rows()}
+\item The callbacks \code{HipChunkCallback}, \code{HipListCallback} and
+\code{HipSideEffectChunkCallback} should be identical to their readr
+counterparts, but have been copied into hipread to ensure that they
+work even if readr changes.
+\item The callback \code{HipDataFrameCallback} is similar to
+readr::DataFrameCallback() except that it uses \code{dplyr::bind_rows()}
 instead of \code{rbind()} so that it is faster.
 }
 }
