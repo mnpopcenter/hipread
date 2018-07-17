@@ -1,6 +1,6 @@
 #' Specify column-specific options for hipread
 #'
-#' Specify column specifications analagous to [`readr::fwf_positions()`].
+#' Specify column specifications analagous to `readr::fwf_positions()`.
 #' However, unlike in readr, the column type information is specified
 #' alongside the column positions and there are two extra options that
 #' can be specified (`trim_ws` gives control over trimming whitespace
