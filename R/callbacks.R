@@ -24,13 +24,15 @@ bind_rows <- dplyr::bind_rows
 #' @keywords internal
 NULL
 
+
+
+
 # Direct copy of readr::ChunkCallback
-#' @usage NULL
-#' @format NULL
-#' @rdname callback
-#' @export
-HipChunkCallback <- R6::R6Class(
-  "HipChunkCallback",
+# By inheriting from this, we can trick the S3
+# method in readr for as_chunk_callback to
+# work with hipread callback objects
+ChunkCallback <- R6::R6Class(
+  "ChunkCallback",
   private = list(
     callback = NULL
   ),
@@ -42,6 +44,15 @@ HipChunkCallback <- R6::R6Class(
     finally = function() NULL
   )
 )
+
+#' @usage NULL
+#' @format NULL
+#' @rdname callback
+#' @export
+HipChunkCallback <- R6::R6Class(
+  "HipChunkCallback", inherit = ChunkCallback
+)
+
 
 # Direct copy of readr::SideEffectChunkCallback
 #' @usage NULL
