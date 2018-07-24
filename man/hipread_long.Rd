@@ -16,10 +16,10 @@ hipread_list(file, var_info, rt_info = hip_rt(1, 0), compression = NULL,
 
 \item{var_info}{Variable information, specified by either \code{\link[=hip_fwf_positions]{hip_fwf_positions()}}
 or \code{hip_fwf_widths()}. For hierarchical data files, there should be a named list,
-where the name is the value indicated by the recordtype variable and there is
+where the name is the value indicated by the record type variable and there is
 one variable information per record type.}
 
-\item{rt_info}{A rectype information object, created by \code{\link[=hip_rt]{hip_rt()}}, which
+\item{rt_info}{A record type information object, created by \code{\link[=hip_rt]{hip_rt()}}, which
 contains information about the location of the record type variable that
 defines the record type for each observation. The default contains width
 0, which indicates that there the data is rectangular and does not have
@@ -30,7 +30,7 @@ file extension (if extension is "gz" uses gzip, otherwise
 treats as plain text), can specify it with a string ("txt"
 indicates plain text and "gz" for gzip).}
 
-\item{skip}{Number of lines to skip at the start of the data (defaluts to 0).}
+\item{skip}{Number of lines to skip at the start of the data (defaults to 0).}
 
 \item{n_max}{Maximum number of lines to read. Negative numbers (the default)
 reads all lines.}
@@ -50,7 +50,7 @@ the option \code{options("readr.show_progress")}.}
 A \code{tbl_df} data frame
 }
 \description{
-Analagous to \code{\link[readr:read_fwf]{readr::read_fwf()}} but allowing for
+Analogous to \code{\link[readr:read_fwf]{readr::read_fwf()}} but allowing for
 hierarchical fixed width data files (where the data file has rows of
 different record types, each with their own variables and column
 specifications). \code{hipread_long()} reads hierarchical data into "long"

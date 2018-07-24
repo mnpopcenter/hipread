@@ -34,7 +34,7 @@ columns are consecutive - that there is no overlap or gap between fields)}
 A data.frame containing the column specifications
 }
 \description{
-Specify column specifications analagous to \code{readr::fwf_positions()}.
+Specify column specifications analogous to \code{readr::fwf_positions()}.
 However, unlike in readr, the column type information is specified
 alongside the column positions and there are two extra options that
 can be specified (\code{trim_ws} gives control over trimming whitespace

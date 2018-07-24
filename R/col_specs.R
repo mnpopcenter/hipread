@@ -1,6 +1,6 @@
 #' Specify column-specific options for hipread
 #'
-#' Specify column specifications analagous to `readr::fwf_positions()`.
+#' Specify column specifications analogous to `readr::fwf_positions()`.
 #' However, unlike in readr, the column type information is specified
 #' alongside the column positions and there are two extra options that
 #' can be specified (`trim_ws` gives control over trimming whitespace
@@ -82,7 +82,7 @@ hip_fwf_widths <- function(
 
 #' Create a record type information object
 #'
-#' Create a record type informaiton object for hipread to use
+#' Create a record type information object for hipread to use
 #' when reading hierarchical files. A width of 0 indicates that
 #' the file is rectangular (eg a standard fixed width file).
 #'
@@ -91,7 +91,7 @@ hip_fwf_widths <- function(
 #' @param warn_on_missing Whether to warn when encountering a
 #'   record type that is not specified
 #'
-#' @return A list, really only inteded to be used internally by hipread
+#' @return A list, really only intended to be used internally by hipread
 #' @export
 hip_rt <- function(start, width, warn_on_missing = TRUE) {
   if (length(start) > 1) stop(paste0(

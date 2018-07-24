@@ -1,6 +1,6 @@
 #' Read a hierarchical fixed width data file
 #'
-#' Analagous to [readr::read_fwf()] but allowing for
+#' Analogous to [readr::read_fwf()] but allowing for
 #' hierarchical fixed width data files (where the data file has rows of
 #' different record types, each with their own variables and column
 #' specifications). `hipread_long()` reads hierarchical data into "long"
@@ -12,14 +12,14 @@
 #' @param file A filename
 #' @param var_info Variable information, specified by either [`hip_fwf_positions()`]
 #'   or `hip_fwf_widths()`. For hierarchical data files, there should be a named list,
-#'   where the name is the value indicated by the recordtype variable and there is
+#'   where the name is the value indicated by the record type variable and there is
 #'   one variable information per record type.
-#' @param rt_info A rectype information object, created by [`hip_rt()`], which
+#' @param rt_info A record type information object, created by [`hip_rt()`], which
 #'   contains information about the location of the record type variable that
 #'   defines the record type for each observation. The default contains width
 #'   0, which indicates that there the data is rectangular and does not have
 #'   a record type variable.
-#' @param skip Number of lines to skip at the start of the data (defaluts to 0).
+#' @param skip Number of lines to skip at the start of the data (defaults to 0).
 #' @param n_max Maximum number of lines to read. Negative numbers (the default)
 #'   reads all lines.
 #' @param encoding (Defaults to UTF-8) A string indicating what encoding to use

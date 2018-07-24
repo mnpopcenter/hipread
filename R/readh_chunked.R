@@ -1,6 +1,6 @@
 #' Read a hierarchical fixed width data file, in chunks
 #'
-#' Analagous to [readr::read_fwf()], but with chunks, and allowing for
+#' Analogous to [readr::read_fwf()], but with chunks, and allowing for
 #' hierarchical fixed width data files (where the data file has rows of
 #' different record types, each with their own variables and column
 #' specifications). `hipread_long_chunked()` reads hierarchical data into "long"

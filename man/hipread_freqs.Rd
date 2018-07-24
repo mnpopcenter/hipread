@@ -12,10 +12,10 @@ hipread_freqs(file, var_info, rt_info = hip_rt(1, 0), compression = NULL,
 
 \item{var_info}{Variable information, specified by either \code{\link[=hip_fwf_positions]{hip_fwf_positions()}}
 or \code{hip_fwf_widths()}. For hierarchical data files, there should be a named list,
-where the name is the value indicated by the recordtype variable and there is
+where the name is the value indicated by the record type variable and there is
 one variable information per record type.}
 
-\item{rt_info}{A rectype information object, created by \code{\link[=hip_rt]{hip_rt()}}, which
+\item{rt_info}{A record type information object, created by \code{\link[=hip_rt]{hip_rt()}}, which
 contains information about the location of the record type variable that
 defines the record type for each observation. The default contains width
 0, which indicates that there the data is rectangular and does not have

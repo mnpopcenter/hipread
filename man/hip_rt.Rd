@@ -15,10 +15,10 @@ hip_rt(start, width, warn_on_missing = TRUE)
 record type that is not specified}
 }
 \value{
-A list, really only inteded to be used internally by hipread
+A list, really only intended to be used internally by hipread
 }
 \description{
-Create a record type informaiton object for hipread to use
+Create a record type information object for hipread to use
 when reading hierarchical files. A width of 0 indicates that
 the file is rectangular (eg a standard fixed width file).
 }

@@ -24,10 +24,10 @@ single unit (defaults to 10000)}
 
 \item{var_info}{Variable information, specified by either \code{\link[=hip_fwf_positions]{hip_fwf_positions()}}
 or \code{hip_fwf_widths()}. For hierarchical data files, there should be a named list,
-where the name is the value indicated by the recordtype variable and there is
+where the name is the value indicated by the record type variable and there is
 one variable information per record type.}
 
-\item{rt_info}{A rectype information object, created by \code{\link[=hip_rt]{hip_rt()}}, which
+\item{rt_info}{A record type information object, created by \code{\link[=hip_rt]{hip_rt()}}, which
 contains information about the location of the record type variable that
 defines the record type for each observation. The default contains width
 0, which indicates that there the data is rectangular and does not have
@@ -38,7 +38,7 @@ file extension (if extension is "gz" uses gzip, otherwise
 treats as plain text), can specify it with a string ("txt"
 indicates plain text and "gz" for gzip).}
 
-\item{skip}{Number of lines to skip at the start of the data (defaluts to 0).}
+\item{skip}{Number of lines to skip at the start of the data (defaults to 0).}
 
 \item{encoding}{(Defaults to UTF-8) A string indicating what encoding to use
 when reading the data, but like readr, the data will always be converted to
@@ -55,7 +55,7 @@ the option \code{options("readr.show_progress")}.}
 Depends on the type of \code{\link{callback}} function you use
 }
 \description{
-Analagous to \code{\link[readr:read_fwf]{readr::read_fwf()}}, but with chunks, and allowing for
+Analogous to \code{\link[readr:read_fwf]{readr::read_fwf()}}, but with chunks, and allowing for
 hierarchical fixed width data files (where the data file has rows of
 different record types, each with their own variables and column
 specifications). \code{hipread_long_chunked()} reads hierarchical data into "long"
