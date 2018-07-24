@@ -5,3 +5,4 @@
 ^NOTICE\.txt$
 ^\.travis\.yml$
 ^appveyor\.yml$
+^cran-comments\.md$
