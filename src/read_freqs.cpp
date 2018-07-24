@@ -63,7 +63,7 @@ RObject read_freqs(
     for (size_t j = 0; j < vars.get_num_vars(rt_index); j++) {
       const char *x_start = line_start + vars.get_start(rt_index, j);
       const char *x_end = x_start + vars.get_width(rt_index, j);
-      std::string x(x_start, x_end - x_start);
+      std::string x(x_start, static_cast<size_t>(x_end - x_start));
       size_t cur_var_pos = vars.get_var_pos(rt_index, j);
 
       if (out[cur_var_pos].count(x) == 0) {
