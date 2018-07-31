@@ -77,7 +77,8 @@ void ColumnDouble::setValue(int i, const char* x_start, const char* x_end) {
     add_failure(i, x_start, x_end);
     value = NA_REAL;
   } else {
-    value = value / pow(10, imp_dec);
+    // Solaris doesn't have (int, int) method for pow
+    value = static_cast<double>(value / std::pow(10.0, static_cast<float>(imp_dec)));
   }
   REAL(values_)[i] = static_cast<double>(value);
 }
