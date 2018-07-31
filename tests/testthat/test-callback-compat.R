@@ -3,6 +3,7 @@ library(hipread)
 context("readr callback compatibility")
 test_that("Can use readr callback in a hipread function", {
   skip_on_cran() # Don't prevent readr from updating
+  skip_if_not_installed("dplyr") # HipDataFrameCallback requires dplyr
 
   hipread_callback <- hipread_long_chunked(
     hipread_example("test-basic.dat"),
@@ -33,6 +34,7 @@ test_that("Can use readr callback in a hipread function", {
 
 test_that("Can use hipread callback in a readr function", {
   skip_on_cran() # Don't prevent readr from updating
+  skip_if_not_installed("dplyr") # HipDataFrameCallback requires dplyr
 
   readr_callback <- readr::read_csv_chunked(
     readr::readr_example("mtcars.csv"),

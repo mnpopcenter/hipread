@@ -7,6 +7,7 @@ NCOL <- 8
 FILTERED_HNUM <- c("001", "001", "001", "001", "003", "003")
 
 test_that("Can read a basic example", {
+  skip_if_not_installed("dplyr") # HipDataFrameCallback requires dplyr
   actual <- hipread_long_chunked(
     hipread_example("test-basic.dat"),
     HipDataFrameCallback$new(function(x, pos) x[x$hhnum != "002", ]),
@@ -36,6 +37,7 @@ test_that("Can read a basic example", {
 })
 
 test_that("Can read a basic gzipped example", {
+  skip_if_not_installed("dplyr") # HipDataFrameCallback requires dplyr
   actual <- hipread_long_chunked(
     hipread_example("test-basic.dat.gz"),
     HipDataFrameCallback$new(function(x, pos) x[x$hhnum != "002", ]),
@@ -64,6 +66,7 @@ test_that("Can read a basic gzipped example", {
 })
 
 test_that("Can skip in a basic example", {
+  skip_if_not_installed("dplyr") # HipDataFrameCallback requires dplyr
   actual <- hipread_long_chunked(
     hipread_example("test-basic.dat"),
     HipDataFrameCallback$new(function(x, pos) x[x$hhnum != "002", ]),
@@ -98,6 +101,7 @@ NROW <- 9
 NCOL <- 3
 VAR1 <- c("H", "P", "P", "P", "H", "P", "P", "H", "P")
 test_that("Can read a rectangular chunked example", {
+  skip_if_not_installed("dplyr") # HipDataFrameCallback requires dplyr
   actual <- hipread_long_chunked(
     hipread_example("test-basic.dat"),
     HipDataFrameCallback$new(function(x, pos) x),

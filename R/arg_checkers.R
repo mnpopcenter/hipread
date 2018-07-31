@@ -45,28 +45,29 @@ get_var_pos <- function(var_info, var_names = NULL) {
 }
 
 get_var_types <- function(var_info, var_names) {
-  var_types <- lapply(var_info, function(x) dplyr::select_at(x, c("col_names", "col_types")))
-  names(var_types) <- names(var_info)
-  var_types <- dplyr::bind_rows(var_types, .id = "rectype")
+  var_types <- lapply(names(var_info), function(x) {
+    out <- var_info[[x]][, c("col_names", "col_types")]
+    out$rectype <- x
+    out
+  })
+  var_types <- do.call(rbind, var_types)
 
   check_option_consistency(var_types, "col_types")
-  var_types <- dplyr::select(var_types, -.data$rectype)
-  var_types <- dplyr::distinct(var_types)
+  var_types$rectype <- NULL
+  var_types <- unique(var_types)
 
   var_types$col_types[match(var_types$col_names, var_names)]
 }
 
 get_var_opts <- function(var_info, var_names) {
-  var_opts <- lapply(
-    var_info, function(x) dplyr::select_at(x, c("col_names", "col_types", "trim_ws", "imp_dec"))
-  )
-  names(var_opts) <- names(var_info)
-  var_opts <- dplyr::bind_rows(var_opts, .id = "rectype")
-  var_opts <- dplyr::mutate(
-    var_opts,
-    trim_ws = ifelse(.data$col_types == "character", .data$trim_ws, NA),
-    imp_dec = ifelse(.data$col_types == "double", .data$imp_dec, NA)
-  )
+  var_opts <- lapply(names(var_info), function(x) {
+   out <- var_info[[x]][, c("col_names", "col_types", "trim_ws", "imp_dec")]
+   out$rectype <- x
+   out
+  })
+  var_opts <- do.call(rbind, var_opts)
+  var_opts$trim_ws <- ifelse(var_opts$col_types == "character", var_opts$trim_ws, NA)
+  var_opts$imp_dec <- ifelse(var_opts$col_types == "double", var_opts$imp_dec, NA)
 
   check_option_consistency(var_opts, "trim_ws")
   check_option_consistency(var_opts, "imp_dec")
@@ -108,12 +109,10 @@ check_n_max <- function(x) {
 }
 
 standardize_col_types <- function(x) {
-  out <- dplyr::case_when(
-    x %in% c("c", "character") ~ "character",
-    x %in% c("d", "double") ~ "double",
-    x %in% c("i", "integer") ~ "integer",
-    TRUE ~ NA_character_
-  )
+  out <- rep(NA_character_, length(x))
+  out[x %in% c("c", "character")] <- "character"
+  out[x %in% c("d", "double")] <- "double"
+  out[x %in% c("i", "integer")] <- "integer"
 
   if (any(is.na(out))) {
     bad_types <- unique(x[is.na(out)])
@@ -128,20 +127,25 @@ add_level_to_rect <- function(x) {
 }
 
 check_option_consistency <- function(opts, opt_name) {
-  opts <- dplyr::group_by_at(opts, c("col_names"))
-  opts <- dplyr::mutate(opts, num_unique_opts = length(unique(.data[[opt_name]])))
+  num_unique_opts <- lapply(
+    split(opts[[opt_name]], opts$col_names),
+    function(x) length(unique(x))
+  )
 
-  if (any(opts$num_unique_opts > 1)) {
-    bad_types <- dplyr::filter(opts, .data$num_unique_opts > 1)
-    bad_types <- dplyr::summarize(
-      bad_types,
-      message = paste0(
-        .data$col_names[1], "(", paste(.data$rectype, "-", .data[[opt_name]], collapse = " & "), ")"
-      )
+  if (any(num_unique_opts > 1)) {
+    bad_vars <- names(num_unique_opts[num_unique_opts > 1])
+    bad_var_message <- vapply(
+      bad_vars,
+      function(vvv) {
+        x <- opts[opts$col_names == vvv, ]
+        paste0(vvv, " (", paste(x$rectype, "-", x[[opt_name]], collapse = " & "), ")")
+      },
+      ""
     )
+
     stop(paste0(
       "Varibles with the same name must have the same ", opt_name, " across all record ",
-      "types but these do not: ", paste(bad_types$message, collapse = ", ")
+      "types but these do not: ", paste(bad_var_message, collapse = ", ")
     ))
   }
 }
@@ -158,12 +162,9 @@ get_vinfo_col_as_list <- function(var_info, col) {
 
 get_var_opts_list <- function(var_info) {
   out <- lapply(var_info, function(x) {
-    opts <- dplyr::select_at(x, c("col_names", "col_types", "trim_ws", "imp_dec"))
-    opts <- dplyr::mutate(
-      opts,
-      trim_ws = ifelse(.data$col_types == "character", .data$trim_ws, NA),
-      imp_dec = ifelse(.data$col_types == "double", .data$imp_dec, NA)
-    )
+    opts <- x[, c("col_names", "col_types", "trim_ws", "imp_dec")]
+    opts$trim_ws <- ifelse(opts$col_types == "character", opts$trim_ws, NA)
+    opts$imp_dec <- ifelse(opts$col_types == "double", opts$imp_dec, NA)
 
     out <- lapply(seq_len(nrow(opts)), function(iii) {
       list(trim_ws = opts$trim_ws[iii], imp_dec = opts$imp_dec[iii])

@@ -27,10 +27,10 @@ LinkingTo:
     BH
 Imports: 
     Rcpp,
-    dplyr,
     R6,
     rlang
 Suggests:
+    dplyr,
     readr,
     testthat
 SystemRequirements:

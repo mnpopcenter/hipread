@@ -1,8 +1,3 @@
-# On some machines, I have seen R CMD Check warnings
-# about not using dplyr even though the HipDataFrameCallBack
-# uses it, and I hope this fixes that
-bind_rows <- dplyr::bind_rows
-
 #' Callback classes
 #'
 #' These classes are used to define callback behaviors, and are based
@@ -117,6 +112,12 @@ HipDataFrameCallback <- R6::R6Class(
   ),
   public = list(
     initialize = function(callback) {
+      if (!requireNamespace("dplyr", quietly = TRUE)) {
+        stop(paste0(
+          "`HipDataFrameCallback`` requires package 'dplyr'. Install using ",
+          "command `install.packages('dplyr')`."
+        ))
+      }
       private$callback <- callback
     },
     receive = function(data, index) {
@@ -131,3 +132,5 @@ HipDataFrameCallback <- R6::R6Class(
     }
   )
 )
+
+
