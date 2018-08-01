@@ -31,7 +31,7 @@ public:
   ~GzStream() {
     cur = nullptr;
     end = nullptr;
-    delete buffer;
+    delete[] buffer;
   }
   bool getLine(const char* &line_start, const char* &line_end);
   bool isDone();

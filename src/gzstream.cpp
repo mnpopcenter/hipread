@@ -18,7 +18,7 @@ void GzStream::fillBuffer() {
       buffer = new char[buffer_size * 2];
       std::copy_n(buffer_current, buffer_size, buffer);
       buffer_size *= 2;
-      delete buffer_current;
+      delete[] buffer_current;
     }
     offset = std::copy(cur, end, buffer);
   }
