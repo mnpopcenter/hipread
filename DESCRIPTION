@@ -1,7 +1,7 @@
 Package: hipread
 Type: Package
 Title: Read Hierarchical Fixed Width Files
-Version: 0.1.0.9000
+Version: 0.1.1
 Authors@R: c(
     person("Greg", "Freedman Ellis", , "gfellis@umn.edu", c("aut", "cre")),
     person("Derek Burk", role = "ctb"),
