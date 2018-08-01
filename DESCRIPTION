@@ -28,7 +28,8 @@ LinkingTo:
 Imports: 
     Rcpp,
     R6,
-    rlang
+    rlang,
+    tibble
 Suggests:
     dplyr,
     readr,
