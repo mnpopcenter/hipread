@@ -35,8 +35,14 @@ public:
     if (n == n_)
       return;
 
+    if (n > 0 && n < n_) {
+      SETLENGTH(values_, n);
+      SET_TRUELENGTH(values_, n);
+    } else {
+      values_ = Rf_lengthgets(values_, n);
+    }
     n_ = n;
-    values_ = Rf_lengthgets(values_, n);
+
   }
 
   static ColumnPtr create(std::string type, Rcpp::List var_opts, Iconv* pEncoder_);
@@ -93,6 +99,6 @@ public:
 
 std::vector<ColumnPtr> createAllColumns(Rcpp::CharacterVector types, Rcpp::List var_opts, Iconv* pEncoder_);
 void resizeAllColumns(std::vector<ColumnPtr>& columns, int n);
-Rcpp::RObject columnsToDf(std::vector<ColumnPtr> columns, Rcpp::CharacterVector names);
+Rcpp::RObject columnsToDf(std::vector<ColumnPtr> columns, Rcpp::CharacterVector names, int n);
 
 #endif

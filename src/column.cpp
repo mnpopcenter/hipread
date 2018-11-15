@@ -124,8 +124,9 @@ void resizeAllColumns(std::vector<ColumnPtr>& columns, int n) {
 
 static Function as_tibble("as_tibble", Environment::namespace_env("tibble"));
 
-RObject columnsToDf(std::vector<ColumnPtr> columns, Rcpp::CharacterVector names) {
+RObject columnsToDf(std::vector<ColumnPtr> columns, Rcpp::CharacterVector names, int n) {
   size_t num_vars = columns.size();
+
   List out(num_vars);
   for (size_t i = 0; i < num_vars; ++i) {
     if (columns[i]->has_failures()) {
@@ -136,5 +137,8 @@ RObject columnsToDf(std::vector<ColumnPtr> columns, Rcpp::CharacterVector names)
     out[static_cast<long>(i)] = columns[i]->vector();
   }
   out.attr("names") = names;
-  return as_tibble(out);
+  out.attr("class") = CharacterVector::create("tbl_df", "tbl", "data.frame");
+  out.attr("row.names") = IntegerVector::create(NA_INTEGER, -(n));
+
+  return out;
 }

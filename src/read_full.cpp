@@ -91,7 +91,7 @@ RObject read_long(
   }
   resizeAllColumns(out, i);
   ProgressBar.stop();
-  return columnsToDf(out, var_names);
+  return columnsToDf(out, var_names, i);
 }
 
 // [[Rcpp::export]]
@@ -186,7 +186,7 @@ RObject read_list(
   List out_r;
   for (size_t j = 0;  j < rts.getNumRts(); ++j) {
     resizeAllColumns(out[j], cur_pos_rt[j] + 1);
-    out_r.push_back(columnsToDf(out[j], var_names[static_cast<R_xlen_t>(j)]));
+    out_r.push_back(columnsToDf(out[j], var_names[static_cast<R_xlen_t>(j)], cur_pos_rt[j] + 1));
   }
   out_r.names() = var_pos_info.names();
 
