@@ -17,7 +17,7 @@ RObject read_freqs(
     bool isGzipped,
     bool progress
 ) {
-  const int PROGRESS_TICK = 16384;
+  const int PROGRESS_TICK = 131072;
   List rt_info = as<List>(rt_info_);
   List var_pos_info = as<List>(var_pos_info_);
 
