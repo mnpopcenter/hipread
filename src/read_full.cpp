@@ -37,6 +37,12 @@ RObject read_long(
   RtInfo rts(rt_info, var_pos_info.names());
   VarInfo vars(var_pos_info, rts.getNumRts());
 
+  std::vector<size_t> vnum_per_rt = vars.get_num_vars_rectype();
+  std::vector<std::vector<size_t> > vpos_per_rt = vars.get_var_pos_rectype();
+  std::vector<std::vector<int> > start_per_rt = vars.get_var_starts_rectype();
+  std::vector<std::vector<int> > width_per_rt = vars.get_var_widths_rectype();
+  std::vector<int> max_ends_per_rt = vars.get_max_ends_rectype();
+
   std::vector<ColumnPtr> out = createAllColumns(var_types, var_opts, &pEncoder_);
   resizeAllColumns(out, 10000); // Start out with 10k rows
   int i = 0;
@@ -67,16 +73,16 @@ RObject read_long(
     }
 
     // Check if raw line is long enough
-    if (line_end - line_start < vars.get_max_end(rt_index)) {
+    if (line_end - line_start < max_ends_per_rt[rt_index]) {
       Rcpp::stop("Line is too short for rectype.");
     }
 
     // Loop through vars in rectype and add to out
-    for (size_t j = 0; j < vars.get_num_vars(rt_index); j++) {
-      const char *x_start = line_start + vars.get_start(rt_index, j);
-      const char *x_end = x_start + vars.get_width(rt_index, j);
+    for (size_t j = 0; j < vnum_per_rt[rt_index]; j++) {
+      const char *x_start = line_start + start_per_rt[rt_index][j];
+      const char *x_end = x_start + width_per_rt[rt_index][j];
 
-      size_t cur_var_pos = vars.get_var_pos(rt_index, j);
+      size_t cur_var_pos = vpos_per_rt[rt_index][j];
 
       out[cur_var_pos]->setValue(i, x_start, x_end);
     }
