@@ -44,7 +44,7 @@ RObject read_long(
   std::vector<int> max_ends_per_rt = vars.get_max_ends_rectype();
 
   std::vector<ColumnPtr> out = createAllColumns(var_types, var_opts, &pEncoder_);
-  resizeAllColumns(out, 10000); // Start out with 10k rows
+  resizeAllColumns(out, 500); // Bigger guesses cause more copying
   int i = 0;
   const char* line_start;
   const char* line_end;
