@@ -76,7 +76,7 @@ void ColumnDouble::setValue(int i, const char* x_start, const char* x_end) {
   if (!success) {
     add_failure(i, x_start, x_end);
     value = NA_REAL;
-  } else {
+  } else if (imp_dec != 0) {
     // Solaris doesn't have (int, int) method for pow
     value = static_cast<double>(value / std::pow(10.0, static_cast<float>(imp_dec)));
   }
