@@ -79,9 +79,12 @@ public:
 class ColumnDouble : public Column {
 private:
   int imp_dec;
+  double imp_dec_base;
 public:
   ColumnDouble(Rcpp::List opts_) : Column(Rcpp::DoubleVector()) {
+    // Solaris doesn't have (int, int) method for pow
     imp_dec = opts_["imp_dec"];
+    imp_dec_base = static_cast<double>(std::pow(10.0, static_cast<float>(opts_["imp_dec"])));
   }
   ~ColumnDouble() {}
   void setValue(int i, const char* x_start, const char* x_end);
