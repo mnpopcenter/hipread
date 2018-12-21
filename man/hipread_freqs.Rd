@@ -4,8 +4,8 @@
 \alias{hipread_freqs}
 \title{Calculate frequencies from fixed width file without loading into memory}
 \usage{
-hipread_freqs(file, var_info, rt_info = hip_rt(1, 0), compression = NULL,
-  progress = show_progress())
+hipread_freqs(file, var_info, rt_info = hip_rt(1, 0),
+  compression = NULL, progress = show_progress())
 }
 \arguments{
 \item{file}{A filename}
