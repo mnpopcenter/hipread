@@ -5,11 +5,13 @@
 \alias{hipread_list}
 \title{Read a hierarchical fixed width data file}
 \usage{
-hipread_long(file, var_info, rt_info = hip_rt(1, 0), compression = NULL,
-  skip = 0, n_max = -1, encoding = "UTF-8", progress = show_progress())
+hipread_long(file, var_info, rt_info = hip_rt(1, 0),
+  compression = NULL, skip = 0, n_max = -1, encoding = "UTF-8",
+  progress = show_progress())
 
-hipread_list(file, var_info, rt_info = hip_rt(1, 0), compression = NULL,
-  skip = 0, n_max = -1, encoding = "UTF-8", progress = show_progress())
+hipread_list(file, var_info, rt_info = hip_rt(1, 0),
+  compression = NULL, skip = 0, n_max = -1, encoding = "UTF-8",
+  progress = show_progress())
 }
 \arguments{
 \item{file}{A filename}

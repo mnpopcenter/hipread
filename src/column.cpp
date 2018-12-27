@@ -76,11 +76,10 @@ void ColumnDouble::setValue(int i, const char* x_start, const char* x_end) {
   if (!success) {
     add_failure(i, x_start, x_end);
     value = NA_REAL;
-  } else {
-    // Solaris doesn't have (int, int) method for pow
-    value = static_cast<double>(value / std::pow(10.0, static_cast<float>(imp_dec)));
+  } else if (imp_dec != 0) {
+    value = value / imp_dec_base;
   }
-  REAL(values_)[i] = static_cast<double>(value);
+  valuepointer[i] = static_cast<double>(value);
 }
 
 void ColumnInteger::setValue(int i, const char* x_start, const char* x_end) {
@@ -98,10 +97,50 @@ void ColumnInteger::setValue(int i, const char* x_start, const char* x_end) {
     add_failure(i, x_start, x_end);
     value = NA_INTEGER;
   }
-  INTEGER(values_)[i] = static_cast<int>(value);
+  valuepointer[i] = static_cast<int>(value);
 }
 
+void ColumnCharacter::resize(int n) {
+  if (n == n_)
+    return;
 
+  if (n > 0 && n < n_) {
+    SETLENGTH(values_, n);
+    SET_TRUELENGTH(values_, n);
+  } else {
+    values_ = Rf_lengthgets(values_, n);
+  }
+  n_ = n;
+
+}
+
+void ColumnDouble::resize(int n) {
+  if (n == n_)
+    return;
+
+  if (n > 0 && n < n_) {
+    SETLENGTH(values_, n);
+    SET_TRUELENGTH(values_, n);
+  } else {
+    values_ = Rf_lengthgets(values_, n);
+  }
+  n_ = n;
+  valuepointer = REAL(values_);
+}
+
+void ColumnInteger::resize(int n) {
+  if (n == n_)
+    return;
+
+  if (n > 0 && n < n_) {
+    SETLENGTH(values_, n);
+    SET_TRUELENGTH(values_, n);
+  } else {
+    values_ = Rf_lengthgets(values_, n);
+  }
+  n_ = n;
+  valuepointer = INTEGER(values_);
+}
 
 std::vector<ColumnPtr> createAllColumns(CharacterVector types, Rcpp::List var_opts, Iconv* pEncoder_) {
   int num_cols = static_cast<int>(types.size());

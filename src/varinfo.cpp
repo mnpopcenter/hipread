@@ -31,3 +31,23 @@ size_t VarInfo::get_num_vars(size_t rt_index) {
 int VarInfo::get_max_end(size_t rt_index) {
   return max_ends[rt_index];
 }
+
+std::vector<std::vector<int> > VarInfo::get_var_starts_rectype() {
+  return starts;
+}
+
+std::vector<std::vector<int> > VarInfo::get_var_widths_rectype() {
+  return widths;
+}
+
+std::vector <size_t> VarInfo::get_num_vars_rectype() {
+  return num_vars_rectype;
+}
+
+std::vector<std::vector<size_t> > VarInfo::get_var_pos_rectype() {
+  return var_pos;
+}
+
+std::vector <int> VarInfo::get_max_ends_rectype() {
+  return max_ends;
+}
