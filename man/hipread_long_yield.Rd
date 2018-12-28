@@ -3,14 +3,21 @@
 \docType{data}
 \name{hipread_long_yield}
 \alias{hipread_long_yield}
+\alias{hipread_list_yield}
 \alias{HipLongYield}
+\alias{HipListYield}
 \title{Read a hierarchical fixed width data file, in yields}
 \format{An object of class \code{R6ClassGenerator} of length 24.}
 \usage{
 hipread_long_yield(file, var_info, rt_info = hip_rt(1, 0),
   compression = NULL, skip = 0, encoding = "UTF-8")
 
+hipread_list_yield(file, var_info, rt_info = hip_rt(1, 0),
+  compression = NULL, skip = 0, encoding = "UTF-8")
+
 HipLongYield
+
+HipListYield
 }
 \arguments{
 \item{file}{A filename}
@@ -60,10 +67,8 @@ available ones if less than n are available).
 read data from the start.
 \item \code{is_done()} A function that returns whether the file has been completely
 read yet or not.
-\item \code{cur_pos} A property that contains the last row number that has been
-read.
-\item \code{bigglm_yield(n = 10000)} A function that returns another function
-that is appropriate for use in the data argument for \code{biglm::bigglm()}.
+\item \code{cur_pos} A property that contains the next row number that will be
+read (1-indexed).
 }
 }
 \examples{

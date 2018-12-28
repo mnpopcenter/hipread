@@ -159,6 +159,24 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// next_yield_list
+RObject next_yield_list(XPtrDataSource data, List var_names_, List var_types_, List rt_info_, List var_pos_info_, List var_opts_, int yield_size, CharacterVector encoding);
+RcppExport SEXP _hipread_next_yield_list(SEXP dataSEXP, SEXP var_names_SEXP, SEXP var_types_SEXP, SEXP rt_info_SEXP, SEXP var_pos_info_SEXP, SEXP var_opts_SEXP, SEXP yield_sizeSEXP, SEXP encodingSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< XPtrDataSource >::type data(dataSEXP);
+    Rcpp::traits::input_parameter< List >::type var_names_(var_names_SEXP);
+    Rcpp::traits::input_parameter< List >::type var_types_(var_types_SEXP);
+    Rcpp::traits::input_parameter< List >::type rt_info_(rt_info_SEXP);
+    Rcpp::traits::input_parameter< List >::type var_pos_info_(var_pos_info_SEXP);
+    Rcpp::traits::input_parameter< List >::type var_opts_(var_opts_SEXP);
+    Rcpp::traits::input_parameter< int >::type yield_size(yield_sizeSEXP);
+    Rcpp::traits::input_parameter< CharacterVector >::type encoding(encodingSEXP);
+    rcpp_result_gen = Rcpp::wrap(next_yield_list(data, var_names_, var_types_, rt_info_, var_pos_info_, var_opts_, yield_size, encoding));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_hipread_read_chunked_long", (DL_FUNC) &_hipread_read_chunked_long, 12},
@@ -170,6 +188,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_hipread_reset_yield", (DL_FUNC) &_hipread_reset_yield, 2},
     {"_hipread_yield_is_done", (DL_FUNC) &_hipread_yield_is_done, 1},
     {"_hipread_next_yield_long", (DL_FUNC) &_hipread_next_yield_long, 8},
+    {"_hipread_next_yield_list", (DL_FUNC) &_hipread_next_yield_list, 8},
     {NULL, NULL, 0}
 };
 

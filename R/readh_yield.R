@@ -63,3 +63,19 @@ hipread_long_yield <- function(
     encoding
   )
 }
+
+#' @export
+#' @rdname hipread_long_yield
+hipread_list_yield <- function(
+  file, var_info, rt_info = hip_rt(1, 0), compression = NULL,
+  skip = 0, encoding = "UTF-8"
+) {
+  HipListYield$new(
+    file,
+    var_info,
+    rt_info,
+    compression,
+    skip,
+    encoding
+  )
+}

@@ -37,3 +37,7 @@ next_yield_long <- function(data, var_names, var_types, rt_info_, var_pos_info_,
     .Call(`_hipread_next_yield_long`, data, var_names, var_types, rt_info_, var_pos_info_, var_opts_, yield_size, encoding)
 }
 
+next_yield_list <- function(data, var_names_, var_types_, rt_info_, var_pos_info_, var_opts_, yield_size, encoding) {
+    .Call(`_hipread_next_yield_list`, data, var_names_, var_types_, rt_info_, var_pos_info_, var_opts_, yield_size, encoding)
+}
+
