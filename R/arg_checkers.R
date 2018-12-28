@@ -100,6 +100,13 @@ check_skip <- function(x) {
   as.integer(x)
 }
 
+check_yield <- function(x) {
+  if (length(x) > 1) stop("n must be length one")
+  if (!is_integerish(x) || x < 0) stop("n must be a positive integer")
+
+  as.integer(x)
+}
+
 check_n_max <- function(x) {
   if (length(x) > 1) stop("n_max must be length one")
   if (is.infinite(x) | x < 0) x <- .Machine$integer.max

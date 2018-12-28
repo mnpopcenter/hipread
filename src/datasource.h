@@ -21,6 +21,7 @@ public:
   virtual bool isDone() = 0;
   virtual std::pair<double, size_t> progress_info() = 0;
   virtual void skipLines(int skip);
+  virtual void reset() = 0;
 };
 
 
@@ -62,6 +63,7 @@ public:
   void getLine(const char* &start, const char* &end);
   bool isDone();
   std::pair<double, size_t> progress_info();
+  void reset();
 };
 
 
@@ -85,9 +87,15 @@ public:
   void getLine(const char* &start, const char* &end);
   bool isDone();
   std::pair<double, size_t> progress_info();
-
+  void reset();
 };
 
 DataSourcePtr newDataSource(std::string filename, bool isCompressed);
+
+// It seems a little silly to have both the previous interface (using boost shared pointers)
+// and this one (using Rcpp's external pointers), but the readr-based code uses the
+// former, while the yield methods need external pointers. Not sure if there's a better
+// way to reconcile
+Rcpp::XPtr<DataSource> newXptrDataSource(std::string filename, bool isCompressed);
 
 #endif
