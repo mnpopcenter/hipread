@@ -194,7 +194,7 @@ void read_chunked_list(
     List list_chunk;
     for (size_t j = 0; j < rts.getNumRts(); ++j) {
       resizeAllColumns(chunk[j], cur_pos_rt[j] + 1);
-      list_chunk.push_back(columnsToDf(chunk[j], var_names[static_cast<R_xlen_t>(j)], i));
+      list_chunk.push_back(columnsToDf(chunk[j], var_names[static_cast<R_xlen_t>(j)], cur_pos_rt[j] + 1));
     }
     list_chunk.names() = var_pos_info.names();
     R6method(callback, "receive")(list_chunk, chunk_start);
