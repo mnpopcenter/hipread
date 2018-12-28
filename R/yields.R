@@ -63,15 +63,6 @@ HipLongYield <- R6::R6Class(
       )
       self$cur_pos <- self$cur_pos + nrow(out)
       out
-    },
-    bigglm_yield = function(n = 10000) {
-      function(reset) {
-        if(reset) {
-          self$reset
-        } else {
-          self$yield(n)
-        }
-      }
     }
   )
 )

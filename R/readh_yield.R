@@ -18,8 +18,6 @@
 #'   read yet or not.
 #' - `cur_pos` A property that contains the next row number that will be
 #'    read (1-indexed).
-#' - `bigglm_yield(n = 10000)` A function that returns another function
-#'   that is appropriate for use in the data argument for `biglm::bigglm()`.
 #'
 #' @inheritParams hipread_long
 #' @return A HipYield R6 object (See 'Details' for more information)
