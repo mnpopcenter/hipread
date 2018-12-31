@@ -121,3 +121,9 @@ void GzStream::skipBOM() {
     break;
   }
 }
+
+void GzStream::reset() {
+  cur = nullptr;
+  gzrewind(file);
+  fillBuffer();
+}

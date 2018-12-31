@@ -87,6 +87,11 @@ std::pair<double, size_t> FileDataSource::progress_info() {
   }
 }
 
+void FileDataSource::reset() {
+  cur_begin = file_begin;
+  cur_end = nullptr;
+  skipBOM();
+}
 
 size_t GzFileDataSource::get_size() {
   return data_->getTotalSizeEstimate();
@@ -105,6 +110,11 @@ void GzFileDataSource::skipBOM() {
   data_->skipBOM();
 }
 
+void GzFileDataSource::reset() {
+  data_->reset();
+  skipBOM();
+}
+
 std::pair<double, size_t> GzFileDataSource::progress_info() {
   if (isDone()) {
     return std::make_pair(1.0, total_size_);
@@ -119,5 +129,13 @@ DataSourcePtr newDataSource(std::string filename, bool isCompressed) {
     return DataSourcePtr(new GzFileDataSource(filename));
   } else {
     return DataSourcePtr(new FileDataSource(filename));
+  }
+}
+
+Rcpp::XPtr<DataSource> newXptrDataSource(std::string filename, bool isCompressed) {
+  if (isCompressed) {
+    return Rcpp::XPtr<DataSource>(new GzFileDataSource(filename));
+  } else {
+    return Rcpp::XPtr<DataSource>(new FileDataSource(filename));
   }
 }
