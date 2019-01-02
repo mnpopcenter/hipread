@@ -87,6 +87,9 @@ RObject read_freqs(
     }
     ++i;
   }
+  if (progress) {
+    ProgressBar.show(data->progress_info());
+  }
   ProgressBar.stop();
   List wrapped = wrap(out);
   wrapped.names() = var_names;

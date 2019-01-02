@@ -96,6 +96,9 @@ RObject read_long(
     ++i;
   }
   resizeAllColumns(out, i);
+  if (progress) {
+    ProgressBar.show(data->progress_info());
+  }
   ProgressBar.stop();
   return columnsToDf(out, var_names, i);
 }
@@ -201,6 +204,9 @@ RObject read_list(
   }
   out_r.names() = var_pos_info.names();
 
+  if (progress) {
+    ProgressBar.show(data->progress_info());
+  }
   ProgressBar.stop();
   return out_r;
 }

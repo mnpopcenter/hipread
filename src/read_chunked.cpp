@@ -106,6 +106,9 @@ void read_chunked_long(
       ProgressBar.show(data->progress_info());
     }
   }
+  if (progress) {
+    ProgressBar.show(data->progress_info());
+  }
   ProgressBar.stop();
 }
 
@@ -204,6 +207,9 @@ void read_chunked_list(
     if (progress) {
       ProgressBar.show(data->progress_info());
     }
+  }
+  if (progress) {
+    ProgressBar.show(data->progress_info());
   }
   ProgressBar.stop();
 }
