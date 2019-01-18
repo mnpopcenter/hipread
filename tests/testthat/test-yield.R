@@ -326,6 +326,56 @@ test_that("first yield equals first yield after reset (.dat.gz)", {
   expect_equal(yield$yield(4), first_yield)
 })
 
+test_that("can reset after end of file is reached (.dat)", {
+  yield <- hipread_list_yield(
+    hipread_example("test-basic.dat"),
+    list(
+      H = hip_fwf_positions(
+        c(1, 2, 5, 8),
+        c(1, 4, 7, 10),
+        c("rt", "hhnum", "hh_char", "hh_dbl"),
+        c("c", "i", "c", "d")
+      ),
+      P = hip_fwf_widths(
+        c(1, 3, 1, 3, 1),
+        c("rt", "hhnum",  "pernum", "per_dbl", "per_mix"),
+        c("c", "i", "i", "d", "c")
+      )
+    ),
+    hip_rt(1, 1)
+  )
+
+  full_yield <- yield$yield()
+  expect_null(yield$yield())
+  yield$reset()
+  expect_equal(full_yield, yield$yield())
+})
+
+test_that("can reset after end of file is reached (.dat.gz)", {
+  yield <- hipread_list_yield(
+    hipread_example("test-basic.dat.gz"),
+    list(
+      H = hip_fwf_positions(
+        c(1, 2, 5, 8),
+        c(1, 4, 7, 10),
+        c("rt", "hhnum", "hh_char", "hh_dbl"),
+        c("c", "i", "c", "d")
+      ),
+      P = hip_fwf_widths(
+        c(1, 3, 1, 3, 1),
+        c("rt", "hhnum",  "pernum", "per_dbl", "per_mix"),
+        c("c", "i", "i", "d", "c")
+      )
+    ),
+    hip_rt(1, 1)
+  )
+
+  full_yield <- yield$yield()
+  expect_null(yield$yield())
+  yield$reset()
+  expect_equal(full_yield, yield$yield())
+})
+
 test_that("cur_pos is updated correctly", {
   yield <- hipread_long_yield(
     hipread_example("test-basic.dat"),
@@ -354,3 +404,5 @@ test_that("cur_pos is updated correctly", {
   final_yield <- yield$yield(3)
   expect_equal(yield$cur_pos, 4)
 })
+
+

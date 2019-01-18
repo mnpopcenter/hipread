@@ -4,6 +4,8 @@
 #include <zlib.h>
 #include <iostream>
 #include <algorithm>
+#include <Rcpp.h>
+using namespace Rcpp;
 
 // Adapted from https://stackoverflow.com/questions/21426427/handling-large-gzfile-in-c
 // I wish I could use the boost libraries but this makes me think that's not so easy:
@@ -32,6 +34,7 @@ public:
     cur = nullptr;
     end = nullptr;
     delete[] buffer;
+    if (gzclose(file) != Z_OK) Rcpp::stop("Could not close file");
   }
   bool getLine(const char* &line_start, const char* &line_end);
   bool isDone();
