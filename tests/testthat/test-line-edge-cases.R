@@ -12,7 +12,7 @@ test_that("trailing line breaks & windows line breaks don't cause trouble", {
   }
 
   text <- c("axyz123", "buvw456", "aabc789")
-  expected <- dplyr::data_frame(
+  expected <- dplyr::tibble(
     rt = c("a", "b", "a"),
     var1 = c("xyz", "uvw", "abc"),
     var2 = c("123", NA, "789"),

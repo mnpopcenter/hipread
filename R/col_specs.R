@@ -48,7 +48,7 @@ hip_fwf_positions <- function(
   if (!is.logical(trim_ws)) stop("trim_ws must be a logical vector (TRUE/FALSE).")
   if (!is_integerish(imp_dec)) stop("imp_dec must be an integer.")
 
-  out <- tibble::data_frame(
+  out <- tibble::tibble(
     start = start - 1,
     end = end,
     col_names = col_names,
