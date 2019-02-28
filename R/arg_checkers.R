@@ -35,7 +35,11 @@ get_var_pos <- function(var_info, var_names = NULL) {
     list(
       start = vp$start,
       width = vp$end - vp$start,
-      var_pos = match(vp$col_names, var_names) - 1,
+      # nomatch important because reading as list will not have var_names
+      # but this structure will ultimately be stored as long int in C++
+      # which do not have defined behavior for NA (this fixes a failure
+      # on CRAN's clang UBSAN undefined behavior checks)
+      var_pos = match(vp$col_names, var_names, nomatch = 1) - 1,
       max_end = max(vp$end)
     )
   })
