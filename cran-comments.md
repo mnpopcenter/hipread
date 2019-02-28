@@ -1,3 +1,6 @@
+This is a resubmission of an update that now includes a fix to the problems
+identified by the clang-UBSAN CRAN check.
+
 ## Test environments
 * local OS X install, R 3.4.3
 * r-hub builder (solaris and address sanitizers)
