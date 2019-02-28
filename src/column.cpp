@@ -79,11 +79,11 @@ void ColumnDouble::setValue(int i, const char* x_start, const char* x_end) {
   } else if (imp_dec != 0) {
     value = value / imp_dec_base;
   }
-  valuepointer[i] = static_cast<double>(value);
+  valuepointer[i] = value;
 }
 
 void ColumnInteger::setValue(int i, const char* x_start, const char* x_end) {
-  long int value;
+  int value;
   IpStringUtils::newtrim(x_start, x_end);
   bool success;
   if (x_start == x_end) {
@@ -97,7 +97,7 @@ void ColumnInteger::setValue(int i, const char* x_start, const char* x_end) {
     add_failure(i, x_start, x_end);
     value = NA_INTEGER;
   }
-  valuepointer[i] = static_cast<int>(value);
+  valuepointer[i] = value;
 }
 
 void ColumnCharacter::resize(int n) {
