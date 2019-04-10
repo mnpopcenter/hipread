@@ -32,7 +32,13 @@ hipread_example <- function(path = NULL) {
 
 
 show_progress <- function() {
-  isTRUE(getOption("readr.show_progress")) && # user disables progress bar
+  # If readr show_progress option isn't set, this means readr hasn't been loaded
+  # I think this means we can assume that the user has not set the progress indicator
+  # so it will be teh default of TRUE
+  readr_progress <- getOption("readr.show_progress")
+  if (is.null(readr_progress)) readr_progress <- TRUE
+
+  isTRUE(readr_progress) && # user has not disabled progress bar
     interactive() && # an interactive session
     is.null(getOption("knitr.in.progress")) # Not actively knitting a document
 }
