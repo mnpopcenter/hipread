@@ -1,4 +1,4 @@
-# hipread 0.2.0.9000
+# hipread 0.2.1
 * progress bar will show by default even if readr hasn't been loaded (#12).
 
 # hipread 0.2.0
