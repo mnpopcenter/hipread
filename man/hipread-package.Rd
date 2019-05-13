@@ -11,11 +11,11 @@ Read hierarchical fixed width files like those commonly used by
     and reading 'gzipped' files without storing the full file in memory.
 }
 \author{
-\strong{Maintainer}: Greg Freedman Ellis \email{gfellis@umn.edu}
+\strong{Maintainer}: Derek Burk \email{ipumsr+cran@umn.edu}
 
 Other contributors:
 \itemize{
-  \item Derek Burk [contributor]
+  \item Greg Freedman Ellis \email{aut}
   \item Joe Grover [contributor]
   \item Mark Padgham [contributor]
   \item Hadley Wickham \email{hadley@rstudio.com} (Code adapted from readr) [contributor]

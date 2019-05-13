@@ -3,7 +3,7 @@ Type: Package
 Title: Read Hierarchical Fixed Width Files
 Version: 0.2.1
 Authors@R: c(
-    person("Greg", "Freedman Ellis", , "aut"),
+    person("Greg", "Freedman Ellis", role = "aut"),
     person("Derek Burk", email = "ipumsr+cran@umn.edu", role = c("aut", "cre")),
     person("Joe Grover", role = "ctb"),
     person("Mark Padgham", role = "ctb"),
