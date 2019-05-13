@@ -13,9 +13,13 @@ Read hierarchical fixed width files like those commonly used by
 \author{
 \strong{Maintainer}: Derek Burk \email{ipumsr+cran@umn.edu}
 
+Authors:
+\itemize{
+  \item Greg Freedman Ellis
+}
+
 Other contributors:
 \itemize{
-  \item Greg Freedman Ellis \email{aut}
   \item Joe Grover [contributor]
   \item Mark Padgham [contributor]
   \item Hadley Wickham \email{hadley@rstudio.com} (Code adapted from readr) [contributor]
