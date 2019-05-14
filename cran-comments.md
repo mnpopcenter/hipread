@@ -1,6 +1,3 @@
-This is a resubmission of an update that now includes a fix to the problems
-identified by the clang-UBSAN CRAN check.
-
 Note that the package maintainer has changed from Greg Freedman Ellis to Derek
 Burk.
 
