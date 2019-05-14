@@ -1,10 +1,13 @@
 This is a resubmission of an update that now includes a fix to the problems
 identified by the clang-UBSAN CRAN check.
 
+Note that the package maintainer has changed from Greg Freedman Ellis to Derek
+Burk.
+
 ## Test environments
-* local OS X install, R 3.4.3
-* r-hub builder (solaris and address sanitizers)
-* local windows release and win-builder devel
+* local Windows, R 3.6.0
+* win builder release and devel
+* Travis-CI Linux R 3.2, 3.5, 3.6 and devel
 
 ## R CMD check results
 

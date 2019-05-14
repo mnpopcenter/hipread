@@ -1,10 +1,10 @@
 Package: hipread
 Type: Package
 Title: Read Hierarchical Fixed Width Files
-Version: 0.2.0.9000
+Version: 0.2.1
 Authors@R: c(
-    person("Greg", "Freedman Ellis", , "gfellis@umn.edu", c("aut", "cre")),
-    person("Derek Burk", role = "ctb"),
+    person("Greg", "Freedman Ellis", role = "aut"),
+    person("Derek Burk", email = "ipumsr+cran@umn.edu", role = c("aut", "cre")),
     person("Joe Grover", role = "ctb"),
     person("Mark Padgham", role = "ctb"),
     person("Hadley", "Wickham", , "hadley@rstudio.com", "ctb", comment = "Code adapted from readr"),
@@ -15,7 +15,7 @@ Authors@R: c(
     person("Jukka", "Jylänki", role = c("ctb", "cph"), comment = "Code adapted from readr"),
     person("Mikkel", "Jørgensen", role = c("ctb", "cph"), comment = "Code adapted from readr"),
     person("University of Minnesota", role = "cph"))
-Maintainer: Greg Freedman Ellis <gfellis@umn.edu>
+Contact: ipums@umn.edu
 Description: Read hierarchical fixed width files like those commonly used by 
     many census data providers. Also allows for reading of data in chunks,
     and reading 'gzipped' files without storing the full file in memory.
