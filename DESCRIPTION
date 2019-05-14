@@ -4,7 +4,7 @@ Title: Read Hierarchical Fixed Width Files
 Version: 0.2.1
 Authors@R: c(
     person("Greg", "Freedman Ellis", role = "aut"),
-    person("Derek Burk", email = "ipumsr+cran@umn.edu", role = c("aut", "cre")),
+    person("Derek Burk", email = "ipums+cran@umn.edu", role = c("aut", "cre")),
     person("Joe Grover", role = "ctb"),
     person("Mark Padgham", role = "ctb"),
     person("Hadley", "Wickham", , "hadley@rstudio.com", "ctb", comment = "Code adapted from readr"),
