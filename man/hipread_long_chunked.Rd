@@ -5,13 +5,29 @@
 \alias{hipread_list_chunked}
 \title{Read a hierarchical fixed width data file, in chunks}
 \usage{
-hipread_long_chunked(file, callback, chunk_size, var_info,
-  rt_info = hip_rt(1, 0), compression = NULL, skip = 0,
-  encoding = "UTF-8", progress = show_progress())
+hipread_long_chunked(
+  file,
+  callback,
+  chunk_size,
+  var_info,
+  rt_info = hip_rt(1, 0),
+  compression = NULL,
+  skip = 0,
+  encoding = "UTF-8",
+  progress = show_progress()
+)
 
-hipread_list_chunked(file, callback, chunk_size, var_info,
-  rt_info = hip_rt(1, 0), compression = NULL, skip = 0,
-  encoding = "UTF-8", progress = show_progress())
+hipread_list_chunked(
+  file,
+  callback,
+  chunk_size,
+  var_info,
+  rt_info = hip_rt(1, 0),
+  compression = NULL,
+  skip = 0,
+  encoding = "UTF-8",
+  progress = show_progress()
+)
 }
 \arguments{
 \item{file}{A filename}
