@@ -3,6 +3,7 @@
 \name{hipread_long_yield}
 \alias{hipread_long_yield}
 \alias{hipread_list_yield}
+\alias{HipYield}
 \alias{HipLongYield}
 \alias{HipListYield}
 \title{Read a hierarchical fixed width data file, in yields}
@@ -105,6 +106,59 @@ data$yield(2)
 # Reset and then read the first 4 rows again
 data$reset()
 data$yield(4)
+}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-new}{\code{HipYield$new()}}
+\item \href{#method-yield}{\code{HipYield$yield()}}
+\item \href{#method-reset}{\code{HipYield$reset()}}
+\item \href{#method-is_done}{\code{HipYield$is_done()}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-new"></a>}}
+\if{latex}{\out{\hypertarget{method-new}{}}}
+\subsection{Method \code{new()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{HipYield$new(
+  file,
+  var_info,
+  rt_info = hip_rt(0, 1),
+  compression = NULL,
+  skip = 0,
+  encoding = NULL
+)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-yield"></a>}}
+\if{latex}{\out{\hypertarget{method-yield}{}}}
+\subsection{Method \code{yield()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{HipYield$yield(n = 10000)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-reset"></a>}}
+\if{latex}{\out{\hypertarget{method-reset}{}}}
+\subsection{Method \code{reset()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{HipYield$reset()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-is_done"></a>}}
+\if{latex}{\out{\hypertarget{method-is_done}{}}}
+\subsection{Method \code{is_done()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{HipYield$is_done()}\if{html}{\out{</div>}}
+}
+
+}
 }
 \section{Super class}{
 \code{\link[hipread:HipYield]{hipread::HipYield}} -> \code{HipLongYield}
