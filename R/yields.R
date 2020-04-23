@@ -1,3 +1,4 @@
+#' @rdname hipread_long_yield
 HipYield <- R6::R6Class(
   "HipYield",
   cloneable = FALSE,
