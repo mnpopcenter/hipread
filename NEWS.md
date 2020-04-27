@@ -1,4 +1,6 @@
-# hipread 0.2.1.9000
+# hipread 0.2.2
+* hipread now uses roxygen2 version 7.1.0, which generates some additional 
+  documentation for R6 classes.
 
 # hipread 0.2.1
 * progress bar will show by default even if readr hasn't been loaded (#12).
