@@ -5,11 +5,16 @@
 \alias{hip_fwf_widths}
 \title{Specify column-specific options for hipread}
 \usage{
-hip_fwf_positions(start, end, col_names, col_types, trim_ws = TRUE,
-  imp_dec = 0)
+hip_fwf_positions(
+  start,
+  end,
+  col_names,
+  col_types,
+  trim_ws = TRUE,
+  imp_dec = 0
+)
 
-hip_fwf_widths(widths, col_names, col_types, trim_ws = TRUE,
-  imp_dec = 0)
+hip_fwf_widths(widths, col_names, col_types, trim_ws = TRUE, imp_dec = 0)
 }
 \arguments{
 \item{start, end}{A vector integers describing the start and end positions

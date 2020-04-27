@@ -36,5 +36,5 @@ Suggests:
     testthat
 SystemRequirements:
     C++11
-RoxygenNote: 6.1.1
+RoxygenNote: 7.1.0
 Roxygen: list(markdown = TRUE)

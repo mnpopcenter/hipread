@@ -26,6 +26,9 @@ NULL
 # By inheriting from this, we can trick the S3
 # method in readr for as_chunk_callback to
 # work with hipread callback objects
+#' @usage NULL
+#' @format NULL
+#' @rdname callback
 ChunkCallback <- R6::R6Class(
   "ChunkCallback",
   private = list(
