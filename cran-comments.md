@@ -1,10 +1,7 @@
-Note that the package maintainer has changed from Greg Freedman Ellis to Derek
-Burk.
-
 ## Test environments
-* local Windows, R 3.6.0
+* local Windows, R 4.0.0
 * win builder release and devel
-* Travis-CI Linux R 3.2, 3.5, 3.6 and devel
+* Travis-CI Linux R 3.2, 3.3, 3.6, release and devel
 
 ## R CMD check results
 
