@@ -27,17 +27,17 @@ instead of \code{rbind()} so that it is faster.
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-new}{\code{ChunkCallback$new()}}
-\item \href{#method-receive}{\code{ChunkCallback$receive()}}
-\item \href{#method-continue}{\code{ChunkCallback$continue()}}
-\item \href{#method-result}{\code{ChunkCallback$result()}}
-\item \href{#method-finally}{\code{ChunkCallback$finally()}}
-\item \href{#method-clone}{\code{ChunkCallback$clone()}}
+\item \href{#method-ChunkCallback-new}{\code{ChunkCallback$new()}}
+\item \href{#method-ChunkCallback-receive}{\code{ChunkCallback$receive()}}
+\item \href{#method-ChunkCallback-continue}{\code{ChunkCallback$continue()}}
+\item \href{#method-ChunkCallback-result}{\code{ChunkCallback$result()}}
+\item \href{#method-ChunkCallback-finally}{\code{ChunkCallback$finally()}}
+\item \href{#method-ChunkCallback-clone}{\code{ChunkCallback$clone()}}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-new"></a>}}
-\if{latex}{\out{\hypertarget{method-new}{}}}
+\if{html}{\out{<a id="method-ChunkCallback-new"></a>}}
+\if{latex}{\out{\hypertarget{method-ChunkCallback-new}{}}}
 \subsection{Method \code{new()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{ChunkCallback$new(callback)}\if{html}{\out{</div>}}
@@ -45,8 +45,8 @@ instead of \code{rbind()} so that it is faster.
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-receive"></a>}}
-\if{latex}{\out{\hypertarget{method-receive}{}}}
+\if{html}{\out{<a id="method-ChunkCallback-receive"></a>}}
+\if{latex}{\out{\hypertarget{method-ChunkCallback-receive}{}}}
 \subsection{Method \code{receive()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{ChunkCallback$receive(data, index)}\if{html}{\out{</div>}}
@@ -54,8 +54,8 @@ instead of \code{rbind()} so that it is faster.
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-continue"></a>}}
-\if{latex}{\out{\hypertarget{method-continue}{}}}
+\if{html}{\out{<a id="method-ChunkCallback-continue"></a>}}
+\if{latex}{\out{\hypertarget{method-ChunkCallback-continue}{}}}
 \subsection{Method \code{continue()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{ChunkCallback$continue()}\if{html}{\out{</div>}}
@@ -63,8 +63,8 @@ instead of \code{rbind()} so that it is faster.
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-result"></a>}}
-\if{latex}{\out{\hypertarget{method-result}{}}}
+\if{html}{\out{<a id="method-ChunkCallback-result"></a>}}
+\if{latex}{\out{\hypertarget{method-ChunkCallback-result}{}}}
 \subsection{Method \code{result()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{ChunkCallback$result()}\if{html}{\out{</div>}}
@@ -72,8 +72,8 @@ instead of \code{rbind()} so that it is faster.
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-finally"></a>}}
-\if{latex}{\out{\hypertarget{method-finally}{}}}
+\if{html}{\out{<a id="method-ChunkCallback-finally"></a>}}
+\if{latex}{\out{\hypertarget{method-ChunkCallback-finally}{}}}
 \subsection{Method \code{finally()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{ChunkCallback$finally()}\if{html}{\out{</div>}}
@@ -81,8 +81,8 @@ instead of \code{rbind()} so that it is faster.
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-clone}{}}}
+\if{html}{\out{<a id="method-ChunkCallback-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-ChunkCallback-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{
@@ -104,23 +104,23 @@ The objects of this class are cloneable with this method.
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-clone}{\code{HipChunkCallback$clone()}}
+\item \href{#method-HipChunkCallback-clone}{\code{HipChunkCallback$clone()}}
 }
 }
-\if{html}{
-\out{<details open ><summary>Inherited methods</summary>}
-\itemize{
-\item \out{<span class="pkg-link" data-pkg="hipread" data-topic="ChunkCallback" data-id="continue">}\href{../../hipread/html/ChunkCallback.html#method-continue}{\code{hipread::ChunkCallback$continue()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="hipread" data-topic="ChunkCallback" data-id="finally">}\href{../../hipread/html/ChunkCallback.html#method-finally}{\code{hipread::ChunkCallback$finally()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="hipread" data-topic="ChunkCallback" data-id="initialize">}\href{../../hipread/html/ChunkCallback.html#method-initialize}{\code{hipread::ChunkCallback$initialize()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="hipread" data-topic="ChunkCallback" data-id="receive">}\href{../../hipread/html/ChunkCallback.html#method-receive}{\code{hipread::ChunkCallback$receive()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="hipread" data-topic="ChunkCallback" data-id="result">}\href{../../hipread/html/ChunkCallback.html#method-result}{\code{hipread::ChunkCallback$result()}}\out{</span>}
-}
-\out{</details>}
-}
+\if{html}{\out{
+<details open><summary>Inherited methods</summary>
+<ul>
+<li><span class="pkg-link" data-pkg="hipread" data-topic="ChunkCallback" data-id="continue"><a href='../../hipread/html/ChunkCallback.html#method-ChunkCallback-continue'><code>hipread::ChunkCallback$continue()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="hipread" data-topic="ChunkCallback" data-id="finally"><a href='../../hipread/html/ChunkCallback.html#method-ChunkCallback-finally'><code>hipread::ChunkCallback$finally()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="hipread" data-topic="ChunkCallback" data-id="initialize"><a href='../../hipread/html/ChunkCallback.html#method-ChunkCallback-initialize'><code>hipread::ChunkCallback$initialize()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="hipread" data-topic="ChunkCallback" data-id="receive"><a href='../../hipread/html/ChunkCallback.html#method-ChunkCallback-receive'><code>hipread::ChunkCallback$receive()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="hipread" data-topic="ChunkCallback" data-id="result"><a href='../../hipread/html/ChunkCallback.html#method-ChunkCallback-result'><code>hipread::ChunkCallback$result()</code></a></span></li>
+</ul>
+</details>
+}}
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-clone}{}}}
+\if{html}{\out{<a id="method-HipChunkCallback-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-HipChunkCallback-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{
@@ -142,23 +142,23 @@ The objects of this class are cloneable with this method.
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-new}{\code{HipSideEffectChunkCallback$new()}}
-\item \href{#method-receive}{\code{HipSideEffectChunkCallback$receive()}}
-\item \href{#method-continue}{\code{HipSideEffectChunkCallback$continue()}}
-\item \href{#method-clone}{\code{HipSideEffectChunkCallback$clone()}}
+\item \href{#method-HipSideEffectChunkCallback-new}{\code{HipSideEffectChunkCallback$new()}}
+\item \href{#method-HipSideEffectChunkCallback-receive}{\code{HipSideEffectChunkCallback$receive()}}
+\item \href{#method-HipSideEffectChunkCallback-continue}{\code{HipSideEffectChunkCallback$continue()}}
+\item \href{#method-HipSideEffectChunkCallback-clone}{\code{HipSideEffectChunkCallback$clone()}}
 }
 }
-\if{html}{
-\out{<details open ><summary>Inherited methods</summary>}
-\itemize{
-\item \out{<span class="pkg-link" data-pkg="hipread" data-topic="ChunkCallback" data-id="finally">}\href{../../hipread/html/ChunkCallback.html#method-finally}{\code{hipread::ChunkCallback$finally()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="hipread" data-topic="ChunkCallback" data-id="result">}\href{../../hipread/html/ChunkCallback.html#method-result}{\code{hipread::ChunkCallback$result()}}\out{</span>}
-}
-\out{</details>}
-}
+\if{html}{\out{
+<details open><summary>Inherited methods</summary>
+<ul>
+<li><span class="pkg-link" data-pkg="hipread" data-topic="ChunkCallback" data-id="finally"><a href='../../hipread/html/ChunkCallback.html#method-ChunkCallback-finally'><code>hipread::ChunkCallback$finally()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="hipread" data-topic="ChunkCallback" data-id="result"><a href='../../hipread/html/ChunkCallback.html#method-ChunkCallback-result'><code>hipread::ChunkCallback$result()</code></a></span></li>
+</ul>
+</details>
+}}
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-new"></a>}}
-\if{latex}{\out{\hypertarget{method-new}{}}}
+\if{html}{\out{<a id="method-HipSideEffectChunkCallback-new"></a>}}
+\if{latex}{\out{\hypertarget{method-HipSideEffectChunkCallback-new}{}}}
 \subsection{Method \code{new()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{HipSideEffectChunkCallback$new(callback)}\if{html}{\out{</div>}}
@@ -166,8 +166,8 @@ The objects of this class are cloneable with this method.
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-receive"></a>}}
-\if{latex}{\out{\hypertarget{method-receive}{}}}
+\if{html}{\out{<a id="method-HipSideEffectChunkCallback-receive"></a>}}
+\if{latex}{\out{\hypertarget{method-HipSideEffectChunkCallback-receive}{}}}
 \subsection{Method \code{receive()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{HipSideEffectChunkCallback$receive(data, index)}\if{html}{\out{</div>}}
@@ -175,8 +175,8 @@ The objects of this class are cloneable with this method.
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-continue"></a>}}
-\if{latex}{\out{\hypertarget{method-continue}{}}}
+\if{html}{\out{<a id="method-HipSideEffectChunkCallback-continue"></a>}}
+\if{latex}{\out{\hypertarget{method-HipSideEffectChunkCallback-continue}{}}}
 \subsection{Method \code{continue()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{HipSideEffectChunkCallback$continue()}\if{html}{\out{</div>}}
@@ -184,8 +184,8 @@ The objects of this class are cloneable with this method.
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-clone}{}}}
+\if{html}{\out{<a id="method-HipSideEffectChunkCallback-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-HipSideEffectChunkCallback-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{
@@ -207,23 +207,23 @@ The objects of this class are cloneable with this method.
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-new}{\code{HipListCallback$new()}}
-\item \href{#method-receive}{\code{HipListCallback$receive()}}
-\item \href{#method-result}{\code{HipListCallback$result()}}
-\item \href{#method-finally}{\code{HipListCallback$finally()}}
-\item \href{#method-clone}{\code{HipListCallback$clone()}}
+\item \href{#method-HipListCallback-new}{\code{HipListCallback$new()}}
+\item \href{#method-HipListCallback-receive}{\code{HipListCallback$receive()}}
+\item \href{#method-HipListCallback-result}{\code{HipListCallback$result()}}
+\item \href{#method-HipListCallback-finally}{\code{HipListCallback$finally()}}
+\item \href{#method-HipListCallback-clone}{\code{HipListCallback$clone()}}
 }
 }
-\if{html}{
-\out{<details open ><summary>Inherited methods</summary>}
-\itemize{
-\item \out{<span class="pkg-link" data-pkg="hipread" data-topic="ChunkCallback" data-id="continue">}\href{../../hipread/html/ChunkCallback.html#method-continue}{\code{hipread::ChunkCallback$continue()}}\out{</span>}
-}
-\out{</details>}
-}
+\if{html}{\out{
+<details open><summary>Inherited methods</summary>
+<ul>
+<li><span class="pkg-link" data-pkg="hipread" data-topic="ChunkCallback" data-id="continue"><a href='../../hipread/html/ChunkCallback.html#method-ChunkCallback-continue'><code>hipread::ChunkCallback$continue()</code></a></span></li>
+</ul>
+</details>
+}}
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-new"></a>}}
-\if{latex}{\out{\hypertarget{method-new}{}}}
+\if{html}{\out{<a id="method-HipListCallback-new"></a>}}
+\if{latex}{\out{\hypertarget{method-HipListCallback-new}{}}}
 \subsection{Method \code{new()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{HipListCallback$new(callback)}\if{html}{\out{</div>}}
@@ -231,8 +231,8 @@ The objects of this class are cloneable with this method.
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-receive"></a>}}
-\if{latex}{\out{\hypertarget{method-receive}{}}}
+\if{html}{\out{<a id="method-HipListCallback-receive"></a>}}
+\if{latex}{\out{\hypertarget{method-HipListCallback-receive}{}}}
 \subsection{Method \code{receive()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{HipListCallback$receive(data, index)}\if{html}{\out{</div>}}
@@ -240,8 +240,8 @@ The objects of this class are cloneable with this method.
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-result"></a>}}
-\if{latex}{\out{\hypertarget{method-result}{}}}
+\if{html}{\out{<a id="method-HipListCallback-result"></a>}}
+\if{latex}{\out{\hypertarget{method-HipListCallback-result}{}}}
 \subsection{Method \code{result()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{HipListCallback$result()}\if{html}{\out{</div>}}
@@ -249,8 +249,8 @@ The objects of this class are cloneable with this method.
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-finally"></a>}}
-\if{latex}{\out{\hypertarget{method-finally}{}}}
+\if{html}{\out{<a id="method-HipListCallback-finally"></a>}}
+\if{latex}{\out{\hypertarget{method-HipListCallback-finally}{}}}
 \subsection{Method \code{finally()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{HipListCallback$finally()}\if{html}{\out{</div>}}
@@ -258,8 +258,8 @@ The objects of this class are cloneable with this method.
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-clone}{}}}
+\if{html}{\out{<a id="method-HipListCallback-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-HipListCallback-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{
@@ -281,23 +281,23 @@ The objects of this class are cloneable with this method.
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-new}{\code{HipDataFrameCallback$new()}}
-\item \href{#method-receive}{\code{HipDataFrameCallback$receive()}}
-\item \href{#method-result}{\code{HipDataFrameCallback$result()}}
-\item \href{#method-finally}{\code{HipDataFrameCallback$finally()}}
-\item \href{#method-clone}{\code{HipDataFrameCallback$clone()}}
+\item \href{#method-HipDataFrameCallback-new}{\code{HipDataFrameCallback$new()}}
+\item \href{#method-HipDataFrameCallback-receive}{\code{HipDataFrameCallback$receive()}}
+\item \href{#method-HipDataFrameCallback-result}{\code{HipDataFrameCallback$result()}}
+\item \href{#method-HipDataFrameCallback-finally}{\code{HipDataFrameCallback$finally()}}
+\item \href{#method-HipDataFrameCallback-clone}{\code{HipDataFrameCallback$clone()}}
 }
 }
-\if{html}{
-\out{<details open ><summary>Inherited methods</summary>}
-\itemize{
-\item \out{<span class="pkg-link" data-pkg="hipread" data-topic="ChunkCallback" data-id="continue">}\href{../../hipread/html/ChunkCallback.html#method-continue}{\code{hipread::ChunkCallback$continue()}}\out{</span>}
-}
-\out{</details>}
-}
+\if{html}{\out{
+<details open><summary>Inherited methods</summary>
+<ul>
+<li><span class="pkg-link" data-pkg="hipread" data-topic="ChunkCallback" data-id="continue"><a href='../../hipread/html/ChunkCallback.html#method-ChunkCallback-continue'><code>hipread::ChunkCallback$continue()</code></a></span></li>
+</ul>
+</details>
+}}
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-new"></a>}}
-\if{latex}{\out{\hypertarget{method-new}{}}}
+\if{html}{\out{<a id="method-HipDataFrameCallback-new"></a>}}
+\if{latex}{\out{\hypertarget{method-HipDataFrameCallback-new}{}}}
 \subsection{Method \code{new()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{HipDataFrameCallback$new(callback)}\if{html}{\out{</div>}}
@@ -305,8 +305,8 @@ The objects of this class are cloneable with this method.
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-receive"></a>}}
-\if{latex}{\out{\hypertarget{method-receive}{}}}
+\if{html}{\out{<a id="method-HipDataFrameCallback-receive"></a>}}
+\if{latex}{\out{\hypertarget{method-HipDataFrameCallback-receive}{}}}
 \subsection{Method \code{receive()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{HipDataFrameCallback$receive(data, index)}\if{html}{\out{</div>}}
@@ -314,8 +314,8 @@ The objects of this class are cloneable with this method.
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-result"></a>}}
-\if{latex}{\out{\hypertarget{method-result}{}}}
+\if{html}{\out{<a id="method-HipDataFrameCallback-result"></a>}}
+\if{latex}{\out{\hypertarget{method-HipDataFrameCallback-result}{}}}
 \subsection{Method \code{result()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{HipDataFrameCallback$result()}\if{html}{\out{</div>}}
@@ -323,8 +323,8 @@ The objects of this class are cloneable with this method.
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-finally"></a>}}
-\if{latex}{\out{\hypertarget{method-finally}{}}}
+\if{html}{\out{<a id="method-HipDataFrameCallback-finally"></a>}}
+\if{latex}{\out{\hypertarget{method-HipDataFrameCallback-finally}{}}}
 \subsection{Method \code{finally()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{HipDataFrameCallback$finally()}\if{html}{\out{</div>}}
@@ -332,8 +332,8 @@ The objects of this class are cloneable with this method.
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-clone}{}}}
+\if{html}{\out{<a id="method-HipDataFrameCallback-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-HipDataFrameCallback-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{

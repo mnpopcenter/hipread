@@ -110,15 +110,15 @@ data$yield(4)
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-new}{\code{HipYield$new()}}
-\item \href{#method-yield}{\code{HipYield$yield()}}
-\item \href{#method-reset}{\code{HipYield$reset()}}
-\item \href{#method-is_done}{\code{HipYield$is_done()}}
+\item \href{#method-HipYield-new}{\code{HipYield$new()}}
+\item \href{#method-HipYield-yield}{\code{HipYield$yield()}}
+\item \href{#method-HipYield-reset}{\code{HipYield$reset()}}
+\item \href{#method-HipYield-is_done}{\code{HipYield$is_done()}}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-new"></a>}}
-\if{latex}{\out{\hypertarget{method-new}{}}}
+\if{html}{\out{<a id="method-HipYield-new"></a>}}
+\if{latex}{\out{\hypertarget{method-HipYield-new}{}}}
 \subsection{Method \code{new()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{HipYield$new(
@@ -133,8 +133,8 @@ data$yield(4)
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-yield"></a>}}
-\if{latex}{\out{\hypertarget{method-yield}{}}}
+\if{html}{\out{<a id="method-HipYield-yield"></a>}}
+\if{latex}{\out{\hypertarget{method-HipYield-yield}{}}}
 \subsection{Method \code{yield()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{HipYield$yield(n = 10000)}\if{html}{\out{</div>}}
@@ -142,8 +142,8 @@ data$yield(4)
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-reset"></a>}}
-\if{latex}{\out{\hypertarget{method-reset}{}}}
+\if{html}{\out{<a id="method-HipYield-reset"></a>}}
+\if{latex}{\out{\hypertarget{method-HipYield-reset}{}}}
 \subsection{Method \code{reset()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{HipYield$reset()}\if{html}{\out{</div>}}
@@ -151,8 +151,8 @@ data$yield(4)
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-is_done"></a>}}
-\if{latex}{\out{\hypertarget{method-is_done}{}}}
+\if{html}{\out{<a id="method-HipYield-is_done"></a>}}
+\if{latex}{\out{\hypertarget{method-HipYield-is_done}{}}}
 \subsection{Method \code{is_done()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{HipYield$is_done()}\if{html}{\out{</div>}}
@@ -166,21 +166,21 @@ data$yield(4)
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-new}{\code{HipLongYield$new()}}
-\item \href{#method-yield}{\code{HipLongYield$yield()}}
+\item \href{#method-HipLongYield-new}{\code{HipLongYield$new()}}
+\item \href{#method-HipLongYield-yield}{\code{HipLongYield$yield()}}
 }
 }
-\if{html}{
-\out{<details open ><summary>Inherited methods</summary>}
-\itemize{
-\item \out{<span class="pkg-link" data-pkg="hipread" data-topic="HipYield" data-id="is_done">}\href{../../hipread/html/HipYield.html#method-is_done}{\code{hipread::HipYield$is_done()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="hipread" data-topic="HipYield" data-id="reset">}\href{../../hipread/html/HipYield.html#method-reset}{\code{hipread::HipYield$reset()}}\out{</span>}
-}
-\out{</details>}
-}
+\if{html}{\out{
+<details open><summary>Inherited methods</summary>
+<ul>
+<li><span class="pkg-link" data-pkg="hipread" data-topic="HipYield" data-id="is_done"><a href='../../hipread/html/HipYield.html#method-HipYield-is_done'><code>hipread::HipYield$is_done()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="hipread" data-topic="HipYield" data-id="reset"><a href='../../hipread/html/HipYield.html#method-HipYield-reset'><code>hipread::HipYield$reset()</code></a></span></li>
+</ul>
+</details>
+}}
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-new"></a>}}
-\if{latex}{\out{\hypertarget{method-new}{}}}
+\if{html}{\out{<a id="method-HipLongYield-new"></a>}}
+\if{latex}{\out{\hypertarget{method-HipLongYield-new}{}}}
 \subsection{Method \code{new()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{HipLongYield$new(
@@ -195,8 +195,8 @@ data$yield(4)
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-yield"></a>}}
-\if{latex}{\out{\hypertarget{method-yield}{}}}
+\if{html}{\out{<a id="method-HipLongYield-yield"></a>}}
+\if{latex}{\out{\hypertarget{method-HipLongYield-yield}{}}}
 \subsection{Method \code{yield()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{HipLongYield$yield(n = 10000)}\if{html}{\out{</div>}}
@@ -210,21 +210,21 @@ data$yield(4)
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-new}{\code{HipListYield$new()}}
-\item \href{#method-yield}{\code{HipListYield$yield()}}
+\item \href{#method-HipListYield-new}{\code{HipListYield$new()}}
+\item \href{#method-HipListYield-yield}{\code{HipListYield$yield()}}
 }
 }
-\if{html}{
-\out{<details open ><summary>Inherited methods</summary>}
-\itemize{
-\item \out{<span class="pkg-link" data-pkg="hipread" data-topic="HipYield" data-id="is_done">}\href{../../hipread/html/HipYield.html#method-is_done}{\code{hipread::HipYield$is_done()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="hipread" data-topic="HipYield" data-id="reset">}\href{../../hipread/html/HipYield.html#method-reset}{\code{hipread::HipYield$reset()}}\out{</span>}
-}
-\out{</details>}
-}
+\if{html}{\out{
+<details open><summary>Inherited methods</summary>
+<ul>
+<li><span class="pkg-link" data-pkg="hipread" data-topic="HipYield" data-id="is_done"><a href='../../hipread/html/HipYield.html#method-HipYield-is_done'><code>hipread::HipYield$is_done()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="hipread" data-topic="HipYield" data-id="reset"><a href='../../hipread/html/HipYield.html#method-HipYield-reset'><code>hipread::HipYield$reset()</code></a></span></li>
+</ul>
+</details>
+}}
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-new"></a>}}
-\if{latex}{\out{\hypertarget{method-new}{}}}
+\if{html}{\out{<a id="method-HipListYield-new"></a>}}
+\if{latex}{\out{\hypertarget{method-HipListYield-new}{}}}
 \subsection{Method \code{new()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{HipListYield$new(
@@ -239,8 +239,8 @@ data$yield(4)
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-yield"></a>}}
-\if{latex}{\out{\hypertarget{method-yield}{}}}
+\if{html}{\out{<a id="method-HipListYield-yield"></a>}}
+\if{latex}{\out{\hypertarget{method-HipListYield-yield}{}}}
 \subsection{Method \code{yield()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{HipListYield$yield(n = 10000)}\if{html}{\out{</div>}}

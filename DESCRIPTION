@@ -21,7 +21,6 @@ Description: Read hierarchical fixed width files like those commonly used by
     and reading 'gzipped' files without storing the full file in memory.
 License: GPL (>= 2) | file LICENSE
 Encoding: UTF-8
-LazyData: true
 LinkingTo: 
     Rcpp,
     BH
@@ -36,5 +35,5 @@ Suggests:
     testthat
 SystemRequirements:
     C++11
-RoxygenNote: 7.1.0
+RoxygenNote: 7.2.1
 Roxygen: list(markdown = TRUE)

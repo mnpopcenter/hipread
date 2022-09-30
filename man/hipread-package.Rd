@@ -6,9 +6,7 @@
 \alias{hipread-package}
 \title{hipread: Read Hierarchical Fixed Width Files}
 \description{
-Read hierarchical fixed width files like those commonly used by 
-    many census data providers. Also allows for reading of data in chunks,
-    and reading 'gzipped' files without storing the full file in memory.
+Read hierarchical fixed width files like those commonly used by many census data providers. Also allows for reading of data in chunks, and reading 'gzipped' files without storing the full file in memory.
 }
 \author{
 \strong{Maintainer}: Derek Burk \email{ipums+cran@umn.edu}
